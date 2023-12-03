@@ -10,5 +10,10 @@
     <string name="registration_name">ФИО</string>
     <string name="registration_group">Выберите группу</string>
 
-    <string name="admin_add_teacher">Добавить преподавателя</string>
+    <string name="admin_add_teacher_btn">Добавить преподавателя</string>
+    <string name="admin_add_teacher_name">ФИО преподавателя</string>
+    <string name="admin_add_teacher_login">Логин</string>
+    <string name="admin_add_teacher_password">Пароль</string>
+    <string name="admin_add_teacher_generate_password">Сгенерировать</string>
+    <string name="admin_add_teacher_create">Создать</string>
 </resources>

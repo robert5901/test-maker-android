@@ -5,6 +5,7 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowBackground">@color/main_background</item>
         <item name="android:windowIsTranslucent">false</item>
+        <item name="colorPrimaryDark">@color/main_background</item>
         <item name="colorPrimary">@color/blue</item>
         <item name="colorAccent">@color/blue</item>
     </style>
