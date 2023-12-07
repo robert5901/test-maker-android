@@ -80,4 +80,10 @@ dependencies {
     implementation(Dependencies.Navigation.Ui)
     implementation(Dependencies.Navigation.Cicerone)
 
+    implementation(Dependencies.Network.Retrofit2)
+    implementation(Dependencies.Network.RetrofitMoshiConverter)
+    implementation(Dependencies.Network.Moshi)
+    implementation(Dependencies.Network.OkHttp3)
+    implementation(Dependencies.Network.OkHttp3Logging)
+    implementation(Dependencies.Network.Okio)
 }
