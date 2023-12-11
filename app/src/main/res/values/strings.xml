@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">TestMaker</string>
 
+    <string name="error_unknown_exception">Проверьте подключение к интернету и попробуйте еще раз.</string>
+    <string name="error_server_with_code">Ошибка, попробуйте позже (%s)</string>
+    <string name="error_server_timeout">Превышено время ожидания ответа от сервера</string>
+
     <string name="auth_title">Добро пожаловать!</string>
     <string name="auth_registration">Зарегистрироваться</string>
     <string name="auth_email">E-mail</string>

@@ -54,6 +54,7 @@ android {
             "src/main/res/layouts/auth",
             "src/main/res/layouts/common",
             "src/main/res/layouts/admin",
+            "src/main/res/layouts/uiKit",
         )
     }
 }
