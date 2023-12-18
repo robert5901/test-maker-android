@@ -1,7 +1,7 @@
 package com.example.testmaker.di
 
 import android.app.Application
-import com.example.testmaker.di.modules.navigationModule
+import com.example.testmaker.di.modules.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -13,5 +13,8 @@ fun Application.initKoin() {
 }
 
 private val modules = listOf(
-    navigationModule
+    networkModule,
+    navigationModule,
+    coreModule,
+    adminModule
 )

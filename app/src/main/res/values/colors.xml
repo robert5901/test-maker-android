@@ -8,9 +8,10 @@
     <color name="btn_grey">#F1F3F5</color>
     <color name="grey_4">#BDBDBD</color>
     <color name="red">#FF2559</color>
-    <color name="large_text_gray">#C1C7D8</color>
     <color name="main_background">#D7EAE8</color>
+    <color name="main_background_50">#80D7EAE8</color>
 
+    <color name="separator_grey">#DCE4EC</color>
     <color name="input_border_grey">#D8DFE5</color>
     <color name="edit_text_hint">#666666</color>
 </resources>

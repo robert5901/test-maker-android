@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
 }
@@ -53,6 +54,7 @@ android {
             "src/main/res/layouts/auth",
             "src/main/res/layouts/common",
             "src/main/res/layouts/admin",
+            "src/main/res/layouts/uiKit",
         )
     }
 }
@@ -79,4 +81,10 @@ dependencies {
     implementation(Dependencies.Navigation.Ui)
     implementation(Dependencies.Navigation.Cicerone)
 
+    implementation(Dependencies.Network.Retrofit2)
+    implementation(Dependencies.Network.RetrofitMoshiConverter)
+    implementation(Dependencies.Network.Moshi)
+    implementation(Dependencies.Network.OkHttp3)
+    implementation(Dependencies.Network.OkHttp3Logging)
+    implementation(Dependencies.Network.Okio)
 }

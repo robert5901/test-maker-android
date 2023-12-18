@@ -12,10 +12,14 @@ object Dependencies {
         const val Navigation = "2.5.3"
         const val Cicerone = "7.1"
 
+        const val Retrofit2 = "2.9.0"
+        const val Moshi = "1.12.0"
+        const val OkHttp3 = "4.9.1"
+        const val Okio = "2.10.0"
         const val Room = "2.5.1"
+
         const val Koin = "3.4.0"
         const val Hawk = "2.0.1"
-
         const val Glide = "4.12.0"
     }
 
@@ -55,5 +59,15 @@ object Dependencies {
         const val Ui = "androidx.navigation:navigation-ui-ktx:${Versions.Navigation}"
 
         const val Cicerone = "com.github.terrakok:cicerone:${Versions.Cicerone}"
+    }
+
+    object Network {
+        const val Retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.Retrofit2}"
+        const val RetrofitMoshiConverter =
+            "com.squareup.retrofit2:converter-moshi:${Versions.Retrofit2}"
+        const val Moshi = "com.squareup.moshi:moshi-kotlin:${Versions.Moshi}"
+        const val OkHttp3 = "com.squareup.okhttp3:okhttp:${Versions.OkHttp3}"
+        const val OkHttp3Logging = "com.squareup.okhttp3:logging-interceptor:${Versions.OkHttp3}"
+        const val Okio = "com.squareup.okio:okio:${Versions.Okio}"
     }
 }

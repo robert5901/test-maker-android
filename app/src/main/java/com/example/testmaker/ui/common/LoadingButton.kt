@@ -44,7 +44,7 @@ class LoadingButton
 
         val typeInt = attributes.getInt(
             R.styleable.LoadingButton_loading_button_type,
-            Type.GREEN.rawValue
+            Type.BLUE.rawValue
         )
         setType(Type.fromInt(typeInt))
 
@@ -80,8 +80,8 @@ class LoadingButton
     fun setType(type: Type) {
         this.type = type
         when (type) {
-            Type.GREEN -> {
-                setCardBackgroundColor(context.getColorCompat(R.color.green))
+            Type.BLUE -> {
+                setCardBackgroundColor(context.getColorCompat(R.color.blue))
                 setRippleColorResource(R.color.white)
                 binding.textView.setTextColor(context.getColorCompat(R.color.white))
             }
@@ -113,12 +113,12 @@ class LoadingButton
     }
 
     enum class Type(val rawValue: Int) {
-        GREEN(0),
+        BLUE(0),
         GREY(1),
         RED(2);
 
         companion object {
-            fun fromInt(value: Int) = values().find { it.rawValue == value } ?: GREEN
+            fun fromInt(value: Int) = values().find { it.rawValue == value } ?: BLUE
         }
     }
 }
