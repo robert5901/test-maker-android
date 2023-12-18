@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.admin.AdminFragment">
+    tools:context=".ui.admin.main.AdminFragment">
 
     <EditText
         android:id="@+id/search"
@@ -15,6 +15,7 @@
         android:background="@drawable/edit_text_bg"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="15dp"
+        android:inputType="none"
         android:nextFocusDown="@null"
         android:padding="16dp"
         android:textColor="@color/black"
@@ -56,4 +57,14 @@
         android:text="@string/admin_add_teacher_btn"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

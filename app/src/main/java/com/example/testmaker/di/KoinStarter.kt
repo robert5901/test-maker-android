@@ -15,6 +15,6 @@ fun Application.initKoin() {
 private val modules = listOf(
     networkModule,
     navigationModule,
-     coreModule,
-//    adminModule
+    coreModule,
+    adminModule
 )

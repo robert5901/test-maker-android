@@ -1,4 +1,4 @@
-package com.example.testmaker.ui.admin.adapters
+package com.example.testmaker.ui.admin.main.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
