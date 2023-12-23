@@ -76,8 +76,8 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
         val teacher = TeacherWithPassword(
             id,
             binding.name.text.toString(),
-            binding.login.toString(),
-            binding.password.toString()
+            binding.login.text.toString(),
+            binding.password.text.toString()
         )
 
         if (id != null) {
