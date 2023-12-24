@@ -1,7 +1,5 @@
 package com.example.testmaker.di.modules
 
-import com.example.testmaker.core.errors.ErrorManager
-import com.example.testmaker.core.errors.ErrorManagerImpl
 import com.example.testmaker.network.repositories.AdminRepository
 import com.example.testmaker.network.repositories.AdminRepositoryImpl
 import com.example.testmaker.network.services.AdminService
@@ -16,7 +14,6 @@ import retrofit2.Retrofit
 val adminModule = module {
     single { provideAdminRepository(get()) }
     single<AdminRepository> { AdminRepositoryImpl(get()) }
-    single<ErrorManager> { ErrorManagerImpl() }
     single { get<Cicerone<Router>>().router }
 
     viewModel { AdminViewModel(get(), get()) }

@@ -31,4 +31,8 @@
     <string name="admin_add_teacher_name_error">Введите ФИО</string>
     <string name="admin_add_teacher_login_error">Введите логин</string>
     <string name="admin_add_teacher_password_error">Введите пароль</string>
+
+    <string name="auth_register_student_name_error">Введите ФИО</string>
+    <string name="auth_register_student_email_error">Введите e-mail</string>
+    <string name="auth_register_student_password_error">Введите пароль</string>
 </resources>
