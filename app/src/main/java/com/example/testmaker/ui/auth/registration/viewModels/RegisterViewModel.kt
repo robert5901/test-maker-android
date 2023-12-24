@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.testmaker.AuthScreens
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.models.student.Groups
-import com.example.testmaker.models.student.Student
+import com.example.testmaker.models.users.Student
 import com.example.testmaker.network.models.ApiResponse
-import com.example.testmaker.network.repositories.RegisterRepository
+import com.example.testmaker.network.repositories.AuthRepository
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val registerRepository: RegisterRepository,
+    private val authRepository: AuthRepository,
     private val errorManager: ErrorManager,
     private val router: Router
 ): ViewModel() {
@@ -37,7 +37,7 @@ class RegisterViewModel(
         viewModelScope.launch {
             groupsLoading.emit(true)
 
-            val response = registerRepository.getGroups()
+            val response = authRepository.getGroups()
             groupsLoading.emit(false)
 
             when (response) {
@@ -56,7 +56,7 @@ class RegisterViewModel(
         viewModelScope.launch {
             createStudentLoading.emit(true)
 
-            val response = registerRepository.createStudent(student.groupId, student.login, student.name, student.password)
+            val response = authRepository.createStudent(student.groupId, student.login, student.name, student.password)
             createStudentLoading.emit(false)
 
             when (response) {

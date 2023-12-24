@@ -1,6 +1,6 @@
 package com.example.testmaker.network.services
 
-import com.example.testmaker.models.admin.Teacher
+import com.example.testmaker.models.users.Teacher
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET

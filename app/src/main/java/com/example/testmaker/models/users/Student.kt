@@ -1,4 +1,4 @@
-package com.example.testmaker.models.student
+package com.example.testmaker.models.users
 
 data class Student(
     val groupId: String,

@@ -3,7 +3,7 @@ package com.example.testmaker.ui.admin.main.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.core.errors.ErrorManager
-import com.example.testmaker.models.admin.Teacher
+import com.example.testmaker.models.users.Teacher
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.AdminRepository
 import kotlinx.coroutines.flow.MutableStateFlow

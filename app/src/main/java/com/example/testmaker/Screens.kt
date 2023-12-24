@@ -1,6 +1,6 @@
 package com.example.testmaker
 
-import com.example.testmaker.models.admin.Teacher
+import com.example.testmaker.models.users.Teacher
 import com.example.testmaker.ui.admin.addTeacher.AdminAddTeacherFragment
 import com.example.testmaker.ui.admin.main.AdminFragment
 import com.example.testmaker.ui.auth.LoginFragment
