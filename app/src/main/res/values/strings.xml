@@ -4,6 +4,7 @@
     <string name="common_ok">OK</string>
     <string name="common_delete">Удалить</string>
     <string name="common_cancel">Отмена</string>
+    <string name="common_attention">Внимание</string>
 
     <string name="error_unknown_exception">Проверьте подключение к интернету и попробуйте еще раз.</string>
     <string name="error_server_with_code">Ошибка, попробуйте позже (%s)</string>
@@ -21,7 +22,6 @@
     <string name="registration_group">Выберите группу</string>
     <string name="auth_register_student_name_error">Введите ФИО</string>
 
-    <string name="admin_delete_teacher_dialog_title">Внимание!</string>
     <string name="admin_delete_teacher_dialog_message">Вы действительно хотите удалить этого преподавателя?</string>
 
     <string name="admin_add_teacher_btn">Добавить преподавателя</string>
@@ -34,4 +34,6 @@
     <string name="admin_add_teacher_name_error">Введите ФИО</string>
     <string name="admin_add_teacher_login_error">Введите логин</string>
     <string name="admin_add_teacher_password_error">Введите пароль</string>
+
+    <string name="teacher_test_list_delete_dialog_message">Вы действительно хотите удалить этот тест?</string>
 </resources>

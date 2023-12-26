@@ -21,6 +21,7 @@ private fun provideMoshi(): Moshi =
 
 private fun provideRetrofit(moshi: Moshi, defaultApiUrl: String): Retrofit =
     Retrofit.Builder()
+        // TODO добавить okHttp interceptors
 //        .client(client)  okHttp with interceptors надо???
         .baseUrl(defaultApiUrl)
         .addConverterFactory(MoshiConverterFactory.create(moshi))

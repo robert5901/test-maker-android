@@ -13,7 +13,7 @@ class AdminRepositoryImpl(private val apiService: AdminService): SuperRepository
 
     override suspend fun updateTeachers(): ApiResponse<List<Teacher>> {
         return ApiResponse.Success(listOf(
-            Teacher("1", "jmih1@mail.ru", "Жмышенко Михаил Петрович"),
+            Teacher("1", "jmih1@mail.ru", "Жмышенко Валерий Альбертович"),
             Teacher("2", "jmih2@mail.ru", "Игонин Юрий Андреевич"),
             Teacher("3", "jmih3@mail.ru", "Игонян Фанзиль Фунялович"),
             Teacher("4", "jmih4@mail.ru", "Максимова Варвара Глебовна"),

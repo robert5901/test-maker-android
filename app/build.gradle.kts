@@ -55,6 +55,7 @@ android {
             "src/main/res/layouts/common",
             "src/main/res/layouts/admin",
             "src/main/res/layouts/uiKit",
+            "src/main/res/layouts/teacher",
         )
     }
 }
