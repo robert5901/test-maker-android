@@ -1,6 +1,6 @@
 package com.example.testmaker.network.services
 
-import com.example.testmaker.models.student.Groups
+import com.example.testmaker.models.student.Group
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface AuthService {
     @GET("groups")
-    suspend fun getGroups(): Response<List<Groups>>
+    suspend fun getGroups(): Response<List<Group>>
 
     @POST("/auth/register/student")
     suspend fun createStudent(@Query(value = "groupId", encoded = true) groupId: String,

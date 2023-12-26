@@ -23,7 +23,7 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO deprecated
+
         val teacher: Teacher? = arguments?.getParcelable(EXTRA_TEACHER)
 
         binding.generatePassword.setOnClickListener {

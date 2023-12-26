@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.AdminScreens
 import com.example.testmaker.AuthScreens
 import com.example.testmaker.R
+import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
@@ -61,7 +62,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 //                    router.replaceScreen(StudentScreens.studentScreen())
                 }
                 UserRole.TEACHER -> {
-//                    router.replaceScreen(TeacherScreens.teacherScreen())
+                    router.replaceScreen(TeacherScreens.teacherScreen())
                 }
             }
         }

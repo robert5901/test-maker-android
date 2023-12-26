@@ -59,7 +59,7 @@ class AdminFragment: Fragment(R.layout.fragment_admin) {
         }
         adapter.onDeleteClicked = {
             showAlertMessageWithNegativeButton(requireContext(),
-                title = resources.getString(R.string.admin_delete_teacher_dialog_title),
+                title = resources.getString(R.string.common_attention),
                 message = resources.getString(R.string.admin_delete_teacher_dialog_message),
                 actionTitle = resources.getString(R.string.common_delete),
                 action = { viewModel.deleteTeacher(it.id) }

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.AuthScreens
 import com.example.testmaker.core.errors.ErrorManager
-import com.example.testmaker.models.student.Groups
+import com.example.testmaker.models.student.Group
 import com.example.testmaker.models.users.Student
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.AuthRepository
@@ -22,7 +22,7 @@ class RegisterViewModel(
     private val groupsLoading = MutableStateFlow(false)
     private val createStudentLoading = MutableStateFlow(false)
 
-    private val _groups = MutableStateFlow<List<Groups>?>(null)
+    private val _groups = MutableStateFlow<List<Group>?>(null)
     val groups = _groups.asStateFlow()
 
     val loading = combine(groupsLoading, createStudentLoading) { groupsLoading, createLoading ->
