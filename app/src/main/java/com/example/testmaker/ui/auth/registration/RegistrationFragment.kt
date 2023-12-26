@@ -12,7 +12,7 @@ import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentRegistrationBinding
-import com.example.testmaker.models.student.Student
+import com.example.testmaker.models.users.Student
 import com.example.testmaker.ui.auth.registration.viewModels.RegisterViewModel
 import org.koin.android.ext.android.inject
 
@@ -103,11 +103,11 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
             isAllFieldsValid = false
         }
         if (binding.email.text.isBlank()) {
-            errorManager.showError(ErrorManagerError.ResError(R.string.auth_register_student_email_error))
+            errorManager.showError(ErrorManagerError.ResError(R.string.auth_email_error))
             isAllFieldsValid = false
         }
         if (binding.password.text.isBlank()) {
-            errorManager.showError(ErrorManagerError.ResError(R.string.auth_register_student_password_error))
+            errorManager.showError(ErrorManagerError.ResError(R.string.auth_password_error))
             isAllFieldsValid = false
         }
         return isAllFieldsValid

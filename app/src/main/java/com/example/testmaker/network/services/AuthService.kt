@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface RegisterService {
+interface AuthService {
     @GET("groups")
     suspend fun getGroups(): Response<List<Groups>>
 
@@ -15,4 +15,8 @@ interface RegisterService {
                               @Query(value = "login", encoded = true) login: String,
                               @Query(value = "name", encoded = true) name: String,
                               @Query(value = "password", encoded = true) password: String): Response<Unit>
+
+    @POST("/auth/login")
+    suspend fun login(@Query(value = "login", encoded = true) login: String,
+                      @Query(value = "password", encoded = true) password: String): Response<Unit>
 }

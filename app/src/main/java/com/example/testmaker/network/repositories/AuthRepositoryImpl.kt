@@ -1,12 +1,12 @@
 package com.example.testmaker.network.repositories
 
+import com.example.testmaker.models.auth.AuthInfo
+import com.example.testmaker.models.auth.UserRole
 import com.example.testmaker.models.student.Groups
 import com.example.testmaker.network.models.ApiResponse
-import com.example.testmaker.network.models.ApiServer
-import com.example.testmaker.network.repositories.SuperRepository.SafeApiRequestScope.request
-import com.example.testmaker.network.services.RegisterService
+import com.example.testmaker.network.services.AuthService
 
-class RegisterRepositoryImpl(private val apiService: RegisterService): SuperRepository(), RegisterRepository {
+class AuthRepositoryImpl(private val apiService: AuthService): SuperRepository(), AuthRepository {
     override suspend fun getGroups(): ApiResponse<List<Groups>> {
         return ApiResponse.Success(
             listOf(
@@ -30,5 +30,10 @@ class RegisterRepositoryImpl(private val apiService: RegisterService): SuperRepo
     ): ApiResponse<Unit> {
     return ApiResponse.Success(Unit)
 //        request(apiService.createStudent(groupId, login, name, password))
+    }
+
+    override suspend fun login(login: String, password: String): ApiResponse<AuthInfo> {
+    return ApiResponse.Success(AuthInfo("", "", UserRole.ADMIN))
+//        request(apiService.login(login, password))
     }
 }

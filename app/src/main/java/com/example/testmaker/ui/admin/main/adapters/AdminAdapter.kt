@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaker.databinding.ListItemAdminBinding
-import com.example.testmaker.models.admin.Teacher
+import com.example.testmaker.models.users.Teacher
 
 class AdminAdapter: RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
     private var items: List<Teacher> = emptyList()

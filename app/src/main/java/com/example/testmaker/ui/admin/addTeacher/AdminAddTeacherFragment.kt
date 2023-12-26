@@ -10,7 +10,7 @@ import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentAdminAddTeacherBinding
-import com.example.testmaker.models.admin.Teacher
+import com.example.testmaker.models.users.Teacher
 import com.example.testmaker.models.admin.TeacherWithPassword
 import com.example.testmaker.ui.admin.addTeacher.viewModels.AddTeacherViewModel
 import org.koin.android.ext.android.inject

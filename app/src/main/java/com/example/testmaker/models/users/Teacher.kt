@@ -1,4 +1,4 @@
-package com.example.testmaker.models.admin
+package com.example.testmaker.models.users
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

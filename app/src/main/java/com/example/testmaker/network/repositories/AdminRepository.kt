@@ -1,6 +1,6 @@
 package com.example.testmaker.network.repositories
 
-import com.example.testmaker.models.admin.Teacher
+import com.example.testmaker.models.users.Teacher
 import com.example.testmaker.network.models.ApiResponse
 
 interface AdminRepository {
