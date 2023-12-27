@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">TestMaker</string>
+
+    <string name="common_ok">OK</string>
+    <string name="common_delete">Удалить</string>
+    <string name="common_cancel">Отмена</string>
+    <string name="common_attention">Внимание</string>
+
+    <string name="error_unknown_exception">Проверьте подключение к интернету и попробуйте еще раз.</string>
+    <string name="error_server_with_code">Ошибка, попробуйте позже (%s)</string>
+    <string name="error_server_timeout">Превышено время ожидания ответа от сервера</string>
+
+    <string name="auth_title">Добро пожаловать!</string>
+    <string name="auth_registration">Зарегистрироваться</string>
+    <string name="auth_email">E-mail</string>
+    <string name="auth_password">Пароль</string>
+    <string name="auth_login">Войти</string>
+    <string name="auth_email_error">Введите e-mail</string>
+    <string name="auth_password_error">Введите пароль</string>
+
+    <string name="registration_name">ФИО</string>
+    <string name="registration_group">Выберите группу</string>
+    <string name="auth_register_student_name_error">Введите ФИО</string>
+
+    <string name="admin_delete_teacher_dialog_message">Вы действительно хотите удалить этого преподавателя?</string>
+
+    <string name="admin_add_teacher_btn">Добавить преподавателя</string>
+    <string name="admin_add_teacher_name">ФИО преподавателя</string>
+    <string name="admin_add_teacher_login">Логин</string>
+    <string name="admin_add_teacher_password">Пароль</string>
+    <string name="admin_add_teacher_generate_password">Сгенерировать</string>
+    <string name="admin_add_teacher_create">Создать</string>
+    <string name="admin_add_teacher_change">Изменить</string>
+    <string name="admin_add_teacher_name_error">Введите ФИО</string>
+    <string name="admin_add_teacher_login_error">Введите логин</string>
+    <string name="admin_add_teacher_password_error">Введите пароль</string>
+
+    <string name="teacher_test_list_delete_dialog_message">Вы действительно хотите удалить этот тест?</string>
+    <string name="teacher_configure_test_access_time_title">Время доступа к тесту: </string>
+    <string name="teacher_configure_test_time_for_test_title">Время на прохождение теста(мин): </string>
+    <string name="teacher_configure_test_attempts_title">Количество попыток: </string>
+    <string name="teacher_configure_test_random_questions_title">Перемешать вопросы</string>
+    <string name="teacher_configure_test_random_answers_title">Перемешать ответы</string>
+</resources>
