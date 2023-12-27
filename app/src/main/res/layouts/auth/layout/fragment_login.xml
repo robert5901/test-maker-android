@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,12 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
         android:text="@string/auth_title"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/email"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
         android:id="@+id/email"
@@ -31,7 +33,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="15dp"
         app:layout_constraintBottom_toTopOf="@+id/password"
-        tools:layout_editor_absoluteX="24dp" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <EditText
         android:id="@+id/password"
@@ -46,7 +48,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="15dp"
         app:layout_constraintBottom_toTopOf="@+id/login"
-        tools:layout_editor_absoluteX="24dp" />
+        app:layout_constraintTop_toBottomOf="@id/email" />
 
     <com.example.testmaker.ui.common.LoadingButton
         android:id="@+id/login"
@@ -55,6 +57,7 @@
         android:layout_marginHorizontal="60dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/registration"
+        app:layout_constraintTop_toBottomOf="@id/password"
         app:loading_button_text="@string/auth_login" />
 
     <com.example.testmaker.ui.common.HighlightedButton
@@ -64,8 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/main_background"
         android:background="@color/main_background"
+        android:backgroundTint="@color/main_background"
         android:gravity="center"
         android:minWidth="0dp"
         android:minHeight="0dp"
@@ -75,14 +78,16 @@
         android:textAllCaps="false"
         android:textColor="@color/gray"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

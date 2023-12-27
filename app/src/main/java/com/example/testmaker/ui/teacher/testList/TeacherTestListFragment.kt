@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
+import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.FragmentTeacherTestListBinding
 import com.example.testmaker.models.student.Group
@@ -51,7 +52,7 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
             )
         }
         adapter.onSelected = { test ->
-//            router.navigateTo(TeacherScreens.configureTest(test))
+            router.navigateTo(TeacherScreens.configureTest(test))
         }
 
         binding.recyclerView.adapter = adapter
@@ -66,7 +67,7 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
                     Group("3", "4482"),
                     Group("4", "4483")
                 ),
-                "Методы оптимизации", true, true,
+                "Методы оптимизации", true, false,
                 "2023-12-25T17:10:04.865Z", "PT20M"
             ),
             Test("2", 2, "2023-12-25T17:10:04.865Z",

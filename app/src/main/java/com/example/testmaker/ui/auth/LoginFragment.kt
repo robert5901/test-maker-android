@@ -36,7 +36,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         binding.login.setOnClickListener {
-            login()
+            // TODO test data
+//            login()
+            when (binding.password.text.toString()) {
+                "1" -> {router.replaceScreen(AdminScreens.adminScreen())}
+                "2" -> {router.replaceScreen(TeacherScreens.teacherScreen())}
+            }
+
         }
     }
 

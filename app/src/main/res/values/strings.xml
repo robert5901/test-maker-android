@@ -36,4 +36,9 @@
     <string name="admin_add_teacher_password_error">Введите пароль</string>
 
     <string name="teacher_test_list_delete_dialog_message">Вы действительно хотите удалить этот тест?</string>
+    <string name="teacher_configure_test_access_time_title">Время доступа к тесту: </string>
+    <string name="teacher_configure_test_time_for_test_title">Время на прохождение теста(мин): </string>
+    <string name="teacher_configure_test_attempts_title">Количество попыток: </string>
+    <string name="teacher_configure_test_random_questions_title">Перемешать вопросы</string>
+    <string name="teacher_configure_test_random_answers_title">Перемешать ответы</string>
 </resources>
