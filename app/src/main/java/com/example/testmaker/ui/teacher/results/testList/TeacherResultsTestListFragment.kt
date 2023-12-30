@@ -8,12 +8,12 @@ import com.example.testmaker.R
 import com.example.testmaker.TeacherScreens
 import com.example.testmaker.databinding.FragmentTeacherResutlsTestListBinding
 import com.example.testmaker.ui.TestListData
-import com.example.testmaker.ui.teacher.results.testList.adapters.TeacherResultsAdapter
+import com.example.testmaker.ui.teacher.results.testList.adapters.TeacherResultsTestListAdapter
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 
 class TeacherResultsTestListFragment : Fragment(R.layout.fragment_teacher_resutls_test_list) {
-    private lateinit var adapter: TeacherResultsAdapter
+    private lateinit var adapter: TeacherResultsTestListAdapter
 
     private val binding by viewBinding(FragmentTeacherResutlsTestListBinding::bind)
     private val router: Router by inject()
@@ -28,10 +28,10 @@ class TeacherResultsTestListFragment : Fragment(R.layout.fragment_teacher_resutl
     }
 
     private fun configureAdapter() {
-        adapter = TeacherResultsAdapter()
+        adapter = TeacherResultsTestListAdapter()
 
-        adapter.onTestSelected = {
-            router.navigateTo(TeacherScreens.testResults())
+        adapter.onTestSelected = { test ->
+            router.navigateTo(TeacherScreens.testResults(test.id, test.name))
         }
 
         binding.recyclerView.adapter = adapter

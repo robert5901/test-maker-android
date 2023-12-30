@@ -5,5 +5,5 @@ import com.example.testmaker.models.student.Group
 data class StudentTestResult(
     val result: String,
     val studentName: String,
-    val studentGroup: List<Group>
+    val studentGroup: Group
 )

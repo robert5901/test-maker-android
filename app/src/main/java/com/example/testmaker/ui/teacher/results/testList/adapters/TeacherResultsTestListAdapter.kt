@@ -8,12 +8,12 @@ import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.TeacherResultsTestListItemBinding
 import com.example.testmaker.models.test.Test
 
-class TeacherResultsAdapter : RecyclerView.Adapter<TeacherResultsAdapter.TeacherResultsViewHolder>() {
+class TeacherResultsTestListAdapter : RecyclerView.Adapter<TeacherResultsTestListAdapter.TeacherResultsTestListViewHolder>() {
     private var items: List<Test> = emptyList()
-    var onTestSelected: Action<String>? = null
+    var onTestSelected: Action<Test>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherResultsViewHolder {
-        val view = TeacherResultsViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherResultsTestListViewHolder {
+        val view = TeacherResultsTestListViewHolder(
             TeacherResultsTestListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -30,7 +30,7 @@ class TeacherResultsAdapter : RecyclerView.Adapter<TeacherResultsAdapter.Teacher
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: TeacherResultsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TeacherResultsTestListViewHolder, position: Int) {
         val item = items[position]
         val showDivider = position != items.lastIndex
         holder.onBind(item, showDivider)
@@ -42,18 +42,18 @@ class TeacherResultsAdapter : RecyclerView.Adapter<TeacherResultsAdapter.Teacher
         notifyDataSetChanged()
     }
 
-    inner class TeacherResultsViewHolder(private val binding: TeacherResultsTestListItemBinding): RecyclerView.ViewHolder(binding.root) {
-        private lateinit var testId: String
-        var onTestSelected: Action<String>? = null
+    inner class TeacherResultsTestListViewHolder(private val binding: TeacherResultsTestListItemBinding): RecyclerView.ViewHolder(binding.root) {
+        private lateinit var test: Test
+        var onTestSelected: Action<Test>? = null
 
         init {
             binding.root.setOnClickListener {
-                onTestSelected?.invoke(testId)
+                onTestSelected?.invoke(test)
             }
         }
 
         fun onBind(item: Test, showDivider: Boolean) {
-            testId = item.id
+            test = item
 
             binding.title.text = item.name
             binding.divider.isVisible = showDivider
