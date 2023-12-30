@@ -8,7 +8,7 @@ import com.example.testmaker.ui.auth.LoginFragment
 import com.example.testmaker.ui.auth.registration.RegistrationFragment
 import com.example.testmaker.ui.teacher.TeacherFragment
 import com.example.testmaker.ui.teacher.configureTest.TeacherConfigureTestFragment
-import com.example.testmaker.ui.teacher.results.testResult.TeacherTestResultsFragment
+import com.example.testmaker.ui.teacher.results.testResults.TeacherTestResultsFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object AuthScreens {
@@ -25,7 +25,9 @@ object AdminScreens {
 
 object TeacherScreens {
     fun teacherScreen() = FragmentScreen { TeacherFragment() }
-    fun testResults() = FragmentScreen { TeacherTestResultsFragment() }
+    fun testResults(testId: String, testName: String) = FragmentScreen {
+        TeacherTestResultsFragment.getNewInstance(testId, testName)
+    }
     fun configureTest(test: Test? = null) = FragmentScreen {
         TeacherConfigureTestFragment.getNewInstance(test)
     }
