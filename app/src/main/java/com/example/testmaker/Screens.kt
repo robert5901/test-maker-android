@@ -6,8 +6,8 @@ import com.example.testmaker.ui.admin.addTeacher.AdminAddTeacherFragment
 import com.example.testmaker.ui.admin.main.AdminFragment
 import com.example.testmaker.ui.auth.LoginFragment
 import com.example.testmaker.ui.auth.registration.RegistrationFragment
+import com.example.testmaker.ui.teacher.TeacherFragment
 import com.example.testmaker.ui.teacher.configureTest.TeacherConfigureTestFragment
-import com.example.testmaker.ui.teacher.testList.TeacherTestListFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object AuthScreens {
@@ -23,7 +23,7 @@ object AdminScreens {
 }
 
 object TeacherScreens {
-    fun teacherScreen() = FragmentScreen { TeacherTestListFragment() }
+    fun teacherScreen() = FragmentScreen { TeacherFragment() }
     fun configureTest(test: Test? = null) = FragmentScreen {
         TeacherConfigureTestFragment.getNewInstance(test)
     }
