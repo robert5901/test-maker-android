@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.TeacherTestListItemBinding
 import com.example.testmaker.models.test.Test
 
 class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.TeacherTestListViewHolder>() {
     private var items: List<Test> = emptyList()
 
-    var onChangeClicked: ((test: Test) -> Unit)? = null
-    var onDeleteClicked: ((test: Test) -> Unit)? = null
-    var onSelected: ((test: Test) -> Unit)? = null
+    var onChangeClicked: Action<Test>? = null
+    var onDeleteClicked: Action<Test>? = null
+    var onSelected: Action<Test>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherTestListViewHolder {
         val view = TeacherTestListViewHolder(
@@ -53,9 +54,9 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var test: Test
 
-        var onChangeClicked: ((test: Test) -> Unit)? = null
-        var onDeleteClicked: ((test: Test) -> Unit)? = null
-        var onTestClicked: ((test: Test) -> Unit)? = null
+        var onChangeClicked: Action<Test>? = null
+        var onDeleteClicked: Action<Test>? = null
+        var onTestClicked: Action<Test>? = null
 
         init {
             binding.change.setOnClickListener {

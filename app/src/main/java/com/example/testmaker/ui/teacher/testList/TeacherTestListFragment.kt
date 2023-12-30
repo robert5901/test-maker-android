@@ -8,8 +8,7 @@ import com.example.testmaker.R
 import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.FragmentTeacherTestListBinding
-import com.example.testmaker.models.student.Group
-import com.example.testmaker.models.test.Test
+import com.example.testmaker.ui.TestListData
 import com.example.testmaker.ui.teacher.testList.adapters.TeacherTestListAdapter
 import com.example.testmaker.ui.teacher.testList.viewModels.TeacherTestListViewModel
 import com.github.terrakok.cicerone.Router
@@ -29,7 +28,8 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
         configureAdapter()
 
         adapter.set(
-            getTestData()
+            // TODO test data
+            TestListData.tests
         )
     }
 
@@ -56,71 +56,5 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
         }
 
         binding.recyclerView.adapter = adapter
-    }
-
-    private fun getTestData(): List<Test> {
-        return listOf(
-            Test("1", 2, "2023-12-25T17:10:04.865Z",
-                listOf(
-                    Group("1", "4480"),
-                    Group("2", "4481"),
-                    Group("3", "4482"),
-                    Group("4", "4483")
-                ),
-                "Методы оптимизации", true, false,
-                "2023-12-25T17:10:04.865Z", "PT20M"
-            ),
-            Test("2", 2, "2023-12-25T17:10:04.865Z",
-                listOf(
-                    Group("1", "4480"),
-                    Group("2", "4481"),
-                    Group("3", "4482"),
-                    Group("4", "4483")
-                ),
-                "Методы оптимизации 1", true, true,
-                "2023-12-25T17:10:04.865Z", "PT20M"
-            ),
-            Test("3", 2, "2023-12-25T17:10:04.865Z",
-                listOf(
-                    Group("1", "4480"),
-                    Group("2", "4481"),
-                    Group("3", "4482"),
-                    Group("4", "4483")
-                ),
-                "Методы оптимизации 2", true, true,
-                "2023-12-25T17:10:04.865Z", "PT20M"
-            ),
-            Test("4", 2, "2023-12-25T17:10:04.865Z",
-                listOf(
-                    Group("1", "4480"),
-                    Group("2", "4481"),
-                    Group("3", "4482"),
-                    Group("4", "4483")
-                ),
-                "Методы оптимизации 3", true, true,
-                "2023-12-25T17:10:04.865Z", "PT20M"
-            ),
-            Test("5", 2, "2023-12-25T17:10:04.865Z",
-                listOf(
-                    Group("1", "4480"),
-                    Group("2", "4481"),
-                    Group("3", "4482"),
-                    Group("4", "4483")
-                ),
-                "Методы оптимизации 4", true, true,
-                "2023-12-25T17:10:04.865Z", "PT20M"
-            ),
-            Test("6", 2, "2023-12-25T17:10:04.865Z",
-                listOf(
-                    Group("1", "4480"),
-                    Group("2", "4481"),
-                    Group("3", "4482"),
-                    Group("4", "4483")
-                ),
-                "Методы оптимизации 5", true, true,
-                "2023-12-25T17:10:04.865Z", "PT20M"
-            ),
-
-        )
     }
 }

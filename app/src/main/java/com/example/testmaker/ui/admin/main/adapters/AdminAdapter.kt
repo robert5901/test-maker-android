@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.ListItemAdminBinding
 import com.example.testmaker.models.users.Teacher
 
 class AdminAdapter: RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
     private var items: List<Teacher> = emptyList()
-    var onChangeClicked: ((teacher: Teacher) -> Unit)? = null
-    var onDeleteClicked: ((teacher: Teacher) -> Unit)? = null
+    var onChangeClicked: Action<Teacher>? = null
+    var onDeleteClicked: Action<Teacher>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminViewHolder {
         val view = AdminViewHolder(
@@ -47,8 +48,8 @@ class AdminAdapter: RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var teacher: Teacher
 
-        var onChangeClicked: ((teacher: Teacher) -> Unit)? = null
-        var onDeleteClicked: ((teacher: Teacher) -> Unit)? = null
+        var onChangeClicked: Action<Teacher>? = null
+        var onDeleteClicked: Action<Teacher>? = null
 
         init {
             binding.change.setOnClickListener {
