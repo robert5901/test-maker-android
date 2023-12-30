@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
 import com.example.testmaker.databinding.FragmentTeacherBinding
-import com.example.testmaker.ui.teacher.results.TeacherResultsFragment
+import com.example.testmaker.ui.teacher.results.testList.TeacherResultsTestListFragment
 import com.example.testmaker.ui.teacher.testList.TeacherTestListFragment
 import com.google.android.material.navigation.NavigationBarView
 
@@ -14,7 +14,7 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
     private val binding by viewBinding(FragmentTeacherBinding::bind)
 
     private val testListFragment by lazy { TeacherTestListFragment() }
-    private val resultsFragment by lazy { TeacherResultsFragment() }
+    private val resultsFragment by lazy { TeacherResultsTestListFragment() }
 
     private val navListener = NavigationBarView.OnItemSelectedListener { item ->
         val activeFragment = getBottomNavViewFragment(binding.bottomNavView.selectedItemId) ?: return@OnItemSelectedListener false
@@ -24,7 +24,7 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
             val fragmentTransaction = childFragmentManager.beginTransaction()
 
             fragmentTransaction.remove(activeFragment)
-            fragmentTransaction.add(R.id.teacher_container, selectedFragment, selectedFragment.tag)
+            fragmentTransaction.replace(R.id.teacher_container, selectedFragment, selectedFragment.tag)
 
             fragmentTransaction.commit()
         }
@@ -37,6 +37,9 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
 
         if (savedInstanceState == null) {
             childFragmentManager.beginTransaction().replace(R.id.teacher_container, testListFragment, testListFragment.tag).commit()
+            binding.bottomNavView.post {
+                binding.bottomNavView.menu.findItem(R.id.teacherTestListFragment)?.isChecked = true
+            }
         }
 
         binding.bottomNavView.setOnItemSelectedListener(navListener)
