@@ -8,6 +8,7 @@ import com.example.testmaker.ui.auth.LoginFragment
 import com.example.testmaker.ui.auth.registration.RegistrationFragment
 import com.example.testmaker.ui.teacher.TeacherFragment
 import com.example.testmaker.ui.teacher.configureTest.TeacherConfigureTestFragment
+import com.example.testmaker.ui.teacher.createTest.TeacherCreateTestFragment
 import com.example.testmaker.ui.teacher.results.testResults.TeacherTestResultsFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -30,5 +31,8 @@ object TeacherScreens {
     }
     fun configureTest(test: Test? = null) = FragmentScreen {
         TeacherConfigureTestFragment.getNewInstance(test)
+    }
+    fun createTest(testId: String) = FragmentScreen {
+        TeacherCreateTestFragment.getNewInstance(testId)
     }
 }

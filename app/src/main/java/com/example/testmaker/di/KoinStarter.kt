@@ -17,5 +17,6 @@ private val modules = listOf(
     navigationModule,
     coreModule,
     adminModule,
-    authModule
+    authModule,
+    teacherModule
 )
