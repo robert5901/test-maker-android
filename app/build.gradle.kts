@@ -88,4 +88,7 @@ dependencies {
     implementation(Dependencies.Network.OkHttp3)
     implementation(Dependencies.Network.OkHttp3Logging)
     implementation(Dependencies.Network.Okio)
+
+    implementation(Dependencies.ImageLoading.Glide)
+    kapt(Dependencies.ImageLoading.GlideKapt)
 }

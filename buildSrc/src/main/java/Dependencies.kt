@@ -70,4 +70,9 @@ object Dependencies {
         const val OkHttp3Logging = "com.squareup.okhttp3:logging-interceptor:${Versions.OkHttp3}"
         const val Okio = "com.squareup.okio:okio:${Versions.Okio}"
     }
+
+    object ImageLoading {
+        const val Glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
+        const val GlideKapt = "com.github.bumptech.glide:compiler:${Versions.Glide}"
+    }
 }

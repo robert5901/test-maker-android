@@ -43,8 +43,7 @@
         android:inputType="textEmailAddress"
         android:paddingHorizontal="16dp"
         android:paddingVertical="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        tools:layout_editor_absoluteX="24dp" />
+        app:layout_constraintBottom_toTopOf="@+id/email" />
 
     <EditText
         android:id="@+id/email"

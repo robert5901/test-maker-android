@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
 import com.example.testmaker.TeacherScreens
+import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.FragmentTeacherTestListBinding
 import com.example.testmaker.ui.TestListData
@@ -27,6 +28,12 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
         configureViewModel()
         configureAdapter()
 
+        binding.createTest.setOnClickListener {
+//            viewModel.createTest()
+            // TODO test data
+            router.navigateTo(TeacherScreens.createTest("1"))
+        }
+
         adapter.set(
             // TODO test data
             TestListData.tests
@@ -34,14 +41,16 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
     }
 
     private fun configureViewModel() {
-
+//        observeOnStarted(viewModel.testId) {
+//            router.navigateTo(TeacherScreens.createTest(testId))
+//        }
     }
 
     private fun configureAdapter() {
         adapter = TeacherTestListAdapter()
 
         adapter.onChangeClicked = { test ->
-//            router.navigateTo(TeacherScreens.addTest(test))
+//            router.navigateTo(TeacherScreens.)
         }
         adapter.onDeleteClicked = {
             showAlertMessageWithNegativeButton(requireContext(),

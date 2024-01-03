@@ -40,8 +40,18 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/create_test"
         app:layout_constraintTop_toBottomOf="@id/search"
         tools:itemCount="5"
+        android:layout_marginBottom="20dp"
         tools:listitem="@layout/teacher_test_list_item" />
+
+    <com.example.testmaker.ui.common.LoadingButton
+        android:id="@+id/create_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        app:loading_button_text="@string/teacher_test_list_create_test"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
