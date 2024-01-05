@@ -31,7 +31,7 @@ class TeacherResultsTestListFragment : Fragment(R.layout.fragment_teacher_resutl
         adapter = TeacherResultsTestListAdapter()
 
         adapter.onTestSelected = { test ->
-            router.navigateTo(TeacherScreens.testResults(test.id, test.name))
+            router.navigateTo(TeacherScreens.testResultsScreen(test.id, test.name))
         }
 
         binding.recyclerView.adapter = adapter

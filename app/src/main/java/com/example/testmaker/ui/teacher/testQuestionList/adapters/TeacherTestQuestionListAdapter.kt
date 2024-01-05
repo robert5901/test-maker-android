@@ -1,23 +1,23 @@
-package com.example.testmaker.ui.teacher.createTest.adapters
+package com.example.testmaker.ui.teacher.testQuestionList.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaker.core.Action
-import com.example.testmaker.databinding.TeacherCreateTestQuestionsListItemBinding
+import com.example.testmaker.databinding.TeacherTestQuestionListItemBinding
 import com.example.testmaker.models.teacher.TeacherTestQuestion
 
-class TeacherCreateTestQuestionsAdapter: RecyclerView.Adapter<TeacherCreateTestQuestionsAdapter.TeacherCreateTestQuestionsViewHolder>() {
+class TeacherTestQuestionListAdapter: RecyclerView.Adapter<TeacherTestQuestionListAdapter.TeacherTestQuestionListViewHolder>() {
     private var items: List<TeacherTestQuestion> = emptyList()
 
     var onChangeClicked: Action<TeacherTestQuestion>? = null
     var onDeleteClicked: Action<TeacherTestQuestion>? = null
     var onAddImageClicked: Action<TeacherTestQuestion>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherCreateTestQuestionsAdapter.TeacherCreateTestQuestionsViewHolder {
-        val view = TeacherCreateTestQuestionsViewHolder(
-            TeacherCreateTestQuestionsListItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherTestQuestionListAdapter.TeacherTestQuestionListViewHolder {
+        val view = TeacherTestQuestionListViewHolder(
+            TeacherTestQuestionListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -36,7 +36,7 @@ class TeacherCreateTestQuestionsAdapter: RecyclerView.Adapter<TeacherCreateTestQ
         return view
     }
 
-    override fun onBindViewHolder(holder: TeacherCreateTestQuestionsAdapter.TeacherCreateTestQuestionsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TeacherTestQuestionListAdapter.TeacherTestQuestionListViewHolder, position: Int) {
         val item = items[position]
         val showDivider = position != items.lastIndex
         holder.onBind(item, showDivider)
@@ -50,7 +50,7 @@ class TeacherCreateTestQuestionsAdapter: RecyclerView.Adapter<TeacherCreateTestQ
         notifyDataSetChanged()
     }
 
-    inner class TeacherCreateTestQuestionsViewHolder(val binding: TeacherCreateTestQuestionsListItemBinding):
+    inner class TeacherTestQuestionListViewHolder(val binding: TeacherTestQuestionListItemBinding):
     RecyclerView.ViewHolder(binding.root){
         private lateinit var question: TeacherTestQuestion
 

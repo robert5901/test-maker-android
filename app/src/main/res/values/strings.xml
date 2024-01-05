@@ -53,4 +53,17 @@
     <string name="teacher_create_test_delete_question">Вы действительно хотите удалить этот вопрос?</string>
     <string name="teacher_create_test_delete_image">Удалить картинку</string>
     <string name="teacher_create_test_add_image">Прикрепить картинку</string>
+
+    <string name="teacher_add_question_question_hint">Введите текст вопроса</string>
+    <string name="teacher_add_question_add_variant">Добавить вариант ответа</string>
+    <string name="teacher_add_question_answers_quantity">Количество правильных ответов</string>
+    <string name="teacher_add_question_variant_view_title">Вариант %d</string>
+    <string-array name="teacher_add_question_answers_quantity_spinner">
+        <item>Один</item>
+        <item>Несколько</item>
+    </string-array>
+    <string name="teacher_add_question_empty_question_error">Введите текст вопроса</string>
+    <string name="teacher_add_question_empty_answer_error">Не должно быть пустых вариантов</string>
+    <string name="teacher_add_question_empty_right_answer_error">Выберите правильный ответ</string>
+    <string name="teacher_add_question_few_answers_error">Добавьте хотя бы 2 варианта</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.testmaker.ui.teacher.testList
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
@@ -31,7 +32,7 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
         binding.createTest.setOnClickListener {
 //            viewModel.createTest()
             // TODO test data
-            router.navigateTo(TeacherScreens.createTest("1"))
+            router.navigateTo(TeacherScreens.testQuestionListScreen("1", null))
         }
 
         adapter.set(
@@ -44,13 +45,22 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
 //        observeOnStarted(viewModel.testId) {
 //            router.navigateTo(TeacherScreens.createTest(testId))
 //        }
+
+        observeOnStarted(viewModel.teacherTest) { test ->
+            if (test == null) return@observeOnStarted
+            router.navigateTo(TeacherScreens.testQuestionListScreen(test.id, test))
+        }
+
+        observeOnStarted(viewModel.teacherTestLoading) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
     }
 
     private fun configureAdapter() {
         adapter = TeacherTestListAdapter()
 
         adapter.onChangeClicked = { test ->
-//            router.navigateTo(TeacherScreens.)
+            viewModel.getTeacherTest(test.id)
         }
         adapter.onDeleteClicked = {
             showAlertMessageWithNegativeButton(requireContext(),
@@ -61,7 +71,7 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
             )
         }
         adapter.onSelected = { test ->
-            router.navigateTo(TeacherScreens.configureTest(test))
+            router.navigateTo(TeacherScreens.configureTestScreen(test))
         }
 
         binding.recyclerView.adapter = adapter
