@@ -8,6 +8,7 @@ import com.example.testmaker.ui.admin.addTeacher.AdminAddTeacherFragment
 import com.example.testmaker.ui.admin.main.AdminFragment
 import com.example.testmaker.ui.auth.LoginFragment
 import com.example.testmaker.ui.auth.registration.RegistrationFragment
+import com.example.testmaker.ui.student.StudentFragment
 import com.example.testmaker.ui.teacher.TeacherFragment
 import com.example.testmaker.ui.teacher.testQuestion.TeacherTestQuestionFragment
 import com.example.testmaker.ui.teacher.configureTest.TeacherConfigureTestFragment
@@ -39,5 +40,10 @@ object TeacherScreens {
         TeacherTestQuestionListFragment.getNewInstance(testId, test)
     }
     fun addQuestionScreen(question: TeacherTestQuestion? = null) = FragmentScreen {
-        TeacherTestQuestionFragment.getNewInstance(question) }
+        TeacherTestQuestionFragment.getNewInstance(question)
+    }
+}
+
+object StudentScreens {
+    fun studentScreen() = FragmentScreen { StudentFragment() }
 }

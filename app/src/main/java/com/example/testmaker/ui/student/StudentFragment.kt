@@ -1,20 +1,20 @@
-package com.example.testmaker.ui.teacher
+package com.example.testmaker.ui.student
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
-import com.example.testmaker.databinding.FragmentTeacherBinding
-import com.example.testmaker.ui.teacher.results.testList.TeacherResultsTestListFragment
-import com.example.testmaker.ui.teacher.testList.TeacherTestListFragment
+import com.example.testmaker.databinding.FragmentStudentBinding
+import com.example.testmaker.ui.student.results.StudentResultsFragment
+import com.example.testmaker.ui.student.testList.StudentTestListFragment
 import com.google.android.material.navigation.NavigationBarView
 
-class TeacherFragment : Fragment(R.layout.fragment_teacher) {
-    private val binding by viewBinding(FragmentTeacherBinding::bind)
+class StudentFragment: Fragment(R.layout.fragment_student) {
+    private val binding by viewBinding(FragmentStudentBinding::bind)
 
-    private val testListFragment by lazy { TeacherTestListFragment() }
-    private val resultsFragment by lazy { TeacherResultsTestListFragment() }
+    private val testListFragment by lazy { StudentTestListFragment() }
+    private val resultsFragment by lazy { StudentResultsFragment() }
 
     private val navListener = NavigationBarView.OnItemSelectedListener { item ->
         val activeFragment = getBottomNavViewFragment(binding.bottomNavView.selectedItemId) ?: return@OnItemSelectedListener false
@@ -24,7 +24,7 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
             val fragmentTransaction = childFragmentManager.beginTransaction()
 
             fragmentTransaction.remove(activeFragment)
-            fragmentTransaction.replace(R.id.teacher_container, selectedFragment, selectedFragment.tag)
+            fragmentTransaction.replace(R.id.student_container, selectedFragment, selectedFragment.tag)
 
             fragmentTransaction.commit()
         }
@@ -36,7 +36,7 @@ class TeacherFragment : Fragment(R.layout.fragment_teacher) {
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
-            childFragmentManager.beginTransaction().replace(R.id.teacher_container, testListFragment, testListFragment.tag).commit()
+            childFragmentManager.beginTransaction().replace(R.id.student_container, testListFragment, testListFragment.tag).commit()
             binding.bottomNavView.post {
                 binding.bottomNavView.menu.findItem(R.id.testListFragment)?.isChecked = true
             }
