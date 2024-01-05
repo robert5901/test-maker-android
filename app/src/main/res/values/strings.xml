@@ -68,4 +68,12 @@
     <string name="teacher_add_question_few_answers_error">Добавьте хотя бы 2 варианта</string>
 
     <string name="student_results_title">Результаты</string>
+    <string name="student_test_info_subject">Дисциплина: </string>
+    <string name="student_test_info_teacher">Преподаватель: </string>
+    <string name="student_test_info_time_for_test">Время на прохождение: </string>
+    <string name="student_test_info_question_quantity">Количество вопросов: </string>
+    <string name="student_test_info_attempts">Доступно попыток: </string>
+    <string name="student_test_info_start">Начать</string>
+    <string name="student_test_info_alert">Если вы свернете приложение, то тест автоматически завершится!</string>
+    <string name="student_test_info_alert_continue">Продолжить</string>
 </resources>

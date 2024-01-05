@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
+import com.example.testmaker.StudentScreens
 import com.example.testmaker.databinding.FragmentStudentTestListBinding
 import com.example.testmaker.models.student.StudentTest
 import com.example.testmaker.ui.student.testList.adapters.StudentTestListAdapter
@@ -48,7 +49,7 @@ class StudentTestListFragment: Fragment(R.layout.fragment_student_test_list) {
         adapter = StudentTestListAdapter()
 
         adapter.onSelected = { test ->
-//            router.navigateTo(TeacherScreens.configureTestScreen(test))
+            router.navigateTo(StudentScreens.testInfo(test))
         }
 
         binding.recyclerView.adapter = adapter

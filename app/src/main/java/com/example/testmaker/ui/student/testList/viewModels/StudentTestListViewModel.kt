@@ -6,4 +6,6 @@ class StudentTestListViewModel: ViewModel(
 
 ) {
 
+    // TODO добавить refresh свайпом для обновления списка тестов
+
 }

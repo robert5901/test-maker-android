@@ -1,5 +1,9 @@
 package com.example.testmaker.models.student
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class StudentTest(
     val id: String,
     val availableAttempts: Int,
@@ -7,4 +11,4 @@ data class StudentTest(
     val questionsNumber: Int,
     val teacherName: String,
     val timeToSpend: String
-)
+): Parcelable
