@@ -26,7 +26,7 @@ class AdminFragment: Fragment(R.layout.fragment_admin) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addTeacher.setOnClickListener {
-            router.navigateTo(AdminScreens.addTeacher())
+            router.navigateTo(AdminScreens.addTeacherScreen())
         }
 
         configureViewModel()
@@ -55,7 +55,7 @@ class AdminFragment: Fragment(R.layout.fragment_admin) {
         adapter = AdminAdapter()
 
         adapter.onChangeClicked = { teacher ->
-            router.navigateTo(AdminScreens.addTeacher(teacher))
+            router.navigateTo(AdminScreens.addTeacherScreen(teacher))
         }
         adapter.onDeleteClicked = {
             showAlertMessageWithNegativeButton(requireContext(),

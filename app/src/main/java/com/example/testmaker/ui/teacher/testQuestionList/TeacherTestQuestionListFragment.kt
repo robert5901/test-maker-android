@@ -1,4 +1,4 @@
-package com.example.testmaker.ui.teacher.createTest
+package com.example.testmaker.ui.teacher.testQuestionList
 
 import android.app.Dialog
 import android.graphics.Color
@@ -11,22 +11,23 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.testmaker.R
+import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.AddImageDialogFragmentBinding
-import com.example.testmaker.databinding.FragmentTeacherCreateTestBinding
-import com.example.testmaker.models.teacher.TeacherTestQuestion
-import com.example.testmaker.models.test.Answer
-import com.example.testmaker.ui.teacher.createTest.adapters.TeacherCreateTestQuestionsAdapter
-import com.example.testmaker.ui.teacher.createTest.viewModels.TeacherCreateTestViewModel
+import com.example.testmaker.databinding.FragmentTeacherTestQuestionListBinding
+import com.example.testmaker.models.teacher.TeacherTest
+import com.example.testmaker.ui.TestTeacherTest
+import com.example.testmaker.ui.teacher.testQuestionList.adapters.TeacherTestQuestionListAdapter
+import com.example.testmaker.ui.teacher.testQuestionList.viewModels.TeacherTestQuestionListViewModel
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 import java.io.IOException
 
-class TeacherCreateTestFragment : Fragment(R.layout.fragment_teacher_create_test) {
-    private lateinit var adapter: TeacherCreateTestQuestionsAdapter
+class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_question_list) {
+    private lateinit var adapter: TeacherTestQuestionListAdapter
 
-    private val binding by viewBinding(FragmentTeacherCreateTestBinding::bind)
-    private val viewModel: TeacherCreateTestViewModel by inject()
+    private val binding by viewBinding(FragmentTeacherTestQuestionListBinding::bind)
+    private val viewModel: TeacherTestQuestionListViewModel by inject()
     private val router: Router by inject()
 
     private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -43,23 +44,28 @@ class TeacherCreateTestFragment : Fragment(R.layout.fragment_teacher_create_test
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val testId = arguments?.getString(EXTRA_TEST_ID) ?: return
-        viewModel.setTestId(testId)
-
         configureListeners()
         configureAdapter()
 
+        val testId = arguments?.getString(EXTRA_TEST_ID) ?: return
+        val test: TeacherTest? = arguments?.getParcelable(EXTRA_TEST)
+        if (test == null) {
+            viewModel.setTestId(testId)
+        } else {
+            setTestInfo(test)
+        }
+
         adapter.set(
             // TODO test data
-            getQuestions()
+            TestTeacherTest.teacherTest.question ?: return
         )
     }
 
     private fun configureAdapter() {
-        adapter = TeacherCreateTestQuestionsAdapter()
+        adapter = TeacherTestQuestionListAdapter()
 
         adapter.onChangeClicked = { question ->
-//            router.navigateTo(TeacherScreens.addQuestion())
+            router.navigateTo(TeacherScreens.addQuestionScreen(question))
         }
         adapter.onDeleteClicked = { question ->
             showAlertMessageWithNegativeButton(requireContext(),
@@ -84,7 +90,7 @@ class TeacherCreateTestFragment : Fragment(R.layout.fragment_teacher_create_test
 
         binding.addQuestion.setOnClickListener {
             if (!hasName()) return@setOnClickListener
-//                router.navigateTo(TeacherScreens.addQuestion())
+            router.navigateTo(TeacherScreens.addQuestionScreen())
         }
 
         binding.saveTest.setOnClickListener {
@@ -92,6 +98,11 @@ class TeacherCreateTestFragment : Fragment(R.layout.fragment_teacher_create_test
 
 //            viewModel.saveTest()
         }
+    }
+
+    private fun setTestInfo(test: TeacherTest) {
+        binding.name.setText(test.name)
+        adapter.set(test.question ?: emptyList())
     }
 
     private fun hasName(): Boolean {
@@ -127,41 +138,16 @@ class TeacherCreateTestFragment : Fragment(R.layout.fragment_teacher_create_test
         dialog.show()
     }
 
-    // TODO test data
-    private fun getQuestions(): List<TeacherTestQuestion> {
-        return listOf(
-            TeacherTestQuestion(
-                "1", "https://i.pinimg.com/originals/03/ab/0d/03ab0d21c9d9f2210e774a8b584ef962.png",
-                true,
-                listOf(
-                    Answer("1", "ответ 1"),
-                    Answer("2", "ответ 2"),
-                    Answer("3", "ответ 3"),
-                    Answer("4", "ответ 4")
-                ), "Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса",
-                listOf("1")
-            ),
-            TeacherTestQuestion(
-                "2", "",
-                false,
-                listOf(
-                    Answer("1", "ответ 1"),
-                    Answer("2", "ответ 2"),
-                    Answer("3", "ответ 3"),
-                    Answer("4", "ответ 4")
-                ), "Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса",
-                listOf("2")
-            )
-        )
-    }
-
     companion object {
+        // TODO передавать test и выставлять список вопросов
         private const val EXTRA_TEST_ID = "extra_testId"
+        private const val EXTRA_TEST = "extra_test"
 
-        fun getNewInstance(testId: String): TeacherCreateTestFragment {
-            return TeacherCreateTestFragment().apply {
+        fun getNewInstance(testId: String, test: TeacherTest?): TeacherTestQuestionListFragment {
+            return TeacherTestQuestionListFragment().apply {
                 arguments = Bundle().apply {
                     putString(EXTRA_TEST_ID, testId)
+                    putParcelable(EXTRA_TEST, test)
                 }
             }
         }

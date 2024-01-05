@@ -1,4 +1,4 @@
-package com.example.testmaker.ui.teacher.createTest.viewModels
+package com.example.testmaker.ui.teacher.testQuestionList.viewModels
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -6,7 +6,7 @@ import com.example.testmaker.models.teacher.TeacherTest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class TeacherCreateTestViewModel: ViewModel() {
+class TeacherTestQuestionListViewModel: ViewModel() {
     private val _test = MutableStateFlow<TeacherTest?>(null)
     val test = _test.asStateFlow()
 
