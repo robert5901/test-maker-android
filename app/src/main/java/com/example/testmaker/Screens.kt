@@ -1,5 +1,7 @@
 package com.example.testmaker
 
+import com.example.testmaker.models.student.StudentTest
+import com.example.testmaker.models.student.StudentTestStart
 import com.example.testmaker.models.teacher.TeacherTest
 import com.example.testmaker.models.teacher.TeacherTestQuestion
 import com.example.testmaker.models.test.Test
@@ -9,6 +11,8 @@ import com.example.testmaker.ui.admin.main.AdminFragment
 import com.example.testmaker.ui.auth.LoginFragment
 import com.example.testmaker.ui.auth.registration.RegistrationFragment
 import com.example.testmaker.ui.student.StudentFragment
+import com.example.testmaker.ui.student.testInfo.StudentTestInfoFragment
+import com.example.testmaker.ui.student.testQuestion.StudentTestQuestionFragment
 import com.example.testmaker.ui.teacher.TeacherFragment
 import com.example.testmaker.ui.teacher.testQuestion.TeacherTestQuestionFragment
 import com.example.testmaker.ui.teacher.configureTest.TeacherConfigureTestFragment
@@ -46,4 +50,10 @@ object TeacherScreens {
 
 object StudentScreens {
     fun studentScreen() = FragmentScreen { StudentFragment() }
+    fun testInfo(test: StudentTest) = FragmentScreen {
+        StudentTestInfoFragment.getNewInstance(test)
+    }
+    fun testQuestionScreen(test: StudentTestStart) = FragmentScreen {
+        StudentTestQuestionFragment.getNewInstance(test)
+    }
 }
