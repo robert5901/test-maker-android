@@ -66,4 +66,6 @@
     <string name="teacher_add_question_empty_answer_error">Не должно быть пустых вариантов</string>
     <string name="teacher_add_question_empty_right_answer_error">Выберите правильный ответ</string>
     <string name="teacher_add_question_few_answers_error">Добавьте хотя бы 2 варианта</string>
+
+    <string name="student_results_title">Результаты</string>
 </resources>

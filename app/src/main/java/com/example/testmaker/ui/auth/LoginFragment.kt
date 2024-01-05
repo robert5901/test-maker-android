@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.AdminScreens
 import com.example.testmaker.AuthScreens
 import com.example.testmaker.R
+import com.example.testmaker.StudentScreens
 import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
@@ -41,6 +42,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (binding.password.text.toString()) {
                 "1" -> {router.replaceScreen(AdminScreens.adminScreen())}
                 "2" -> {router.replaceScreen(TeacherScreens.teacherScreen())}
+                "3" -> {router.replaceScreen(StudentScreens.studentScreen())}
             }
 
         }
