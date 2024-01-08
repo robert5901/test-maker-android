@@ -16,7 +16,7 @@ class TeacherTestListViewModel(
     val teacherTestLoading = _teacherTestLoading.asStateFlow()
 
     fun getTeacherTest(testId: String) {
-        // TODO test data
+        // TODO test data. спуллить изменения и пересобрать бэк
         _teacherTest.tryEmit(TestTeacherTest.teacherTest)
     }
 }

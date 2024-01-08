@@ -12,12 +12,13 @@ import com.example.testmaker.ui.auth.LoginFragment
 import com.example.testmaker.ui.auth.registration.RegistrationFragment
 import com.example.testmaker.ui.student.StudentFragment
 import com.example.testmaker.ui.student.testInfo.StudentTestInfoFragment
+import com.example.testmaker.ui.student.testPassResult.StudentTestPassResultFragment
 import com.example.testmaker.ui.student.testQuestion.StudentTestQuestionFragment
 import com.example.testmaker.ui.teacher.TeacherFragment
-import com.example.testmaker.ui.teacher.testQuestion.TeacherTestQuestionFragment
 import com.example.testmaker.ui.teacher.configureTest.TeacherConfigureTestFragment
-import com.example.testmaker.ui.teacher.testQuestionList.TeacherTestQuestionListFragment
 import com.example.testmaker.ui.teacher.results.testResults.TeacherTestResultsFragment
+import com.example.testmaker.ui.teacher.testQuestion.TeacherTestQuestionFragment
+import com.example.testmaker.ui.teacher.testQuestionList.TeacherTestQuestionListFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object AuthScreens {
@@ -56,4 +57,5 @@ object StudentScreens {
     fun testQuestionScreen(test: StudentTestStart) = FragmentScreen {
         StudentTestQuestionFragment.getNewInstance(test)
     }
+    fun testPassResult() = FragmentScreen { StudentTestPassResultFragment() }
 }
