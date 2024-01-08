@@ -76,4 +76,14 @@
     <string name="student_test_info_start">Начать</string>
     <string name="student_test_info_alert">Если вы свернете приложение, то тест автоматически завершится!</string>
     <string name="student_test_info_alert_continue">Продолжить</string>
+
+    <string name="student_test_question_question_text">%d. %s</string>
+    <string name="student_test_question_previous">Назад</string>
+    <string name="student_test_question_next">Далее</string>
+    <string name="student_test_question_finish">Завершить</string>
+    <string name="student_test_question_right_answer_error">Выберите вариант ответа</string>
+    <string name="student_test_question_close_alert">Вы действительно хотите завершить тест?</string>
+
+    <string name="student_test_pass_title">Результаты теста</string>
+    <string name="student_test_pass_main_menu">Главное меню</string>
 </resources>

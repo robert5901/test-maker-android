@@ -41,12 +41,6 @@ class StudentTestInfoFragment: Fragment(R.layout.fragment_student_test_info) {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-
-        viewModel.finishTest()
-    }
-
     private fun setData(test: StudentTest) {
         with(binding) {
             testName.text = test.name
