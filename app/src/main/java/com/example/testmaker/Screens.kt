@@ -41,8 +41,8 @@ object TeacherScreens {
     fun configureTestScreen(test: Test? = null) = FragmentScreen {
         TeacherConfigureTestFragment.getNewInstance(test)
     }
-    fun testQuestionListScreen(testId: String, test: TeacherTest?) = FragmentScreen {
-        TeacherTestQuestionListFragment.getNewInstance(testId, test)
+    fun testQuestionListScreen(test: TeacherTest) = FragmentScreen {
+        TeacherTestQuestionListFragment.getNewInstance(test)
     }
     fun addQuestionScreen(question: TeacherTestQuestion? = null) = FragmentScreen {
         TeacherTestQuestionFragment.getNewInstance(question)

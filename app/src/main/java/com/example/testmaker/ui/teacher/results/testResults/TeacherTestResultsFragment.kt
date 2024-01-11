@@ -2,18 +2,23 @@ package com.example.testmaker.ui.teacher.results.testResults
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
+import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentTeacherTestResultsBinding
-import com.example.testmaker.models.student.Group
 import com.example.testmaker.models.teacher.StudentTestResult
 import com.example.testmaker.ui.teacher.results.testResults.adapters.TeacherResultsTestResultsAdapter
+import com.example.testmaker.ui.teacher.testList.viewModels.TeacherTestListViewModel
+import org.koin.android.ext.android.inject
 
 class TeacherTestResultsFragment : Fragment(R.layout.fragment_teacher_test_results) {
     private lateinit var adapter: TeacherResultsTestResultsAdapter
 
     private val binding by viewBinding(FragmentTeacherTestResultsBinding::bind)
+    private val viewModel: TeacherTestListViewModel by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,12 +26,33 @@ class TeacherTestResultsFragment : Fragment(R.layout.fragment_teacher_test_resul
         val testId: String? = arguments?.getString(EXTRA_TEST_ID)
         val testName: String? = arguments?.getString(EXTRA_TEST_NAME)
 
+        if (testId != null) {
+            viewModel.getResults(testId)
+        }
+
         binding.testName.text = testName
 
+        configureViewModel()
         configureAdapter()
 
-        // TODO test data
-        adapter.set(getResults())
+        binding.search.addTextChangedListener { text ->
+            filterResults(text.toString())
+        }
+
+        binding.clear.setOnClickListener {
+            binding.search.text.clear()
+        }
+    }
+
+    private fun configureViewModel() {
+        observeOnStarted(viewModel.resultsLoading) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
+
+        observeOnStarted(viewModel.results) { results ->
+            if (results == null) return@observeOnStarted
+            adapter.differ.submitList(results)
+        }
     }
 
     private fun configureAdapter() {
@@ -35,16 +61,22 @@ class TeacherTestResultsFragment : Fragment(R.layout.fragment_teacher_test_resul
         binding.recyclerView.adapter = adapter
     }
 
-    private fun getResults(): List<StudentTestResult> {
-        return listOf(
-            StudentTestResult("50/50", "Жмышенко Валерий Альбертович", Group("1", "4480")),
-            StudentTestResult("40/50", "Игонин Юрий Андреевич", Group("2", "4481")),
-            StudentTestResult("30/50", "Игонян Фанзиль Фунялович", Group("3", "4482")),
-            StudentTestResult("35/50", "Максимова Варвара Глебовна", Group("4", "4483")),
-            StudentTestResult("21/50", "Алешин Кирилл Владимирович", Group("1", "4480")),
-            StudentTestResult("46/50", "Юдин Илья Максимович", Group("2", "4481")),
-            StudentTestResult("39/50", "Тимофеева Алиса Егоровна", Group("3", "4482"))
-        )
+    private fun filterResults(query: String) {
+        val queryIsDigits: Boolean = query.matches(Regex("\\d*"))
+
+        val results = viewModel.results.value ?: return
+        val filteredResults: List<StudentTestResult> =
+            if (queryIsDigits) {
+                results.filter { result ->
+                    result.studentGroup.title.contains(query, true)
+                }
+            } else {
+                results.filter { result ->
+                    result.studentName.contains(query, true)
+                }
+            }
+
+        adapter.differ.submitList(filteredResults)
     }
 
     companion object {

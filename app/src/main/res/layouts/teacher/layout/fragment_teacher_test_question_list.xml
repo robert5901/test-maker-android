@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/teacher_create_test_name_title"
+        android:text="@string/teacher_test_question_name_title"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/edit_text_bg"
-        android:hint="@string/teacher_create_test_name_hint"
+        android:hint="@string/teacher_test_question_name_hint"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:paddingHorizontal="16dp"
@@ -64,7 +64,7 @@
         android:layout_marginHorizontal="60dp"
         android:layout_marginBottom="20dp"
         android:paddingVertical="15dp"
-        android:text="@string/teacher_create_test_add_question"
+        android:text="@string/teacher_test_question_add_question"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/save_test" />
 
@@ -76,4 +76,13 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:loading_button_text="@string/common_save" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

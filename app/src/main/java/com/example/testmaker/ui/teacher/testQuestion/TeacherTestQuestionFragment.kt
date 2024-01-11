@@ -4,37 +4,41 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
+import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentTeacherAddQuestionBinding
 import com.example.testmaker.models.teacher.TeacherTestQuestion
 import com.example.testmaker.models.teacher.TeacherTestQuestionBody
 import com.example.testmaker.ui.teacher.testQuestion.views.TeacherTestQuestionVariantView
+import com.example.testmaker.ui.teacher.testQuestionList.viewModels.TeacherTestQuestionListViewModel
 import org.koin.android.ext.android.inject
 
 class TeacherTestQuestionFragment: Fragment(R.layout.fragment_teacher_add_question) {
     private lateinit var spinnerAdapter: ArrayAdapter<String>
 
     private val binding by viewBinding(FragmentTeacherAddQuestionBinding::bind)
+    private val viewModel: TeacherTestQuestionListViewModel by inject()
     private val errorManager: ErrorManager by inject()
 
     private var isSingleAnswer: Boolean = true
     private var variantNumberOfSelectedRadioButton = 100
     private val variants = mutableListOf<TeacherTestQuestionVariantView>()
+    private var question: TeacherTestQuestion? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val question: TeacherTestQuestion? = arguments?.getParcelable(EXTRA_QUESTION)
-        if (question != null) {
-            setData(question)
-        }
+        question = arguments?.getParcelable(EXTRA_QUESTION)
+        question?.let { setData(it) }
 
         configureSpinner(question?.isSingleQuestion)
         configureListeners()
+        configureViewModel()
     }
 
     private fun setData(question: TeacherTestQuestion) {
@@ -57,15 +61,25 @@ class TeacherTestQuestionFragment: Fragment(R.layout.fragment_teacher_add_questi
             val isValid = validateData(answers, questionText, rightAnswers)
             if (!isValid) return@setOnClickListener
 
-            val question = TeacherTestQuestionBody(
+            val newQuestion = TeacherTestQuestionBody(
                 answers = answers,
                 isSingleQuestion = isSingleAnswer,
                 question = questionText,
                 rightAnswers = rightAnswers
             )
 
-            // TODO save question
-//            viewModel.saveQuestion
+            // TODO обновть вопрос
+            val question = question
+            if (question != null) {
+                viewModel.updateQuestion(question.id, newQuestion)
+            }
+            viewModel.createQuestion(newQuestion)
+        }
+    }
+
+    private fun configureViewModel() {
+        observeOnStarted(viewModel.loading) { isLoading ->
+            binding.progressBar.isVisible = isLoading
         }
     }
 

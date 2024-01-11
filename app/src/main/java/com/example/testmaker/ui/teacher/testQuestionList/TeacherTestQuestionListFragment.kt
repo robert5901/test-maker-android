@@ -5,18 +5,24 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.testmaker.R
 import com.example.testmaker.TeacherScreens
+import com.example.testmaker.core.errors.ErrorManager
+import com.example.testmaker.core.errors.ErrorManagerError
+import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.AddImageDialogFragmentBinding
 import com.example.testmaker.databinding.FragmentTeacherTestQuestionListBinding
 import com.example.testmaker.models.teacher.TeacherTest
-import com.example.testmaker.ui.TestTeacherTest
 import com.example.testmaker.ui.teacher.testQuestionList.adapters.TeacherTestQuestionListAdapter
 import com.example.testmaker.ui.teacher.testQuestionList.viewModels.TeacherTestQuestionListViewModel
 import com.github.terrakok.cicerone.Router
@@ -28,12 +34,12 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
 
     private val binding by viewBinding(FragmentTeacherTestQuestionListBinding::bind)
     private val viewModel: TeacherTestQuestionListViewModel by inject()
+    private val errorManager: ErrorManager by inject()
     private val router: Router by inject()
 
     private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
             try {
-                // TODO передавать id вопроса? мб во viewModel это можно перенести?
                 viewModel.saveQuestionImage(uri)
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -41,24 +47,46 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         }
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
+            router.exit()
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         configureListeners()
+        configureViewModel()
         configureAdapter()
 
-        val testId = arguments?.getString(EXTRA_TEST_ID) ?: return
         val test: TeacherTest? = arguments?.getParcelable(EXTRA_TEST)
-        if (test == null) {
-            viewModel.setTestId(testId)
-        } else {
-            setTestInfo(test)
+        if (test != null) {
+            viewModel.setTest(test)
+        }
+    }
+
+    private fun configureListeners() {
+        binding.saveName.setOnClickListener {
+            val name = binding.name.text.toString()
+            if (name.isBlank()) {
+                errorManager.showError(ErrorManagerError.ResError(R.string.teacher_test_question_name_error))
+                return@setOnClickListener
+            }
+            viewModel.saveName(name)
         }
 
-        adapter.set(
-            // TODO test data
-            TestTeacherTest.teacherTest.question ?: return
-        )
+        binding.addQuestion.setOnClickListener {
+            if (!hasName()) return@setOnClickListener
+            router.navigateTo(TeacherScreens.addQuestionScreen())
+        }
+
+        binding.saveTest.setOnClickListener {
+            if (!hasName()) return@setOnClickListener
+
+            router.exit()
+        }
     }
 
     private fun configureAdapter() {
@@ -70,33 +98,25 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         adapter.onDeleteClicked = { question ->
             showAlertMessageWithNegativeButton(requireContext(),
                 title = resources.getString(R.string.common_attention),
-                message = resources.getString(R.string.teacher_create_test_delete_question),
+                message = resources.getString(R.string.teacher_test_question_delete_question),
                 actionTitle = resources.getString(R.string.common_delete),
-//                action = { viewModel.deleteQuestion(question.id) }
+                action = { viewModel.deleteQuestion(question.id) }
             )
         }
         adapter.onAddImageClicked = { question ->
-            openAddImageDialog(question.imageUrl)
+            openAddImageDialog(question.imageUrl, question.id)
         }
 
         binding.recyclerView.adapter = adapter
     }
 
-    private fun configureListeners() {
-        binding.saveName.setOnClickListener {
-            // TODO выставлять имя теста если сохранили в editText
-//            viewModel.saveName(binding.name.text.toString())
+    private fun configureViewModel() {
+        observeOnStarted(viewModel.loading) { isLoading ->
+            binding.progressBar.isVisible = isLoading
         }
-
-        binding.addQuestion.setOnClickListener {
-            if (!hasName()) return@setOnClickListener
-            router.navigateTo(TeacherScreens.addQuestionScreen())
-        }
-
-        binding.saveTest.setOnClickListener {
-            if (!hasName()) return@setOnClickListener
-
-//            viewModel.saveTest()
+        observeOnStarted(viewModel.test) { test ->
+            if (test == null) return@observeOnStarted
+            setTestInfo(test)
         }
     }
 
@@ -106,11 +126,14 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
     }
 
     private fun hasName(): Boolean {
-        // TODO проверять есть ли name в тесте из viewModel и выводить ошибку если нет
+        if (viewModel.test.value?.name.isNullOrBlank()) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.teacher_test_question_save_name_error))
+            return false
+        }
         return true
     }
 
-    private fun openAddImageDialog(imageUrl: String?) {
+    private fun openAddImageDialog(imageUrl: String?, questionId: String) {
         val dialogBinding = AddImageDialogFragmentBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
 
@@ -128,25 +151,24 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         }
 
         dialogBinding.deleteImage.setOnClickListener {
-//            viewModel.deleteImage(testId)
+            viewModel.deleteQuestionImage(questionId)
+            dialog.cancel()
         }
 
         dialogBinding.addImage.setOnClickListener {
             selectImageLauncher.launch("image/*")
+            dialog.cancel()
         }
 
         dialog.show()
     }
 
     companion object {
-        // TODO передавать test и выставлять список вопросов
-        private const val EXTRA_TEST_ID = "extra_testId"
         private const val EXTRA_TEST = "extra_test"
 
-        fun getNewInstance(testId: String, test: TeacherTest?): TeacherTestQuestionListFragment {
+        fun getNewInstance(test: TeacherTest): TeacherTestQuestionListFragment {
             return TeacherTestQuestionListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(EXTRA_TEST_ID, testId)
                     putParcelable(EXTRA_TEST, test)
                 }
             }
