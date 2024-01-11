@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.testmaker.R
-import com.example.testmaker.StudentScreens
 import com.example.testmaker.core.Action
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
@@ -24,6 +23,7 @@ import com.example.testmaker.databinding.FragmentStudentTestQuestionBinding
 import com.example.testmaker.models.student.StudentAnswer
 import com.example.testmaker.models.student.StudentTestQuestion
 import com.example.testmaker.models.student.StudentTestStart
+import com.example.testmaker.ui.student.testQuestion.viewModels.StudentTestQuestionViewModel
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 
@@ -33,6 +33,7 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
 
     private val binding by viewBinding(FragmentStudentTestQuestionBinding::bind)
     private val errorManager: ErrorManager by inject()
+    private val viewModel: StudentTestQuestionViewModel by inject()
     private val router: Router by inject()
     private val margin by lazy { resources.getDimensionPixelSize(R.dimen.student_test_question_radio_button_margin_bottom) }
     private val textSize by lazy { resources.getDimension(R.dimen.student_test_question_radio_button_text_size) }
@@ -57,11 +58,16 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
         configureListeners()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        // TODO сможет ли запрос отработать если свернуть прилу?
+        saveAnswer()
+        viewModel.finishTest(studentAnswers)
 
-//        viewModel.finishTest()
+        countDownTimer.cancel()
+
+        super.onStop()
     }
+
 
     private fun setData(test: StudentTestStart) {
         val question = test.questions[currentQuestionIndex]
@@ -74,14 +80,14 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
 
     private fun configureListeners() {
         binding.close.setOnClickListener {
-            // TODO save answers
-
             showAlertMessageWithNegativeButton(requireContext(),
                 title = resources.getString(R.string.common_attention),
                 message = resources.getString(R.string.student_test_question_close_alert),
                 actionTitle = resources.getString(R.string.common_ok),
-                // TODO не работает навигация
-                action = { router.navigateTo(StudentScreens.studentScreen()) }
+                action = {
+                    saveAnswer()
+                    viewModel.finishTest(studentAnswers)
+                }
             )
         }
 
@@ -102,8 +108,7 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
         binding.finish.setOnClickListener {
             saveAnswer()
 
-//            viewModel.endTest(studentAnswers)
-            router.navigateTo(StudentScreens.testPassResult())
+            viewModel.finishTest(studentAnswers)
         }
     }
 
