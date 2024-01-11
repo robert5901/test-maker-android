@@ -1,5 +1,6 @@
 package com.example.testmaker
 
+import com.example.testmaker.models.student.StudentResult
 import com.example.testmaker.models.student.StudentTest
 import com.example.testmaker.models.student.StudentTestStart
 import com.example.testmaker.models.teacher.TeacherTest
@@ -57,5 +58,6 @@ object StudentScreens {
     fun testQuestionScreen(test: StudentTestStart) = FragmentScreen {
         StudentTestQuestionFragment.getNewInstance(test)
     }
-    fun testPassResult() = FragmentScreen { StudentTestPassResultFragment() }
+    fun testPassResult(result: StudentResult) = FragmentScreen {
+        StudentTestPassResultFragment.getNewInstance(result) }
 }

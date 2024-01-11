@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
-import com.example.testmaker.StudentScreens
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.FragmentStudentTestInfoBinding
@@ -16,18 +15,14 @@ import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 
 class StudentTestInfoFragment: Fragment(R.layout.fragment_student_test_info) {
-
     private val binding by viewBinding(FragmentStudentTestInfoBinding::bind)
     private val viewModel: StudentTestInfoViewModel by inject()
-    private val router: Router by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val test: StudentTest? = arguments?.getParcelable(EXTRA_TEST)
-        if (test != null) {
-            setData(test)
-        }
+        val test: StudentTest = arguments?.getParcelable(EXTRA_TEST) ?: return
+        setData(test)
 
         configureViewModel()
 
@@ -36,7 +31,7 @@ class StudentTestInfoFragment: Fragment(R.layout.fragment_student_test_info) {
                 title = resources.getString(R.string.common_attention),
                 message = resources.getString(R.string.student_test_info_alert),
                 actionTitle = resources.getString(R.string.student_test_info_alert_continue),
-                action = { viewModel.startTest() }
+                action = { viewModel.startTest(test.id) }
             )
         }
     }
@@ -56,12 +51,6 @@ class StudentTestInfoFragment: Fragment(R.layout.fragment_student_test_info) {
     private fun configureViewModel() {
         observeOnStarted(viewModel.loading) { isLoading ->
             binding.progressBar.isVisible = isLoading
-        }
-
-        observeOnStarted(viewModel.test) { test ->
-            if (test != null) {
-                router.navigateTo(StudentScreens.testQuestionScreen(test))
-            }
         }
     }
 

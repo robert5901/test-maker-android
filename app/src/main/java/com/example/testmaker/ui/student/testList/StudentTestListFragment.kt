@@ -2,12 +2,14 @@ package com.example.testmaker.ui.student.testList
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
 import com.example.testmaker.StudentScreens
+import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentStudentTestListBinding
-import com.example.testmaker.models.student.StudentTest
 import com.example.testmaker.ui.student.testList.adapters.StudentTestListAdapter
 import com.example.testmaker.ui.student.testList.viewModels.StudentTestListViewModel
 import com.github.terrakok.cicerone.Router
@@ -26,23 +28,25 @@ class StudentTestListFragment: Fragment(R.layout.fragment_student_test_list) {
         configureViewModel()
         configureAdapter()
 
-        adapter.set(
-            // TODO test data
-            listOf(
-                StudentTest("1", 2, "Методы оптимизации", 2,
-                    "Хазипова Альсина Айдаровна", "20"),
-                StudentTest("2", 3, "Методы оптимизации 1", 2,
-                    "Быкова Вероника Саввична", "25"),
-                StudentTest("3", 1, "Методы оптимизации 2", 2,
-                    "Гришин Максим Владимирович", "30"),
-                StudentTest("4", 1, "Методы оптимизации 3", 2,
-                    "Орлов Адам Михайлович", "15")
-            )
-        )
+        viewModel.getTests()
+
+        binding.search.addTextChangedListener { text ->
+            filterTests(text.toString())
+        }
+
+        binding.clear.setOnClickListener {
+            binding.search.text.clear()
+        }
     }
 
     private fun configureViewModel() {
+        observeOnStarted(viewModel.loading) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
 
+        observeOnStarted(viewModel.tests) { tests ->
+            adapter.differ.submitList(tests)
+        }
     }
 
     private fun configureAdapter() {
@@ -53,5 +57,13 @@ class StudentTestListFragment: Fragment(R.layout.fragment_student_test_list) {
         }
 
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun filterTests(query: String) {
+        val filteredTests = viewModel.tests.value?.filter { test ->
+            test.name.contains(query, true)
+        }
+
+        adapter.differ.submitList(filteredTests)
     }
 }

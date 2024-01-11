@@ -3,13 +3,15 @@ package com.example.testmaker.ui.student.testList.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.StudentTestListItemBinding
 import com.example.testmaker.models.student.StudentTest
 
 class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.StudentTestListViewHolder>() {
-    private var items: List<StudentTest> = emptyList()
+    val differ = AsyncListDiffer(this, DiffUtilCallback())
 
     var onSelected: Action<StudentTest>? = null
 
@@ -28,18 +30,12 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
         return view
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = differ.currentList.size
 
     override fun onBindViewHolder(holder: StudentTestListViewHolder, position: Int) {
-        val item = items[position]
-        val showDivider = position != items.lastIndex
+        val item = differ.currentList[position]
+        val showDivider = position != differ.currentList.lastIndex
         holder.onBind(item, showDivider)
-    }
-
-    fun set(list: List<StudentTest>) {
-        items = list
-
-        notifyDataSetChanged()
     }
 
     inner class StudentTestListViewHolder(private val binding: StudentTestListItemBinding) :
@@ -61,5 +57,15 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
                 divider.isVisible = showDivider
             }
         }
+    }
+}
+
+private class DiffUtilCallback : DiffUtil.ItemCallback<StudentTest>() {
+    override fun areItemsTheSame(oldItem: StudentTest, newItem: StudentTest): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: StudentTest, newItem: StudentTest): Boolean {
+        return oldItem == newItem
     }
 }
