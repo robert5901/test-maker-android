@@ -3,13 +3,16 @@ package com.example.testmaker.ui.teacher.results.testList.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.TeacherResultsTestListItemBinding
 import com.example.testmaker.models.test.Test
 
 class TeacherResultsTestListAdapter : RecyclerView.Adapter<TeacherResultsTestListAdapter.TeacherResultsTestListViewHolder>() {
-    private var items: List<Test> = emptyList()
+    val differ = AsyncListDiffer(this, DiffUtilCallback())
+
     var onTestSelected: Action<Test>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherResultsTestListViewHolder {
@@ -28,18 +31,12 @@ class TeacherResultsTestListAdapter : RecyclerView.Adapter<TeacherResultsTestLis
         return view
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = differ.currentList.size
 
     override fun onBindViewHolder(holder: TeacherResultsTestListViewHolder, position: Int) {
-        val item = items[position]
-        val showDivider = position != items.lastIndex
+        val item = differ.currentList[position]
+        val showDivider = position != differ.currentList.lastIndex
         holder.onBind(item, showDivider)
-    }
-
-    fun set(list: List<Test>) {
-        items = list
-
-        notifyDataSetChanged()
     }
 
     inner class TeacherResultsTestListViewHolder(private val binding: TeacherResultsTestListItemBinding): RecyclerView.ViewHolder(binding.root) {
@@ -58,5 +55,15 @@ class TeacherResultsTestListAdapter : RecyclerView.Adapter<TeacherResultsTestLis
             binding.title.text = item.name
             binding.divider.isVisible = showDivider
         }
+    }
+}
+
+private class DiffUtilCallback : DiffUtil.ItemCallback<Test>() {
+    override fun areItemsTheSame(oldItem: Test, newItem: Test): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Test, newItem: Test): Boolean {
+        return oldItem == newItem
     }
 }

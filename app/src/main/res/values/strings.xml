@@ -39,20 +39,29 @@
     <string name="teacher_tab_test_list">Список тестов</string>
     <string name="teacher_tab_result">Результаты</string>
 
+    <string name="teacher_test_list_item_available_for_groups">Доступен для групп: %s</string>
+    <string name="teacher_test_list_item_unavailable">Не доступен для прохождения</string>
+
     <string name="teacher_test_list_create_test">Создать тест</string>
     <string name="teacher_test_list_delete_dialog_message">Вы действительно хотите удалить этот тест?</string>
+    <string name="teacher_configure_test_choose_groups">Выбрать</string>
     <string name="teacher_configure_test_access_time_title">Время доступа к тесту: </string>
     <string name="teacher_configure_test_time_for_test_title">Время на прохождение теста(мин): </string>
     <string name="teacher_configure_test_attempts_title">Количество попыток: </string>
     <string name="teacher_configure_test_random_questions_title">Перемешать вопросы</string>
     <string name="teacher_configure_test_random_answers_title">Перемешать ответы</string>
 
-    <string name="teacher_create_test_name_title">Название теста</string>
-    <string name="teacher_create_test_name_hint">Введите название теста</string>
-    <string name="teacher_create_test_add_question">Добавить вопрос</string>
-    <string name="teacher_create_test_delete_question">Вы действительно хотите удалить этот вопрос?</string>
-    <string name="teacher_create_test_delete_image">Удалить картинку</string>
-    <string name="teacher_create_test_add_image">Прикрепить картинку</string>
+    <string name="teacher_test_results_name">%s гр.%s</string>
+
+    <string name="teacher_test_question_name_title">Название теста</string>
+    <string name="teacher_test_question_name_hint">Введите название теста</string>
+    <string name="teacher_test_question_name_error">Введите название теста</string>
+    <string name="teacher_test_question_save_name_success">Название теста сохранено</string>
+    <string name="teacher_test_question_save_name_error">Сохраните название теста</string>
+    <string name="teacher_test_question_add_question">Добавить вопрос</string>
+    <string name="teacher_test_question_delete_question">Вы действительно хотите удалить этот вопрос?</string>
+    <string name="teacher_test_question_delete_image">Удалить картинку</string>
+    <string name="teacher_test_question_add_image">Прикрепить картинку</string>
 
     <string name="teacher_add_question_question_hint">Введите текст вопроса</string>
     <string name="teacher_add_question_add_variant">Добавить вариант ответа</string>

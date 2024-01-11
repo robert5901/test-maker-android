@@ -3,6 +3,7 @@ package com.example.testmaker.ui.teacher.testList
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
@@ -10,7 +11,6 @@ import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.FragmentTeacherTestListBinding
-import com.example.testmaker.ui.TestListData
 import com.example.testmaker.ui.teacher.testList.adapters.TeacherTestListAdapter
 import com.example.testmaker.ui.teacher.testList.viewModels.TeacherTestListViewModel
 import com.github.terrakok.cicerone.Router
@@ -29,29 +29,33 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
         configureViewModel()
         configureAdapter()
 
+        viewModel.getAllTests()
+
         binding.createTest.setOnClickListener {
-//            viewModel.createTest()
-            // TODO test data
-            router.navigateTo(TeacherScreens.testQuestionListScreen("1", null))
+            viewModel.createTest()
         }
 
-        adapter.set(
-            // TODO test data
-            TestListData.tests
-        )
+        binding.search.addTextChangedListener { text ->
+            filterTests(text.toString())
+        }
+
+        binding.clear.setOnClickListener {
+            binding.search.text.clear()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.search.text.clear()
     }
 
     private fun configureViewModel() {
-//        observeOnStarted(viewModel.testId) {
-//            router.navigateTo(TeacherScreens.createTest(testId))
-//        }
-
-        observeOnStarted(viewModel.teacherTest) { test ->
-            if (test == null) return@observeOnStarted
-            router.navigateTo(TeacherScreens.testQuestionListScreen(test.id, test))
+        observeOnStarted(viewModel.allTests) { tests ->
+            if (tests == null) return@observeOnStarted
+            adapter.differ.submitList(tests)
         }
 
-        observeOnStarted(viewModel.teacherTestLoading) { isLoading ->
+        observeOnStarted(viewModel.loading) { isLoading ->
             binding.progressBar.isVisible = isLoading
         }
     }
@@ -59,15 +63,15 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
     private fun configureAdapter() {
         adapter = TeacherTestListAdapter()
 
-        adapter.onChangeClicked = { test ->
-            viewModel.getTeacherTest(test.id)
+        adapter.onChangeClicked = { testId ->
+            viewModel.getTeacherTest(testId)
         }
         adapter.onDeleteClicked = {
             showAlertMessageWithNegativeButton(requireContext(),
                 title = resources.getString(R.string.common_attention),
                 message = resources.getString(R.string.teacher_test_list_delete_dialog_message),
                 actionTitle = resources.getString(R.string.common_delete),
-//                action = { viewModel.deleteTest(it.id) }
+                action = { viewModel.deleteTest(it.id) }
             )
         }
         adapter.onSelected = { test ->
@@ -75,5 +79,13 @@ class TeacherTestListFragment : Fragment(R.layout.fragment_teacher_test_list) {
         }
 
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun filterTests(query: String) {
+        val filteredTests = viewModel.allTests.value?.filter { test ->
+            test.name.contains(query, true)
+        }
+
+        adapter.differ.submitList(filteredTests)
     }
 }
