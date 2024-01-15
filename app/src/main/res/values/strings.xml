@@ -5,6 +5,7 @@
     <string name="common_delete">Удалить</string>
     <string name="common_cancel">Отмена</string>
     <string name="common_attention">Внимание</string>
+    <string name="common_save">Сохранить</string>
 
     <string name="error_unknown_exception">Проверьте подключение к интернету и попробуйте еще раз.</string>
     <string name="error_server_with_code">Ошибка, попробуйте позже (%s)</string>
@@ -17,6 +18,7 @@
     <string name="auth_login">Войти</string>
     <string name="auth_email_error">Введите e-mail</string>
     <string name="auth_password_error">Введите пароль</string>
+    <string name="auth_password_length_error">Длина пароля должна быть не меньше 6 символов</string>
 
     <string name="registration_name">ФИО</string>
     <string name="registration_group">Выберите группу</string>
@@ -35,10 +37,71 @@
     <string name="admin_add_teacher_login_error">Введите логин</string>
     <string name="admin_add_teacher_password_error">Введите пароль</string>
 
+    <string name="admin_add_group_btn">Добавить группу</string>
+    <string name="admin_add_group_hint">Введите группу</string>
+
+    <string name="teacher_tab_test_list">Список тестов</string>
+    <string name="teacher_tab_result">Результаты</string>
+
+    <string name="admin_tab_teacher_list">Список преподавателей</string>
+    <string name="admin_tab_group_list">Список групп</string>
+
+    <string name="teacher_test_list_item_available_for_groups">Доступен для групп: %s</string>
+    <string name="teacher_test_list_item_unavailable">Не доступен для прохождения</string>
+
+    <string name="teacher_test_list_create_test">Создать тест</string>
     <string name="teacher_test_list_delete_dialog_message">Вы действительно хотите удалить этот тест?</string>
+    <string name="teacher_configure_test_choose_groups">Выбрать</string>
     <string name="teacher_configure_test_access_time_title">Время доступа к тесту: </string>
     <string name="teacher_configure_test_time_for_test_title">Время на прохождение теста(мин): </string>
     <string name="teacher_configure_test_attempts_title">Количество попыток: </string>
     <string name="teacher_configure_test_random_questions_title">Перемешать вопросы</string>
     <string name="teacher_configure_test_random_answers_title">Перемешать ответы</string>
+
+    <string name="teacher_test_results_name">%s гр.%s</string>
+
+    <string name="teacher_test_question_name_title">Название теста</string>
+    <string name="teacher_test_question_name_hint">Введите название теста</string>
+    <string name="teacher_test_question_name_error">Введите название теста</string>
+    <string name="teacher_test_question_save_name_success">Название теста сохранено</string>
+    <string name="teacher_test_question_save_name_error">Сохраните название теста</string>
+    <string name="teacher_test_question_add_question">Добавить вопрос</string>
+    <string name="teacher_test_question_delete_question">Вы действительно хотите удалить этот вопрос?</string>
+    <string name="teacher_test_question_delete_image">Удалить картинку</string>
+    <string name="teacher_test_question_add_image">Прикрепить картинку</string>
+    <string name="teacher_test_question_close_dialog_message">При выходе все введенные данные будут потеряны</string>
+    <string name="teacher_test_question_close_dialog_action">Выйти</string>
+
+    <string name="teacher_add_question_question_hint">Введите текст вопроса</string>
+    <string name="teacher_add_question_add_variant">Добавить вариант ответа</string>
+    <string name="teacher_add_question_answers_quantity">Количество правильных ответов</string>
+    <string name="teacher_add_question_variant_view_title">Вариант %d</string>
+    <string-array name="teacher_add_question_answers_quantity_spinner">
+        <item>Один</item>
+        <item>Несколько</item>
+    </string-array>
+    <string name="teacher_add_question_empty_question_error">Введите текст вопроса</string>
+    <string name="teacher_add_question_empty_answer_error">Не должно быть пустых вариантов</string>
+    <string name="teacher_add_question_empty_right_answer_error">Выберите правильный ответ</string>
+    <string name="teacher_add_question_few_answers_error">Добавьте хотя бы 2 варианта</string>
+
+    <string name="student_results_title">Результаты</string>
+    <string name="student_test_info_subject">Дисциплина: </string>
+    <string name="student_test_info_teacher">Преподаватель: </string>
+    <string name="student_test_info_time_for_test">Время на прохождение: </string>
+    <string name="student_test_info_question_quantity">Количество вопросов: </string>
+    <string name="student_test_info_attempts">Доступно попыток: </string>
+    <string name="student_test_info_start">Начать</string>
+    <string name="student_test_info_alert">Если вы свернете приложение, то тест автоматически завершится!</string>
+    <string name="student_test_info_alert_continue">Продолжить</string>
+
+    <string name="student_test_question_question_text">%d. %s</string>
+    <string name="student_test_question_previous">Назад</string>
+    <string name="student_test_question_next">Далее</string>
+    <string name="student_test_question_finish">Завершить</string>
+    <string name="student_test_question_right_answer_error">Выберите вариант ответа</string>
+    <string name="student_test_question_close_alert">Вы действительно хотите завершить тест?</string>
+
+    <string name="student_test_pass_title">Результаты теста</string>
+    <string name="student_test_pass_main_menu">Главное меню</string>
 </resources>

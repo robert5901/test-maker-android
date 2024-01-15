@@ -19,7 +19,7 @@ val authModule = module {
     single { get<Cicerone<Router>>().router }
     single<KeyStore> { KeyStoreImpl() }
 
-    viewModel { RegisterViewModel(get(), get(), get()) }
+    viewModel { RegisterViewModel(get(), get(), get(), get()) }
     viewModel { AuthViewModel(get(), get(), get()) }
 }
 

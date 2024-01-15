@@ -8,6 +8,7 @@ import com.example.testmaker.models.student.Group
 import com.example.testmaker.models.users.Student
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.AuthRepository
+import com.example.testmaker.network.repositories.GroupRepository
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class RegisterViewModel(
     private val authRepository: AuthRepository,
+    private val groupRepository: GroupRepository,
     private val errorManager: ErrorManager,
     private val router: Router
 ): ViewModel() {
@@ -37,7 +39,7 @@ class RegisterViewModel(
         viewModelScope.launch {
             groupsLoading.emit(true)
 
-            val response = authRepository.getGroups()
+            val response = groupRepository.getGroups()
             groupsLoading.emit(false)
 
             when (response) {

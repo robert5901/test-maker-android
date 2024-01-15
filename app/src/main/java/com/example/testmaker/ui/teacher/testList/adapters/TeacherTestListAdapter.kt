@@ -3,16 +3,20 @@ package com.example.testmaker.ui.teacher.testList.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaker.R
+import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.TeacherTestListItemBinding
 import com.example.testmaker.models.test.Test
 
 class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.TeacherTestListViewHolder>() {
-    private var items: List<Test> = emptyList()
+    val differ = AsyncListDiffer(this, DiffUtilCallback())
 
-    var onChangeClicked: ((test: Test) -> Unit)? = null
-    var onDeleteClicked: ((test: Test) -> Unit)? = null
-    var onSelected: ((test: Test) -> Unit)? = null
+    var onChangeClicked: Action<String>? = null
+    var onDeleteClicked: Action<Test>? = null
+    var onSelected: Action<Test>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeacherTestListViewHolder {
         val view = TeacherTestListViewHolder(
@@ -22,8 +26,8 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
                 false
             )
         )
-        view.onChangeClicked = { test ->
-            onChangeClicked?.invoke(test)
+        view.onChangeClicked = { testId ->
+            onChangeClicked?.invoke(testId)
         }
         view.onDeleteClicked = { test ->
             onDeleteClicked?.invoke(test)
@@ -35,31 +39,25 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
         return view
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = differ.currentList.size
 
     override fun onBindViewHolder(holder: TeacherTestListViewHolder, position: Int) {
-        val item = items[position]
-        val showDivider = position != items.lastIndex
+        val item = differ.currentList[position]
+        val showDivider = position != differ.currentList.lastIndex
         holder.onBind(item, showDivider)
-    }
-
-    fun set(list: List<Test>) {
-        items = list
-
-        notifyDataSetChanged()
     }
 
     inner class TeacherTestListViewHolder(private val binding: TeacherTestListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var test: Test
 
-        var onChangeClicked: ((test: Test) -> Unit)? = null
-        var onDeleteClicked: ((test: Test) -> Unit)? = null
-        var onTestClicked: ((test: Test) -> Unit)? = null
+        var onChangeClicked: Action<String>? = null
+        var onDeleteClicked: Action<Test>? = null
+        var onTestClicked: Action<Test>? = null
 
         init {
             binding.change.setOnClickListener {
-                onChangeClicked?.invoke(test)
+                onChangeClicked?.invoke(test.id)
             }
             binding.delete.setOnClickListener {
                 onDeleteClicked?.invoke(test)
@@ -72,10 +70,31 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
         fun onBind(item: Test, showDivider: Boolean) {
             test = item
             with(binding) {
-                divider.isVisible = showDivider
+                val groups = item.groups.joinToString(", ") { it.title }
+                if (groups.isNotBlank()) {
+                    availableGroups.text = availableGroups.context.resources.getString(
+                        R.string.teacher_test_list_item_available_for_groups,
+                        groups
+                    )
+                    availableGroups.setCompoundDrawablesWithIntrinsicBounds(R.drawable.test_available_indicator, 0, 0, 0)
+                } else {
+                    availableGroups.text = availableGroups.context.resources.getString(R.string.teacher_test_list_item_unavailable)
+                    availableGroups.setCompoundDrawablesWithIntrinsicBounds(R.drawable.test_unavailable_indicator, 0, 0, 0)
+                }
+
                 name.text = item.name
-                availableGroups.text = item.groups.joinToString(", ") { it.title }
+                divider.isVisible = showDivider
             }
         }
+    }
+}
+
+private class DiffUtilCallback : DiffUtil.ItemCallback<Test>() {
+    override fun areItemsTheSame(oldItem: Test, newItem: Test): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Test, newItem: Test): Boolean {
+        return oldItem == newItem
     }
 }

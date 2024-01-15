@@ -1,0 +1,41 @@
+package com.example.testmaker.ui.student.results.viewModels
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.testmaker.core.errors.ErrorManager
+import com.example.testmaker.models.student.StudentResult
+import com.example.testmaker.network.models.ApiResponse
+import com.example.testmaker.network.repositories.StudentRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+class StudentResultsViewModel(
+    private val repository: StudentRepository,
+    private val errorManager: ErrorManager
+): ViewModel() {
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading.asStateFlow()
+
+    private val _results = MutableStateFlow<List<StudentResult>?>(null)
+    val results = _results.asStateFlow()
+
+    fun getResults() {
+        viewModelScope.launch {
+            _loading.emit(true)
+
+            val response = repository.getResults()
+            _loading.emit(false)
+
+            when (response) {
+                is ApiResponse.Success -> {
+                    _results.emit(response.data)
+                }
+
+                is ApiResponse.Error -> {
+                    errorManager.showError(response.errorManagerError)
+                }
+            }
+        }
+    }
+}

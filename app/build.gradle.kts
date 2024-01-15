@@ -56,6 +56,7 @@ android {
             "src/main/res/layouts/admin",
             "src/main/res/layouts/uiKit",
             "src/main/res/layouts/teacher",
+            "src/main/res/layouts/student",
         )
     }
 }
@@ -66,6 +67,7 @@ dependencies {
     implementation(Dependencies.Core.Material)
     implementation(Dependencies.Core.ViewBindingDelegate)
     implementation(Dependencies.Core.RecyclerView)
+    implementation(Dependencies.Core.SwipeRefreshLayout)
 
     implementation(Dependencies.KTX.LifecycleRuntime)
 
@@ -88,4 +90,7 @@ dependencies {
     implementation(Dependencies.Network.OkHttp3)
     implementation(Dependencies.Network.OkHttp3Logging)
     implementation(Dependencies.Network.Okio)
+
+    implementation(Dependencies.ImageLoading.Glide)
+    kapt(Dependencies.ImageLoading.GlideKapt)
 }

@@ -6,6 +6,7 @@ object Dependencies {
         const val Material = "1.8.0"
         const val ConstraintLayout = "2.1.4"
         const val RecyclerView = "1.3.2"
+        const val SwipeRefreshLayout = "1.1.0"
 
         const val Lifecycle = "2.6.1"
         const val ViewBindingDelegate = "1.5.8"
@@ -35,6 +36,7 @@ object Dependencies {
         const val ConstraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}"
         const val ViewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.ViewBindingDelegate}"
         const val RecyclerView = "androidx.recyclerview:recyclerview:${Versions.RecyclerView}"
+        const val SwipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SwipeRefreshLayout}"
     }
 
     object Storage {
@@ -69,5 +71,10 @@ object Dependencies {
         const val OkHttp3 = "com.squareup.okhttp3:okhttp:${Versions.OkHttp3}"
         const val OkHttp3Logging = "com.squareup.okhttp3:logging-interceptor:${Versions.OkHttp3}"
         const val Okio = "com.squareup.okio:okio:${Versions.Okio}"
+    }
+
+    object ImageLoading {
+        const val Glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
+        const val GlideKapt = "com.github.bumptech.glide:compiler:${Versions.Glide}"
     }
 }

@@ -31,20 +31,22 @@
             android:text="@string/registration_group"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/group_spinner"
-            app:layout_constraintEnd_toStartOf="@id/group_spinner"
+            app:layout_constraintBottom_toBottomOf="@id/choose_groups"
+            app:layout_constraintEnd_toStartOf="@id/choose_groups"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/group_spinner"
+            app:layout_constraintTop_toTopOf="@id/choose_groups"
             app:layout_constraintWidth_percent="0.5" />
 
-        <Spinner
-            android:id="@+id/group_spinner"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/choose_groups"
+            style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/edit_text_bg"
+            android:paddingHorizontal="5dp"
+            android:text="@string/teacher_configure_test_choose_groups"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/group_title"
             app:layout_constraintTop_toBottomOf="@id/test_name" />
@@ -182,16 +184,29 @@
             app:layout_constraintStart_toEndOf="@id/random_answers_title"
             app:layout_constraintTop_toTopOf="@id/random_answers_title" />
 
-        <com.example.testmaker.ui.common.LoadingButton
-            android:id="@+id/login"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save"
+            style="@style/CommonButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"
+            android:paddingVertical="15dp"
+            android:text="@string/common_save"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/random_answers_title"
-            app:layout_constraintVertical_bias="1"
-            app:loading_button_text="@string/auth_login" />
+            app:layout_constraintVertical_bias="1" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
