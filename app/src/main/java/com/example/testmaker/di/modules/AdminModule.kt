@@ -3,6 +3,7 @@ package com.example.testmaker.di.modules
 import com.example.testmaker.network.repositories.AdminRepository
 import com.example.testmaker.network.repositories.AdminRepositoryImpl
 import com.example.testmaker.network.services.AdminService
+import com.example.testmaker.network.services.RefreshService
 import com.example.testmaker.ui.admin.addTeacher.viewModels.AddTeacherViewModel
 import com.example.testmaker.ui.admin.main.viewModels.AdminViewModel
 import com.github.terrakok.cicerone.Cicerone
@@ -16,9 +17,15 @@ val adminModule = module {
     single<AdminRepository> { AdminRepositoryImpl(get()) }
     single { get<Cicerone<Router>>().router }
 
+    single<RefreshService> { provideRefreshService(get()) }
+
     viewModel { AdminViewModel(get(), get()) }
     viewModel { AddTeacherViewModel(get(), get(), get()) }
 }
+
+private fun provideRefreshService(
+    retrofitBuilder: Retrofit.Builder
+) = retrofitBuilder.build().create(RefreshService::class.java)
 
 private fun provideAdminRepository(retrofit: Retrofit): AdminService =
     retrofit.create(AdminService::class.java)
