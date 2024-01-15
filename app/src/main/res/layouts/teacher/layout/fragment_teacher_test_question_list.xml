@@ -68,14 +68,17 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/save_test" />
 
-    <com.example.testmaker.ui.common.LoadingButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/save_test"
+        style="@style/CommonButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:loading_button_text="@string/common_save" />
+        android:paddingVertical="15dp"
+        android:text="@string/common_save"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"

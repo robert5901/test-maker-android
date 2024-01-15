@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.AdminScreens
 import com.example.testmaker.core.errors.ErrorManager
-import com.example.testmaker.models.admin.TeacherWithPassword
+import com.example.testmaker.models.admin.TeacherBody
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.AdminRepository
 import com.github.terrakok.cicerone.Router
@@ -27,12 +27,11 @@ class AddTeacherViewModel(
         changeTeacherLoading || registerTeacherLoading
     }
 
-    fun changeTeacher(teacher: TeacherWithPassword) {
+    fun changeTeacher(id: String, teacherBody: TeacherBody) {
         viewModelScope.launch {
-            if (teacher.id == null) return@launch
             _changeTeacherLoading.emit(true)
 
-            val response = repository.changeTeacher(teacher.id, teacher.login, teacher.name, teacher.password)
+            val response = repository.changeTeacher(id, teacherBody)
             _changeTeacherLoading.emit(false)
 
             when (response) {
@@ -47,11 +46,11 @@ class AddTeacherViewModel(
         }
     }
 
-    fun registrationTeacher(teacher: TeacherWithPassword) {
+    fun registrationTeacher(teacherBody: TeacherBody) {
         viewModelScope.launch {
             _registerTeacherLoading.emit(true)
 
-            val response = repository.registerTeacher(teacher.login, teacher.name, teacher.password)
+            val response = repository.registerTeacher(teacherBody)
             _registerTeacherLoading.emit(false)
 
             when (response) {

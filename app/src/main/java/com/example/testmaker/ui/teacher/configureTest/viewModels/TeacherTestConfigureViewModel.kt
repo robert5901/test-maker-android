@@ -8,6 +8,7 @@ import com.example.testmaker.models.test.ConfigureTestBody
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.GroupRepository
 import com.example.testmaker.network.repositories.TeacherRepository
+import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 class TeacherTestConfigureViewModel(
     private val repository: TeacherRepository,
     private val groupRepository: GroupRepository,
-    private val errorManager: ErrorManager
+    private val errorManager: ErrorManager,
+    private val router: Router
 ): ViewModel() {
     private val _groupsLoading = MutableStateFlow(false)
     private val _saveConfigLoading = MutableStateFlow(false)
@@ -37,7 +39,7 @@ class TeacherTestConfigureViewModel(
 
             when (response) {
                 is ApiResponse.Success -> {
-                    // TODO че делать тут. выходить на список тестов или тоаст показывать что успешно
+                    router.exit()
                 }
                 is ApiResponse.Error -> {
                     errorManager.showError(response.errorManagerError)

@@ -95,7 +95,6 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     }
 
     private fun validateEditTexts(): Boolean {
-        // TODO проверка на длину пароля? на корректный ФИО?
         var isAllFieldsValid = true
 
         if (binding.name.text.isBlank()) {
@@ -108,6 +107,10 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         }
         if (binding.password.text.isBlank()) {
             errorManager.showError(ErrorManagerError.ResError(R.string.auth_password_error))
+            isAllFieldsValid = false
+        }
+        if (binding.password.text.length < 6) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.auth_password_length_error))
             isAllFieldsValid = false
         }
         return isAllFieldsValid

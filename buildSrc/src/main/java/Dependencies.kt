@@ -6,6 +6,7 @@ object Dependencies {
         const val Material = "1.8.0"
         const val ConstraintLayout = "2.1.4"
         const val RecyclerView = "1.3.2"
+        const val SwipeRefreshLayout = "1.1.0"
 
         const val Lifecycle = "2.6.1"
         const val ViewBindingDelegate = "1.5.8"
@@ -35,6 +36,7 @@ object Dependencies {
         const val ConstraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}"
         const val ViewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.ViewBindingDelegate}"
         const val RecyclerView = "androidx.recyclerview:recyclerview:${Versions.RecyclerView}"
+        const val SwipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SwipeRefreshLayout}"
     }
 
     object Storage {

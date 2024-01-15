@@ -11,14 +11,14 @@ import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentTeacherTestResultsBinding
 import com.example.testmaker.models.teacher.StudentTestResult
 import com.example.testmaker.ui.teacher.results.testResults.adapters.TeacherResultsTestResultsAdapter
-import com.example.testmaker.ui.teacher.testList.viewModels.TeacherTestListViewModel
+import com.example.testmaker.ui.teacher.results.testResults.viewModels.TeacherTestResultsViewModel
 import org.koin.android.ext.android.inject
 
 class TeacherTestResultsFragment : Fragment(R.layout.fragment_teacher_test_results) {
     private lateinit var adapter: TeacherResultsTestResultsAdapter
 
     private val binding by viewBinding(FragmentTeacherTestResultsBinding::bind)
-    private val viewModel: TeacherTestListViewModel by inject()
+    private val viewModel: TeacherTestResultsViewModel by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

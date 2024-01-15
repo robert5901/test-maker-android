@@ -1,21 +1,24 @@
-package com.example.testmaker.ui.admin.main.adapters
+package com.example.testmaker.ui.admin.teacherList.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaker.core.Action
-import com.example.testmaker.databinding.ListItemAdminBinding
+import com.example.testmaker.databinding.ListItemAdminTeacherListBinding
 import com.example.testmaker.models.users.Teacher
 
-class AdminAdapter: RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
-    private var items: List<Teacher> = emptyList()
+class AdminTeacherListAdapter: RecyclerView.Adapter<AdminTeacherListAdapter.AdminTeacherListViewHolder>() {
+    val differ = AsyncListDiffer(this, DiffUtilCallback())
+
     var onChangeClicked: Action<Teacher>? = null
     var onDeleteClicked: Action<Teacher>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminViewHolder {
-        val view = AdminViewHolder(
-            ListItemAdminBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminTeacherListViewHolder {
+        val view = AdminTeacherListViewHolder(
+            ListItemAdminTeacherListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -30,21 +33,15 @@ class AdminAdapter: RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
         return view
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = differ.currentList.size
 
-    override fun onBindViewHolder(holder: AdminViewHolder, position: Int) {
-        val item = items[position]
-        val showDivider = position != items.lastIndex
+    override fun onBindViewHolder(holder: AdminTeacherListViewHolder, position: Int) {
+        val item = differ.currentList[position]
+        val showDivider = position != differ.currentList.lastIndex
         holder.onBind(item, showDivider)
     }
 
-    fun set(list: List<Teacher>) {
-        items = list
-
-        notifyDataSetChanged()
-    }
-
-    inner class AdminViewHolder(private val binding: ListItemAdminBinding) :
+    inner class AdminTeacherListViewHolder(private val binding: ListItemAdminTeacherListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var teacher: Teacher
 
@@ -67,5 +64,15 @@ class AdminAdapter: RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
                 divider.isVisible = showDivider
             }
         }
+    }
+}
+
+private class DiffUtilCallback : DiffUtil.ItemCallback<Teacher>() {
+    override fun areItemsTheSame(oldItem: Teacher, newItem: Teacher): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Teacher, newItem: Teacher): Boolean {
+        return oldItem == newItem
     }
 }

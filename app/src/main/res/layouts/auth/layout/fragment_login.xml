@@ -50,15 +50,18 @@
         app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintTop_toBottomOf="@id/email" />
 
-    <com.example.testmaker.ui.common.LoadingButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
+        style="@style/CommonButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60dp"
         android:layout_marginBottom="20dp"
+        android:paddingVertical="15dp"
+        android:text="@string/auth_login"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/registration"
-        app:layout_constraintTop_toBottomOf="@id/password"
-        app:loading_button_text="@string/auth_login" />
+        app:layout_constraintTop_toBottomOf="@id/password" />
 
     <com.example.testmaker.ui.common.HighlightedButton
         android:id="@+id/registration"

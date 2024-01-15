@@ -18,6 +18,7 @@
     <string name="auth_login">Войти</string>
     <string name="auth_email_error">Введите e-mail</string>
     <string name="auth_password_error">Введите пароль</string>
+    <string name="auth_password_length_error">Длина пароля должна быть не меньше 6 символов</string>
 
     <string name="registration_name">ФИО</string>
     <string name="registration_group">Выберите группу</string>
@@ -36,8 +37,14 @@
     <string name="admin_add_teacher_login_error">Введите логин</string>
     <string name="admin_add_teacher_password_error">Введите пароль</string>
 
+    <string name="admin_add_group_btn">Добавить группу</string>
+    <string name="admin_add_group_hint">Введите группу</string>
+
     <string name="teacher_tab_test_list">Список тестов</string>
     <string name="teacher_tab_result">Результаты</string>
+
+    <string name="admin_tab_teacher_list">Список преподавателей</string>
+    <string name="admin_tab_group_list">Список групп</string>
 
     <string name="teacher_test_list_item_available_for_groups">Доступен для групп: %s</string>
     <string name="teacher_test_list_item_unavailable">Не доступен для прохождения</string>
@@ -62,6 +69,8 @@
     <string name="teacher_test_question_delete_question">Вы действительно хотите удалить этот вопрос?</string>
     <string name="teacher_test_question_delete_image">Удалить картинку</string>
     <string name="teacher_test_question_add_image">Прикрепить картинку</string>
+    <string name="teacher_test_question_close_dialog_message">При выходе все введенные данные будут потеряны</string>
+    <string name="teacher_test_question_close_dialog_action">Выйти</string>
 
     <string name="teacher_add_question_question_hint">Введите текст вопроса</string>
     <string name="teacher_add_question_add_variant">Добавить вариант ответа</string>

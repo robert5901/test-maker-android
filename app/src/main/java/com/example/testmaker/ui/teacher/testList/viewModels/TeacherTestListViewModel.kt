@@ -24,12 +24,6 @@ class TeacherTestListViewModel(
     private val _deleteTestLoading = MutableStateFlow(false)
     private val _createTestLoading = MutableStateFlow(false)
 
-    private val _resultsLoading = MutableStateFlow(false)
-    val resultsLoading = _resultsLoading.asStateFlow()
-
-    private val _results = MutableStateFlow<List<StudentTestResult>?>(null)
-    val results = _results.asStateFlow()
-
     private val _allTests = MutableStateFlow<List<Test>?>(null)
     val allTests = _allTests.asStateFlow()
 
@@ -109,25 +103,6 @@ class TeacherTestListViewModel(
             when (response) {
                 is ApiResponse.Success -> {
                     router.navigateTo(TeacherScreens.testQuestionListScreen(response.data))
-                }
-
-                is ApiResponse.Error -> {
-                    errorManager.showError(response.errorManagerError)
-                }
-            }
-        }
-    }
-
-    fun getResults(testId: String) {
-        viewModelScope.launch {
-            _resultsLoading.emit(true)
-
-            val response = repository.getResults(testId)
-            _resultsLoading.emit(false)
-
-            when (response) {
-                is ApiResponse.Success -> {
-                    _results.emit(response.data.sortedBy { it.studentGroup.title })
                 }
 
                 is ApiResponse.Error -> {

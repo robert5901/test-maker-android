@@ -1,4 +1,4 @@
-package com.example.testmaker.ui.admin.main.viewModels
+package com.example.testmaker.ui.admin.teacherList.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
-class AdminViewModel(
+class AdminTeacherListViewModel(
     private val repository: AdminRepository,
     private val errorManager: ErrorManager
 ): ViewModel() {

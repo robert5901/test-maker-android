@@ -16,13 +16,10 @@ import kotlinx.coroutines.launch
 
 class TeacherTestQuestionListViewModel(
     private val repository: TeacherRepository,
-    private val errorManager: ErrorManager,
-    private val router: Router
+    private val errorManager: ErrorManager
 ): ViewModel() {
     private val _saveNameLoading = MutableStateFlow(false)
     private val _deleteQuestionLoading = MutableStateFlow(false)
-
-    private val _createQuestion = MutableStateFlow(false)
 
     private val _test = MutableStateFlow<TeacherTest?>(null)
     val test = _test.asStateFlow()
@@ -107,30 +104,5 @@ class TeacherTestQuestionListViewModel(
                 }
             }
         }
-    }
-
-    fun createQuestion(question: TeacherTestQuestionBody) {
-        viewModelScope.launch {
-            val testId = _test.value?.id ?: return@launch
-            _createQuestion.emit(true)
-
-            val response = repository.createQuestion(testId, question)
-            _createQuestion.emit(false)
-
-            when (response) {
-                is ApiResponse.Success -> {
-                    _test.emit(response.data)
-                    router.exit()
-                }
-
-                is ApiResponse.Error -> {
-                    errorManager.showError(response.errorManagerError)
-                }
-            }
-        }
-    }
-
-    fun updateQuestion(questionId: String, question: TeacherTestQuestionBody) {
-
     }
 }

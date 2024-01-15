@@ -2,6 +2,7 @@ package com.example.testmaker.ui.teacher.results.testList
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -10,7 +11,7 @@ import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentTeacherResutlsTestListBinding
 import com.example.testmaker.ui.teacher.results.testList.adapters.TeacherResultsTestListAdapter
-import com.example.testmaker.ui.teacher.testList.viewModels.TeacherTestListViewModel
+import com.example.testmaker.ui.teacher.results.testList.viewModels.TeacherResultsTestListViewModel
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 
@@ -18,7 +19,7 @@ class TeacherResultsTestListFragment : Fragment(R.layout.fragment_teacher_resutl
     private lateinit var adapter: TeacherResultsTestListAdapter
 
     private val binding by viewBinding(FragmentTeacherResutlsTestListBinding::bind)
-    private val viewModel: TeacherTestListViewModel by inject()
+    private val viewModel: TeacherResultsTestListViewModel by inject()
     private val router: Router by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +44,10 @@ class TeacherResultsTestListFragment : Fragment(R.layout.fragment_teacher_resutl
     }
 
     private fun configureViewModel() {
+        observeOnStarted(viewModel.allTestsLoading) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
+
         observeOnStarted(viewModel.allTests) { tests ->
             if (tests == null) return@observeOnStarted
             adapter.differ.submitList(tests)
