@@ -10,8 +10,8 @@ import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.core.errors.ErrorManagerError
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.databinding.FragmentAdminAddTeacherBinding
+import com.example.testmaker.models.admin.TeacherBody
 import com.example.testmaker.models.users.Teacher
-import com.example.testmaker.models.admin.TeacherWithPassword
 import com.example.testmaker.ui.admin.addTeacher.viewModels.AddTeacherViewModel
 import org.koin.android.ext.android.inject
 import java.security.SecureRandom
@@ -52,7 +52,7 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
         } else {
             resources.getString(R.string.admin_add_teacher_create)
         }
-        binding.actionButton.setButtonText(buttonText)
+        binding.actionButton.text = buttonText
     }
 
     private fun configureViewModel() {
@@ -73,22 +73,20 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
         val isValid = validateEditTexts()
         if (!isValid) return
 
-        val teacher = TeacherWithPassword(
-            id,
+        val teacherBody = TeacherBody(
             binding.name.text.toString(),
             binding.login.text.toString(),
             binding.password.text.toString()
         )
 
         if (id != null) {
-            viewModel.changeTeacher(teacher)
+            viewModel.changeTeacher(id, teacherBody)
         } else {
-            viewModel.registrationTeacher(teacher)
+            viewModel.registrationTeacher(teacherBody)
         }
     }
 
     private fun validateEditTexts(): Boolean {
-        // TODO проверка на длину пароля? на корректный ФИО?
         var isAllFieldsValid = true
 
         if (binding.name.text.isBlank()) {
@@ -101,6 +99,10 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
         }
         if (binding.password.text.isBlank()) {
             errorManager.showError(ErrorManagerError.ResError(R.string.admin_add_teacher_password_error))
+            isAllFieldsValid = false
+        }
+        if (binding.password.text.length < 6) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.auth_password_length_error))
             isAllFieldsValid = false
         }
         return isAllFieldsValid

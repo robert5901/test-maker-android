@@ -1,8 +1,7 @@
 package com.example.testmaker.models.admin
 
-data class TeacherWithPassword(
-    val id: String?,
-    val name: String,
+data class TeacherBody(
     val login: String,
+    val name: String,
     val password: String
 )

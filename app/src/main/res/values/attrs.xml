@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="LoadingButton">
-        <attr name="loading_button_text" format="string"/>
-        <attr name="loading_button_text_size" format="dimension"/>
-        <attr name="loading_button_text_color" format="color"/>
-        <attr name="loading_button_background" format="integer"/>
-        <attr name="loading_button_background_tint" format="color"/>
-        <attr name="loading_button_progressBarTint" format="color"/>
-        <attr name="loading_button_type" format="enum">
-            <enum name="blue" value="0" />
-            <enum name="grey" value="1" />
-            <enum name="red" value="2" />
-        </attr>
-    </declare-styleable>
-
     <declare-styleable name="CircleImageButton">
         <attr name="circle_image_button_image" format="reference" />
     </declare-styleable>

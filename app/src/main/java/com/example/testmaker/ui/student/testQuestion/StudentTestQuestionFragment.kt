@@ -258,7 +258,8 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
             }
 
             override fun onFinish() {
-                // TODO finish test. save results
+                saveAnswer()
+                viewModel.finishTest(studentAnswers)
             }
         }.start()
     }

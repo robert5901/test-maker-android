@@ -42,14 +42,14 @@
             style="@style/CommonButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
             android:paddingHorizontal="5dp"
             android:text="@string/teacher_configure_test_choose_groups"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/group_title"
-            app:layout_constraintTop_toBottomOf="@id/test_name"/>
+            app:layout_constraintTop_toBottomOf="@id/test_name" />
 
         <TextView
             android:id="@+id/access_time_title"
@@ -184,17 +184,20 @@
             app:layout_constraintStart_toEndOf="@id/random_answers_title"
             app:layout_constraintTop_toTopOf="@id/random_answers_title" />
 
-        <com.example.testmaker.ui.common.LoadingButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/save"
+            style="@style/CommonButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"
+            android:paddingVertical="15dp"
+            android:text="@string/common_save"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/random_answers_title"
-            app:layout_constraintVertical_bias="1"
-            app:loading_button_text="@string/common_save" />
+            app:layout_constraintVertical_bias="1" />
 
         <ProgressBar
             android:id="@+id/progressBar"

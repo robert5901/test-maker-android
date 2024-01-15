@@ -1,36 +1,45 @@
-package com.example.testmaker.ui.admin.main
+package com.example.testmaker.ui.admin.teacherList
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.AdminScreens
 import com.example.testmaker.R
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
-import com.example.testmaker.databinding.FragmentAdminBinding
-import com.example.testmaker.ui.admin.main.adapters.AdminAdapter
-import com.example.testmaker.ui.admin.main.viewModels.AdminViewModel
+import com.example.testmaker.databinding.FragmentAdminTeacherListBinding
+import com.example.testmaker.ui.admin.teacherList.adapters.AdminTeacherListAdapter
+import com.example.testmaker.ui.admin.teacherList.viewModels.AdminTeacherListViewModel
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 
-class AdminFragment: Fragment(R.layout.fragment_admin) {
-    private lateinit var adapter: AdminAdapter
+class AdminTeacherListFragment: Fragment(R.layout.fragment_admin_teacher_list) {
+    private lateinit var adapter: AdminTeacherListAdapter
 
-    private val binding by viewBinding(FragmentAdminBinding::bind)
-    private val viewModel: AdminViewModel by inject()
+    private val binding by viewBinding(FragmentAdminTeacherListBinding::bind)
+    private val viewModel: AdminTeacherListViewModel by inject()
     private val router: Router by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        configureViewModel()
+        configureAdapter()
+
         binding.addTeacher.setOnClickListener {
             router.navigateTo(AdminScreens.addTeacherScreen())
         }
 
-        configureViewModel()
-        configureAdapter()
+        binding.search.addTextChangedListener { text ->
+            filterTeachers(text.toString())
+        }
+
+        binding.clear.setOnClickListener {
+            binding.search.text.clear()
+        }
     }
 
     override fun onStart() {
@@ -47,12 +56,12 @@ class AdminFragment: Fragment(R.layout.fragment_admin) {
         }
 
         observeOnStarted(viewModel.teachers) { teachers ->
-            adapter.set(teachers)
+            adapter.differ.submitList(teachers)
         }
     }
 
     private fun configureAdapter() {
-        adapter = AdminAdapter()
+        adapter = AdminTeacherListAdapter()
 
         adapter.onChangeClicked = { teacher ->
             router.navigateTo(AdminScreens.addTeacherScreen(teacher))
@@ -67,5 +76,13 @@ class AdminFragment: Fragment(R.layout.fragment_admin) {
         }
 
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun filterTeachers(query: String) {
+        val filteredTeachers = viewModel.teachers.value.filter { teacher ->
+            teacher.name.contains(query, true)
+        }
+
+        adapter.differ.submitList(filteredTeachers)
     }
 }

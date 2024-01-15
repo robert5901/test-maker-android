@@ -1,12 +1,12 @@
 package com.example.testmaker.network.repositories
 
+import com.example.testmaker.models.admin.TeacherBody
 import com.example.testmaker.models.users.Teacher
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.services.AdminService
 
 class AdminRepositoryImpl(private val apiService: AdminService): SuperRepository(), AdminRepository {
     override suspend fun delete(id: String): ApiResponse<Unit>  {
-        // TODO test data
         return ApiResponse.Success(Unit)
 //        request(apiService.deleteTeacher(id))
     }
@@ -26,13 +26,13 @@ class AdminRepositoryImpl(private val apiService: AdminService): SuperRepository
 //        request(apiService.updateTeachers())
     }
 
-    override suspend fun changeTeacher(id: String, login: String, name: String, password: String): ApiResponse<Unit> {
+    override suspend fun changeTeacher(id: String, teacherBody: TeacherBody): ApiResponse<Unit> {
         return ApiResponse.Success(Unit)
         //  request(apiService.changeTeacher(id, login, name, password))
     }
 
-    override suspend fun registerTeacher(login: String, name: String, password: String): ApiResponse<Unit> {
+    override suspend fun registerTeacher(teacherBody: TeacherBody): ApiResponse<Unit> {
         return ApiResponse.Success(Unit)
-        //  request(apiService.registerTeacher(id, login, name, password))
+        //  request(apiService.registerTeacher(teacherRegisterBody))
     }
 }

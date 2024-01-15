@@ -49,7 +49,12 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            router.exit()
+            showAlertMessageWithNegativeButton(requireContext(),
+                title = resources.getString(R.string.common_attention),
+                message = resources.getString(R.string.teacher_test_question_close_dialog_message),
+                actionTitle = resources.getString(R.string.teacher_test_question_close_dialog_action),
+                action = { router.backTo(TeacherScreens.teacherScreen()) }
+            )
         }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -79,7 +84,8 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
 
         binding.addQuestion.setOnClickListener {
             if (!hasName()) return@setOnClickListener
-            router.navigateTo(TeacherScreens.addQuestionScreen())
+            val testId = viewModel.test.value?.id ?: return@setOnClickListener
+            router.navigateTo(TeacherScreens.addQuestionScreen(testId))
         }
 
         binding.saveTest.setOnClickListener {
@@ -93,7 +99,10 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         adapter = TeacherTestQuestionListAdapter()
 
         adapter.onChangeClicked = { question ->
-            router.navigateTo(TeacherScreens.addQuestionScreen(question))
+            val testId = viewModel.test.value?.id
+            if (testId != null) {
+                router.navigateTo(TeacherScreens.addQuestionScreen(testId, question))
+            }
         }
         adapter.onDeleteClicked = { question ->
             showAlertMessageWithNegativeButton(requireContext(),

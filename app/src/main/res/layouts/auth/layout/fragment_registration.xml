@@ -73,22 +73,25 @@
         android:paddingVertical="15dp"
         app:layout_constraintBottom_toTopOf="@+id/registration" />
 
-    <com.example.testmaker.ui.common.LoadingButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/registration"
+        style="@style/CommonButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60dp"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:loading_button_text="@string/auth_registration" />
+        android:paddingVertical="15dp"
+        android:text="@string/auth_registration"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/teacherListFragment"
+        android:enabled="true"
+        android:icon="@drawable/teacher_tests_tab"
+        android:title="@string/admin_tab_teacher_list"/>
+    <item
+        android:id="@+id/groupListFragment"
+        android:enabled="true"
+        android:icon="@drawable/teacher_results_tab"
+        android:title="@string/admin_tab_group_list"/>
+</menu>

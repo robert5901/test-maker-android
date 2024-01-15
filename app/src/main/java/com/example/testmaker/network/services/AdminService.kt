@@ -1,7 +1,9 @@
 package com.example.testmaker.network.services
 
+import com.example.testmaker.models.admin.TeacherBody
 import com.example.testmaker.models.users.Teacher
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,12 +20,8 @@ interface AdminService {
 
     @PUT("admin/teacher/{id}")
     suspend fun changeTeacher(@Path(value = "id", encoded = true) id: String,
-                              @Query(value = "login", encoded = true) login: String,
-                              @Query(value = "name", encoded = true) name: String,
-                              @Query(value = "password", encoded = true) password: String): Response<Unit>
+                              @Body teacherBody: TeacherBody): Response<Unit>
 
     @POST("admin/teacher/register")
-    suspend fun registerTeacher(@Query(value = "login", encoded = true) login: String,
-                                @Query(value = "name", encoded = true) name: String,
-                                @Query(value = "password", encoded = true) password: String): Response<Unit>
+    suspend fun registerTeacher(@Body teacherBody: TeacherBody): Response<Unit>
 }

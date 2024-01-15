@@ -89,7 +89,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun validateEditTexts(): Boolean {
-        // TODO проверка на длину пароля? на корректный e-mail?
         var isAllFieldsValid = true
 
         if (binding.email.text.isBlank()) {
