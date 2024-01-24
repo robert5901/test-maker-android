@@ -26,6 +26,9 @@ import com.example.testmaker.models.student.StudentTestStart
 import com.example.testmaker.ui.student.testQuestion.viewModels.StudentTestQuestionViewModel
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
+import java.time.Duration
+import java.time.Instant
+import java.util.Date
 
 class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_question) {
     private lateinit var countDownTimer: CountDownTimer
@@ -59,7 +62,6 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     }
 
     override fun onStop() {
-        // TODO сможет ли запрос отработать если свернуть прилу?
         saveAnswer()
         viewModel.finishTest(studentAnswers)
 
@@ -72,6 +74,8 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     private fun setData(test: StudentTestStart) {
         val question = test.questions[currentQuestionIndex]
         setQuestion(question)
+        binding.points.text = resources.getString(R.string.student_test_question_points, "1")
+
         binding.next.isVisible = true
         binding.finish.isVisible = false
 
@@ -126,7 +130,6 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
         if (!question.imageUrl.isNullOrBlank()) {
             Glide.with(requireContext())
                 .load(question.imageUrl)
-                .centerCrop()
                 .into(binding.image)
         }
 
@@ -248,8 +251,12 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     }
 
     private fun startTimer(doneTime: String) {
-        // TODO рассчет времени для таймера. doneTime - currentTime = 20мин(например)
-        val totalTimeInMillis = 3000
+        // test data
+//        val currentTimeInstant = Instant.now()
+//        val doneTimeInstant = Instant.parse(doneTime)
+//        val totalTimeInMillis = Duration.between(currentTimeInstant, doneTimeInstant).toMillis().toInt()
+        val totalTimeInMillis = 180000
+
         binding.progressBar.max = totalTimeInMillis
 
         countDownTimer = object : CountDownTimer(totalTimeInMillis.toLong(), 10) {

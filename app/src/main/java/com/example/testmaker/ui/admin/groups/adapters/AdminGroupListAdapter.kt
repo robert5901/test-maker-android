@@ -33,8 +33,7 @@ class AdminGroupListAdapter: RecyclerView.Adapter<AdminGroupListAdapter.AdminGro
 
     override fun onBindViewHolder(holder: AdminGroupListViewHolder, position: Int) {
         val item = differ.currentList[position]
-        val showDivider = position != differ.currentList.lastIndex
-        holder.onBind(item, showDivider)
+        holder.onBind(item)
     }
 
     inner class AdminGroupListViewHolder(private val binding: ListItemAdminGroupListBinding) :
@@ -49,11 +48,10 @@ class AdminGroupListAdapter: RecyclerView.Adapter<AdminGroupListAdapter.AdminGro
             }
         }
 
-        fun onBind(item: Group, showDivider: Boolean) {
+        fun onBind(item: Group) {
             group = item
             with(binding) {
                 title.text = item.title
-                divider.isVisible = showDivider
             }
         }
     }

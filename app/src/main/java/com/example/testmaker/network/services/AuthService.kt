@@ -1,26 +1,25 @@
 package com.example.testmaker.network.services
 
+import com.example.testmaker.models.auth.AuthInfo
+import com.example.testmaker.models.auth.AuthLogin
+import com.example.testmaker.models.auth.RefreshBody
+import com.example.testmaker.models.users.Student
 import com.google.gson.annotations.SerializedName
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface AuthService {
     @POST("/auth/register/student")
-    suspend fun createStudent(@Query(value = "groupId", encoded = true) groupId: String,
-                              @Query(value = "login", encoded = true) login: String,
-                              @Query(value = "name", encoded = true) name: String,
-                              @Query(value = "password", encoded = true) password: String): Response<Unit>
+    suspend fun createStudent(@Body student: Student): Response<Unit>
 
     @POST("/auth/login")
-    suspend fun login(@Query(value = "login", encoded = true) login: String,
-                      @Query(value = "password", encoded = true) password: String): Response<AuthInfoBody>
+    suspend fun login(@Body login: AuthLogin): Response<AuthInfo>
 }
 
 interface RefreshService {
-    @POST("auth/refresh")
-    suspend fun refresh(@Body body: RefreshBody): Response<AuthInfoBody>
+    @POST("/auth/refresh")
+    suspend fun refresh(@Body body: RefreshBody): Response<AuthInfo>
 }
 
 class AuthInfoBody(

@@ -26,7 +26,7 @@ class AuthViewModel(
         viewModelScope.launch {
             loading.emit(true)
 
-            val response = authRepository.login(login.login, login.password)
+            val response = authRepository.login(login)
             loading.emit(false)
 
             when (response) {

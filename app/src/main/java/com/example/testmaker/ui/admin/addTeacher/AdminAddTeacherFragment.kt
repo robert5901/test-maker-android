@@ -74,8 +74,8 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
         if (!isValid) return
 
         val teacherBody = TeacherBody(
-            binding.name.text.toString(),
             binding.login.text.toString(),
+            binding.name.text.toString(),
             binding.password.text.toString()
         )
 
@@ -101,7 +101,7 @@ class AdminAddTeacherFragment: Fragment(R.layout.fragment_admin_add_teacher) {
             errorManager.showError(ErrorManagerError.ResError(R.string.admin_add_teacher_password_error))
             isAllFieldsValid = false
         }
-        if (binding.password.text.length < 6) {
+        if (binding.password.text.length < 8) {
             errorManager.showError(ErrorManagerError.ResError(R.string.auth_password_length_error))
             isAllFieldsValid = false
         }

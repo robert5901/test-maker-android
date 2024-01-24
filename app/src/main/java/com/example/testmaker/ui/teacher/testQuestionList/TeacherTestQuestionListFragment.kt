@@ -126,12 +126,17 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         observeOnStarted(viewModel.test) { test ->
             if (test == null) return@observeOnStarted
             setTestInfo(test)
+
+            // test data
+            if (!test.questions.isNullOrEmpty()) {
+                binding.points.text = resources.getString(R.string.teacher_test_question_points, 1)
+            }
         }
     }
 
     private fun setTestInfo(test: TeacherTest) {
         binding.name.setText(test.name)
-        adapter.set(test.question ?: emptyList())
+        adapter.set(test.questions ?: emptyList())
     }
 
     private fun hasName(): Boolean {
@@ -153,7 +158,6 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         if (imageUrl != null) {
             Glide.with(requireContext())
                 .load(imageUrl)
-                .centerCrop()
                 .into(dialogBinding.image)
         } else {
             dialogBinding.image.setImageDrawable(null)

@@ -12,14 +12,14 @@ import com.example.testmaker.network.services.StudentService
 class StudentRepositoryImpl(private val apiService: StudentService): SuperRepository(), StudentRepository {
     override suspend fun getTests(): ApiResponse<List<StudentTest>> {
         return ApiResponse.Success( listOf(
-            StudentTest("1", 2, "Методы оптимизации", 2,
-                "Хазипова Альсина Айдаровна", "20"),
-            StudentTest("2", 3, "Методы оптимизации 1", 2,
-                "Быкова Вероника Саввична", "25"),
-            StudentTest("3", 1, "Методы оптимизации 2", 2,
-                "Гришин Максим Владимирович", "30"),
-            StudentTest("4", 1, "Методы оптимизации 3", 2,
-                "Орлов Адам Михайлович", "15")
+            StudentTest("1", 2, "Методы оптимизации", 3,
+                "Хазипова Альсина Айдаровна", "PT20M"),
+            StudentTest("2", 3, "Информатика", 25,
+                "Быкова Вероника Саввична", "PT25M"),
+            StudentTest("3", 1, "Математика", 15,
+                "Гришин Максим Владимирович", "PT30M"),
+            StudentTest("4", 1, "Основы Java", 3,
+                "Орлов Адам Михайлович", "PT15M"),
         ))
 //        request(apiService.getTests())
     }
@@ -30,40 +30,40 @@ class StudentRepositoryImpl(private val apiService: StudentService): SuperReposi
             listOf(
                 StudentTestQuestion(
                     "1",
-                    "https://i.pinimg.com/originals/03/ab/0d/03ab0d21c9d9f2210e774a8b584ef962.png",
+                    "",
                     true,
                     listOf(
-                        Answer("1", "1ответ 1"),
-                        Answer("2", "1ответ 2"),
-                        Answer("3", "1ответ 3"),
-                        Answer("4", "1ответ 4")
+                        Answer("1", "Не более 3"),
+                        Answer("2", "Не более 10"),
+                        Answer("3", "Не более 5"),
+                        Answer("4", "Неограниченное количество")
                     ),
-                    "Текст вопроса1 Текст вопроса1 Текст вопроса1 Текст вопроса1 Текст вопроса1 Текст вопроса1 Текст вопроса1 Текст вопроса1"
-                ),
+                    "Сколько параметров может принимать функция?",
+                    ),
                 StudentTestQuestion(
                     "2",
-                    "",
+                    "https://media.tproger.ru/quiz/1691149986767Frame%204.png",
                     false,
                     listOf(
-                        Answer("1", "2ответ 1"),
-                        Answer("2", "2ответ 2"),
-                        Answer("3", "2ответ 3"),
-                        Answer("4", "2ответ 4")
+                        Answer("1", "В консоль будет выведено Hello!"),
+                        Answer("2", "NullPointerException"),
+                        Answer("3", "Код выполнится без ошибок, в консоль ничего не выведется"),
+                        Answer("4", "Ошибка компиляции")
                     ),
-                    "Текст вопроса2 Текст вопроса2 Текст вопроса2 Текст вопроса2 Текст вопроса2 Текст вопроса2 Текст вопроса2"
-                ),
+                    "Что будет, если скомпилировать и выполнить код:",
+                    ),
                 StudentTestQuestion(
                     "3",
                     "",
-                    true,
+                    false,
                     listOf(
-                        Answer("1", "3ответ 1"),
-                        Answer("2", "3ответ 2"),
-                        Answer("3", "3ответ 3"),
-                        Answer("4", "3ответ 4")
+                        Answer("1", "Названия"),
+                        Answer("2", "Тип данных"),
+                        Answer("3", "Размер"),
+                        Answer("4", "Адрес в памяти")
                     ),
-                    "Текст вопроса3 Текст вопроса3 Текст вопроса3 Текст вопроса3 Текст вопроса3 Текст вопрос3 Текст вопроса3"
-                )
+                    "Что общего у всех элементов массива?",
+                    )
             )
         ))
 //        request(apiService.startTest(testId))
@@ -71,21 +71,21 @@ class StudentRepositoryImpl(private val apiService: StudentService): SuperReposi
 
     override suspend fun getResults(): ApiResponse<List<StudentResult>> {
         return ApiResponse.Success(listOf(
-            StudentResult("1", "23.01.2024 13:53", "Методы оптимизации",
-                "50/50", "Хазипова Альсина Айдаровна"),
-            StudentResult("2", "23.01.2024 13:53", "Методы оптимизации 1",
-                "20/50", "Гришин Максим Владимирович"),
-            StudentResult("3", "23.01.2024 13:53", "Методы оптимизации 2",
-                "30/50", "Быкова Вероника Саввична"),
-            StudentResult("4", "23.01.2024 13:53", "Методы оптимизации 3",
-                "32/50", "Орлов Адам Михайлович")
+            StudentResult("1", "2024-01-22T15:10:16.912Z", "Методы оптимизации",
+                "10/20", "Хазипова Альсина Айдаровна"),
+            StudentResult("2", "2024-01-22T15:10:16.912Z", "Информатика",
+                "2/4", "Гришин Максим Владимирович"),
+            StudentResult("3", "2024-01-22T15:10:16.912Z", "Математика",
+                "5/5", "Быкова Вероника Саввична"),
+            StudentResult("4", "2024-01-22T15:10:16.912Z", "Основы Java",
+                "2/3", "Орлов Адам Михайлович")
         ))
 //        request(apiService.getResults())
     }
 
     override suspend fun finishTest(studentAnswers: List<StudentAnswer>): ApiResponse<StudentResult> {
         return ApiResponse.Success(StudentResult("1", "23.01.2024 13:53", "Методы оптимизации",
-            "50/50", "Хазипова Альсина Айдаровна"))
+            "2/3", "Хазипова Альсина Айдаровна"))
 //        request(apiService.finishTest(studentAnswers))
     }
 }

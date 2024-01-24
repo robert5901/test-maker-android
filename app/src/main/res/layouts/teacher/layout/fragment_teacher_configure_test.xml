@@ -52,33 +52,67 @@
             app:layout_constraintTop_toBottomOf="@id/test_name" />
 
         <TextView
-            android:id="@+id/access_time_title"
+            android:id="@+id/access_time_start_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:text="@string/teacher_configure_test_access_time_title"
+            android:text="@string/teacher_configure_test_access_time_start_title"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/access_time"
+            app:layout_constraintEnd_toStartOf="@id/access_time_start"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_title" />
 
         <TextView
-            android:id="@+id/access_time"
+            android:id="@+id/access_time_start"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="end"
+            android:text="@string/teacher_configure_test_access_time_start"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/access_time_start_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/access_time_start_title"
+            app:layout_constraintTop_toTopOf="@id/access_time_start_title" />
+
+        <TextView
+            android:id="@+id/access_time_end_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/teacher_configure_test_access_time_end_title"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/access_time_title"
+            app:layout_constraintEnd_toStartOf="@id/access_time_end"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/access_time_start_title" />
+
+        <TextView
+            android:id="@+id/access_time_end"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="end"
+            android:text="@string/teacher_configure_test_access_time_end"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/access_time_end_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/access_time_title"
-            app:layout_constraintTop_toTopOf="@id/access_time_title"
-            tools:text="13:30-14:00 15.11.23" />
+            app:layout_constraintStart_toEndOf="@id/access_time_end_title"
+            app:layout_constraintTop_toTopOf="@id/access_time_end_title" />
 
         <TextView
             android:id="@+id/time_for_test_title"
@@ -92,7 +126,7 @@
             app:layout_constraintEnd_toStartOf="@id/time_for_test"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/access_time_title" />
+            app:layout_constraintTop_toBottomOf="@id/access_time_end_title" />
 
         <EditText
             android:id="@+id/time_for_test"
@@ -185,6 +219,21 @@
             app:layout_constraintTop_toTopOf="@id/random_answers_title" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/copy_test"
+            style="@style/CommonButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="15dp"
+            android:text="@string/teacher_configure_test_copy"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/random_answers_title" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/save"
             style="@style/CommonButton"
             android:layout_width="match_parent"
@@ -196,7 +245,7 @@
             android:text="@string/common_save"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/random_answers_title"
+            app:layout_constraintTop_toBottomOf="@id/copy_test"
             app:layout_constraintVertical_bias="1" />
 
         <ProgressBar

@@ -14,8 +14,6 @@ class StudentTestListViewModel(
     private val repository: StudentRepository,
     private val errorManager: ErrorManager
 ): ViewModel() {
-    // TODO добавить refresh свайпом для обновления списка тестов
-
     private val _loading = MutableStateFlow(false)
     val loading = _loading.asStateFlow()
 

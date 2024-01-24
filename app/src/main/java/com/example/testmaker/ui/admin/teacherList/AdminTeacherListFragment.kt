@@ -45,9 +45,7 @@ class AdminTeacherListFragment: Fragment(R.layout.fragment_admin_teacher_list) {
     override fun onStart() {
         super.onStart()
 
-        if (viewModel.teachers.value.isEmpty()) {
-            viewModel.updateTeachers()
-        }
+        viewModel.updateTeachers()
     }
 
     private fun configureViewModel() {
@@ -56,6 +54,7 @@ class AdminTeacherListFragment: Fragment(R.layout.fragment_admin_teacher_list) {
         }
 
         observeOnStarted(viewModel.teachers) { teachers ->
+            println("!!!! teachers = $teachers")
             adapter.differ.submitList(teachers)
         }
     }

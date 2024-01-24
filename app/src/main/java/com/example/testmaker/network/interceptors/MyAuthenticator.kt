@@ -2,10 +2,9 @@ package com.example.testmaker.network.interceptors
 
 import com.example.testmaker.core.keyStore.KeyStore
 import com.example.testmaker.models.auth.AuthInfo
-import com.example.testmaker.models.auth.UserRole
+import com.example.testmaker.models.auth.RefreshBody
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.SuperRepository
-import com.example.testmaker.network.services.RefreshBody
 import com.example.testmaker.network.services.RefreshService
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -16,7 +15,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class MyAuthenticator : Authenticator, SuperRepository(), KoinComponent {
-
     private val refreshService by inject<RefreshService>()
     private val keyStore by inject<KeyStore>()
 
@@ -33,12 +31,11 @@ class MyAuthenticator : Authenticator, SuperRepository(), KoinComponent {
                 AuthInfo(
                     resultData.accessCode,
                     resultData.refreshCode,
-                    UserRole.fromString(resultData.userRole)
+                    resultData.userRole
                 )
             )
             return response.request.newBuilder().header("Authorization", "Bearer ${result.data.accessCode}").build()
         }
         return null
     }
-
 }

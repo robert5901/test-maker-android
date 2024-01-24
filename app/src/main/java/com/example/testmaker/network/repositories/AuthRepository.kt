@@ -1,10 +1,12 @@
 package com.example.testmaker.network.repositories
 
 import com.example.testmaker.models.auth.AuthInfo
+import com.example.testmaker.models.auth.AuthLogin
+import com.example.testmaker.models.users.Student
 import com.example.testmaker.network.models.ApiResponse
 
 interface AuthRepository {
-    suspend fun createStudent(groupId: String, login: String, name: String, password: String): ApiResponse<Unit>
+    suspend fun createStudent(student: Student): ApiResponse<Unit>
 
-    suspend fun login(login: String, password: String): ApiResponse<AuthInfo>
+    suspend fun login(login: AuthLogin): ApiResponse<AuthInfo>
 }

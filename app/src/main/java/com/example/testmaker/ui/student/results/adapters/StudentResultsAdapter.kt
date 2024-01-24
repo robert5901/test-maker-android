@@ -6,6 +6,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaker.databinding.StudentResultsListItemBinding
 import com.example.testmaker.models.student.StudentResult
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class StudentResultsAdapter: RecyclerView.Adapter<StudentResultsAdapter.StudentResultsViewHolder>() {
     private var items: List<StudentResult> = emptyList()
@@ -38,9 +43,14 @@ class StudentResultsAdapter: RecyclerView.Adapter<StudentResultsAdapter.StudentR
 
         fun onBind(item: StudentResult, showDivider: Boolean) {
             with(binding) {
+                val instant = Instant.parse(item.doneTime)
+                val localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+                val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy", Locale.getDefault())
+                val formattedString = localDateTime.format(formatter)
+
+                doneTime.text = formattedString
                 title.text = item.name
                 result.text = item.result
-                doneTime.text = item.doneTime
                 divider.isVisible = showDivider
             }
         }

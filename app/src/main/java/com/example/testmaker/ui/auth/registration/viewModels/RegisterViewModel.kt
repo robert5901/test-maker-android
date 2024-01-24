@@ -58,12 +58,11 @@ class RegisterViewModel(
         viewModelScope.launch {
             createStudentLoading.emit(true)
 
-            val response = authRepository.createStudent(student.groupId, student.login, student.name, student.password)
+            val response = authRepository.createStudent(student)
             createStudentLoading.emit(false)
 
             when (response) {
                 is ApiResponse.Success -> {
-                    // TODO redirect to student screen
                     router.navigateTo(AuthScreens.loginScreen())
                 }
 

@@ -38,6 +38,8 @@ class TeacherTestQuestionFragment: Fragment(R.layout.fragment_teacher_add_questi
         question?.let { setData(it) }
         testId = arguments?.getString(EXTRA_TEST_ID)
 
+        binding.points.setText("1")
+
         configureSpinner(question?.isSingleQuestion)
         configureListeners()
         configureViewModel()

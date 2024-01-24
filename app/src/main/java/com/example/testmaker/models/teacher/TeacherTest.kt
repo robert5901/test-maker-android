@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class TeacherTest(
     val id: String,
     val name: String?,
-    val question: List<TeacherTestQuestion>?
+    val questions: List<TeacherTestQuestion>?
 ): Parcelable

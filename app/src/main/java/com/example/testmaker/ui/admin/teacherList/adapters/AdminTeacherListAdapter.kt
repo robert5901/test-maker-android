@@ -37,8 +37,7 @@ class AdminTeacherListAdapter: RecyclerView.Adapter<AdminTeacherListAdapter.Admi
 
     override fun onBindViewHolder(holder: AdminTeacherListViewHolder, position: Int) {
         val item = differ.currentList[position]
-        val showDivider = position != differ.currentList.lastIndex
-        holder.onBind(item, showDivider)
+        holder.onBind(item)
     }
 
     inner class AdminTeacherListViewHolder(private val binding: ListItemAdminTeacherListBinding) :
@@ -57,11 +56,10 @@ class AdminTeacherListAdapter: RecyclerView.Adapter<AdminTeacherListAdapter.Admi
             }
         }
 
-        fun onBind(item: Teacher, showDivider: Boolean) {
+        fun onBind(item: Teacher) {
             teacher = item
             with(binding) {
                 name.text = item.name
-                divider.isVisible = showDivider
             }
         }
     }

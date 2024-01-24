@@ -23,5 +23,5 @@ val authModule = module {
     viewModel { AuthViewModel(get(), get(), get()) }
 }
 
-private fun provideRegisterRepository(retrofit: Retrofit): AuthService =
-    retrofit.create(AuthService::class.java)
+private fun provideRegisterRepository(retrofitBuilder: Retrofit.Builder): AuthService =
+    retrofitBuilder.build().create(AuthService::class.java)

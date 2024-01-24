@@ -13,6 +13,7 @@ import com.example.testmaker.models.student.StudentTest
 import com.example.testmaker.ui.student.testInfo.viewModels.StudentTestInfoViewModel
 import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
+import java.time.Duration
 
 class StudentTestInfoFragment: Fragment(R.layout.fragment_student_test_info) {
     private val binding by viewBinding(FragmentStudentTestInfoBinding::bind)
@@ -38,13 +39,12 @@ class StudentTestInfoFragment: Fragment(R.layout.fragment_student_test_info) {
 
     private fun setData(test: StudentTest) {
         with(binding) {
+            val timeString = Duration.parse(test.timeToSpend).toMinutes().toString()
             testName.text = test.name
             teacher.text = test.teacherName
             questionQuantity.text = test.questionsNumber.toString()
             attempts.text = test.availableAttempts.toString()
-            // TODO test data
-//            time.text = test.timeToSpend
-            time.text ="20 мин"
+            time.text = resources.getString(R.string.student_test_info_time_for_test, timeString)
         }
     }
 

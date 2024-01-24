@@ -11,7 +11,7 @@ import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
 import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.FragmentAdminGroupListBinding
 import com.example.testmaker.ui.admin.groups.adapters.AdminGroupListAdapter
-import com.example.testmaker.ui.admin.groups.adapters.AdminGroupsViewModel
+import com.example.testmaker.ui.admin.groups.viewModels.AdminGroupsViewModel
 import org.koin.android.ext.android.inject
 
 class AdminGroupListFragment: Fragment(R.layout.fragment_admin_group_list) {
@@ -32,6 +32,10 @@ class AdminGroupListFragment: Fragment(R.layout.fragment_admin_group_list) {
 
         binding.clear.setOnClickListener {
             binding.search.text.clear()
+        }
+
+        binding.addGroup.setOnClickListener {
+            viewModel.addGroup(binding.group.text.toString())
         }
     }
 
@@ -59,8 +63,7 @@ class AdminGroupListFragment: Fragment(R.layout.fragment_admin_group_list) {
                 title = resources.getString(R.string.common_attention),
                 message = resources.getString(R.string.admin_delete_teacher_dialog_message),
                 actionTitle = resources.getString(R.string.common_delete),
-                // TODO удалять группу
-//                action = { viewModel.deleteGroup(it.id) }
+                action = { viewModel.deleteGroup(it.id) }
             )
         }
 

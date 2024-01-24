@@ -67,7 +67,6 @@ dependencies {
     implementation(Dependencies.Core.Material)
     implementation(Dependencies.Core.ViewBindingDelegate)
     implementation(Dependencies.Core.RecyclerView)
-    implementation(Dependencies.Core.SwipeRefreshLayout)
 
     implementation(Dependencies.KTX.LifecycleRuntime)
 

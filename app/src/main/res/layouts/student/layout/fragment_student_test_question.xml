@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@id/progressBar" />
 
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/points"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -36,6 +36,17 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:text="Баллов за вопрос: 1" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/points"
         tools:text="1. Какое растение, встречающееся и на наших огородах, по- другому называется «земляная груша»?" />
 
     <androidx.core.widget.NestedScrollView
@@ -54,8 +65,9 @@
                 android:id="@id/image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginHorizontal="70dp"
-                android:visibility="gone"
+                android:layout_marginHorizontal="5dp"
+                android:scaleType="centerInside"
+                android:visibility="visible"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_launcher_background" />

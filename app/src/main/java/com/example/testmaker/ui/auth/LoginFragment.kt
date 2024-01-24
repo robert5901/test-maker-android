@@ -37,14 +37,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         binding.login.setOnClickListener {
-            // TODO test data
-//            login()
-            when (binding.password.text.toString()) {
-                "1" -> {router.replaceScreen(AdminScreens.adminScreen())}
-                "2" -> {router.replaceScreen(TeacherScreens.teacherScreen())}
-                "3" -> {router.replaceScreen(StudentScreens.studentScreen())}
-            }
-
+            login()
         }
     }
 
@@ -58,16 +51,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         observeOnStarted(viewModel.authInfo) { authInfo ->
-            // TODO что делать с access и refresh
-
             if (authInfo == null) return@observeOnStarted
 
-            when (authInfo.userRole) {
+            when (UserRole.fromString(authInfo.userRole)) {
                 UserRole.ADMIN -> {
                     router.replaceScreen(AdminScreens.adminScreen())
                 }
                 UserRole.STUDENT -> {
-//                    router.replaceScreen(StudentScreens.studentScreen())
+                    router.replaceScreen(StudentScreens.studentScreen())
                 }
                 UserRole.TEACHER -> {
                     router.replaceScreen(TeacherScreens.teacherScreen())

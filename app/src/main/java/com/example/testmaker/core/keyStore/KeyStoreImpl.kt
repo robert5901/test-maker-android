@@ -1,14 +1,13 @@
 package com.example.testmaker.core.keyStore
 
 import com.example.testmaker.models.auth.AuthInfo
-import com.example.testmaker.models.auth.UserRole
 import com.orhanobut.hawk.Hawk
 
 class KeyStoreImpl: KeyStore {
     companion object {
         private const val accessTokenKey = "accessToken"
-        private const val refreshTokenKey = "accessToken"
-        private const val userRoleKey = "accessToken"
+        private const val refreshTokenKey = "refreshToken"
+        private const val userRoleKey = "userRole"
     }
 
     private var accessToken: String?
@@ -23,7 +22,7 @@ class KeyStoreImpl: KeyStore {
             Hawk.put(refreshTokenKey, value)
         }
 
-    private var userRole: UserRole?
+    private var userRole: String?
         get() = Hawk.get(userRoleKey, null)
         set(value) {
             Hawk.put(userRoleKey, value)

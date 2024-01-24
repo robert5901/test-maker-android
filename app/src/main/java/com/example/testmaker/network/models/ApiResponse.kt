@@ -65,9 +65,6 @@ sealed class ApiResponse<out T> {
                     // TODO
                     false
                 }
-                ErrorInterceptor.APP_UPDATE_ERR_CODE -> {
-                    true
-                }
                 else -> {
                     false
                 }

@@ -7,9 +7,9 @@ enum class UserRole {
 
     companion object {
         fun fromString(role: String): UserRole = when (role) {
-            "Admin" -> ADMIN
-            "Student" -> STUDENT
-            "Teacher" -> TEACHER
+            "admin" -> ADMIN
+            "student" -> STUDENT
+            "teacher" -> TEACHER
             else -> STUDENT
         }
     }

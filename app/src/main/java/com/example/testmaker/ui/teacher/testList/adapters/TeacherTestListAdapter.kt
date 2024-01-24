@@ -43,8 +43,7 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
 
     override fun onBindViewHolder(holder: TeacherTestListViewHolder, position: Int) {
         val item = differ.currentList[position]
-        val showDivider = position != differ.currentList.lastIndex
-        holder.onBind(item, showDivider)
+        holder.onBind(item)
     }
 
     inner class TeacherTestListViewHolder(private val binding: TeacherTestListItemBinding) :
@@ -67,7 +66,7 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
             }
         }
 
-        fun onBind(item: Test, showDivider: Boolean) {
+        fun onBind(item: Test) {
             test = item
             with(binding) {
                 val groups = item.groups.joinToString(", ") { it.title }
@@ -83,7 +82,6 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
                 }
 
                 name.text = item.name
-                divider.isVisible = showDivider
             }
         }
     }

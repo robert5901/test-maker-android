@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaker.R
 import com.example.testmaker.core.Action
 import com.example.testmaker.databinding.StudentTestListItemBinding
 import com.example.testmaker.models.student.StudentTest
@@ -34,8 +35,7 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
 
     override fun onBindViewHolder(holder: StudentTestListViewHolder, position: Int) {
         val item = differ.currentList[position]
-        val showDivider = position != differ.currentList.lastIndex
-        holder.onBind(item, showDivider)
+        holder.onBind(item)
     }
 
     inner class StudentTestListViewHolder(private val binding: StudentTestListItemBinding) :
@@ -50,11 +50,12 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
             }
         }
 
-        fun onBind(item: StudentTest, showDivider: Boolean) {
+        fun onBind(item: StudentTest) {
             test = item
             with(binding) {
                 title.text = item.name
-                divider.isVisible = showDivider
+                // можно передавать в onBind по очереди из списка с тестовыми данными
+                available.text = binding.root.resources.getString(R.string.student_test_list_item_available,"13:30 02.02.2024")
             }
         }
     }

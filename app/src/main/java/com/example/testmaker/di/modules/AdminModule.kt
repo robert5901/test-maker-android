@@ -5,7 +5,7 @@ import com.example.testmaker.network.repositories.AdminRepositoryImpl
 import com.example.testmaker.network.services.AdminService
 import com.example.testmaker.network.services.RefreshService
 import com.example.testmaker.ui.admin.addTeacher.viewModels.AddTeacherViewModel
-import com.example.testmaker.ui.admin.groups.adapters.AdminGroupsViewModel
+import com.example.testmaker.ui.admin.groups.viewModels.AdminGroupsViewModel
 import com.example.testmaker.ui.admin.teacherList.viewModels.AdminTeacherListViewModel
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router

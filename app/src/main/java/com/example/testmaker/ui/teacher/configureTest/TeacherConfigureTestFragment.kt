@@ -1,6 +1,8 @@
 package com.example.testmaker.ui.teacher.configureTest
 
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,29 +11,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.testmaker.R
+import com.example.testmaker.TeacherScreens
+import com.example.testmaker.core.Action
+import com.example.testmaker.core.errors.ErrorManager
+import com.example.testmaker.core.errors.ErrorManagerError
 import com.example.testmaker.core.utils.extensions.coroutine.observeOnStarted
+import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeButton
 import com.example.testmaker.databinding.ChooseGroupsDialogFragmentBinding
 import com.example.testmaker.databinding.FragmentTeacherConfigureTestBinding
-import com.example.testmaker.di.modules.groupsModule
 import com.example.testmaker.models.student.Group
 import com.example.testmaker.models.test.ConfigureTestBody
 import com.example.testmaker.models.test.Test
 import com.example.testmaker.ui.teacher.configureTest.viewModels.TeacherTestConfigureViewModel
+import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
+import java.text.SimpleDateFormat
+import java.time.Duration
+import java.util.Calendar
+import java.util.Locale
 
 class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configure_test) {
     private val binding by viewBinding(FragmentTeacherConfigureTestBinding::bind)
+    private val errorManager: ErrorManager by inject()
     private val viewModel: TeacherTestConfigureViewModel by inject()
+    private val router: Router by inject()
     private val margin by lazy { resources.getDimensionPixelSize(R.dimen.student_test_question_radio_button_margin_bottom) }
     private val textSize by lazy { resources.getDimension(R.dimen.student_test_question_radio_button_text_size) }
 
     private val checkBoxList: MutableList<CheckBox> = mutableListOf()
     private var selectedGroups: MutableList<Group> = mutableListOf()
+    private val calendar = Calendar.getInstance()
     private var test: Test? = null
+    private var startTime: String? = null
+    private var endTime: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,13 +61,20 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
 
         viewModel.getGroups()
 
+        configureClickListeners()
+    }
+
+    private fun configureClickListeners() {
         binding.save.setOnClickListener {
             val testId = test?.id ?: return@setOnClickListener
 
-            // TODO endTime и startTime выставлять через календарь 2 времени и в TextView записывать через дефис
-            val endTime = ""
-            val startTime = ""
-            val timeToSpend = ""
+            val isValid = validateData()
+            if (!isValid) return@setOnClickListener
+
+            val endTime = endTime ?: return@setOnClickListener
+            val startTime = startTime ?: return@setOnClickListener
+
+            val timeToSpend = Duration.ofMinutes(binding.timeForTest.text.toString().toLong()).toString()
             val availableAttempts = binding.attempts.text.toString().toInt()
 
             val configTestBody = ConfigureTestBody(
@@ -71,9 +96,96 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
             openChooseGroupsDialog(groups)
         }
 
-        binding.accessTime.setOnClickListener {
-
+        binding.accessTimeStart.setOnClickListener {
+            showDateTimePicker(binding.accessTimeStart) {
+                startTime = it
+            }
         }
+
+        binding.accessTimeEnd.setOnClickListener {
+            showDateTimePicker(binding.accessTimeEnd) {
+                endTime = it
+            }
+        }
+
+        binding.copyTest.setOnClickListener {
+            showAlertMessageWithNegativeButton(requireContext(),
+                title = resources.getString(R.string.common_attention),
+                message = resources.getString(R.string.teacher_configure_test_copy_alert_message),
+                actionTitle = resources.getString(R.string.common_ok),
+                action = {
+                    Toast.makeText(requireContext(), "Копия теста успешно создана", Toast.LENGTH_SHORT).show()
+                    router.navigateTo(TeacherScreens.teacherScreen())
+                }
+            )
+        }
+    }
+
+    private fun validateData(): Boolean {
+        if (selectedGroups.isEmpty()) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_empty_groups_error))
+            return false
+        }
+
+        if (startTime.isNullOrBlank()) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_blank_start_time_error))
+            return false
+        }
+
+        if (endTime.isNullOrBlank()) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_blank_end_time_error))
+            return false
+        }
+
+        if (binding.timeForTest.text.toString().isBlank()) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_blank_time_for_test_error))
+            return false
+        }
+
+        if (binding.attempts.text.toString().isBlank()) {
+            errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_blank_attempts_error))
+            return false
+        }
+
+        return true
+    }
+
+    private fun showDateTimePicker(textView: TextView, onDateTimeSelected: Action<String>) {
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                showTimePicker(textView, onDateTimeSelected)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        datePickerDialog.show()
+    }
+
+    private fun showTimePicker(textView: TextView, onDateTimeSelected: Action<String>) {
+        val timePickerDialog = TimePickerDialog(
+            requireContext(),
+            { _, hourOfDay, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+
+                val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy", Locale.getDefault())
+                val selectedTime = sdf.format(calendar.time)
+                textView.text = selectedTime
+                onDateTimeSelected(calendar.toInstant().toString())
+            },
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            true
+        )
+
+        timePickerDialog.show()
     }
 
     private fun configureViewModel() {
@@ -87,7 +199,6 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
 
         with(binding) {
             // TODO test data
-            accessTime.text = "13:30-14:00 15.11.23"
             timeForTest.setText("20")
             randomQuestionsSwitch.isChecked = test.randomQuestions
             randomAnswersSwitch.isChecked = test.randomAnswers

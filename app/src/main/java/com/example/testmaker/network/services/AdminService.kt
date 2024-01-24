@@ -12,16 +12,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AdminService {
-    @DELETE("admin/teacher/{id}")
+    @DELETE("/admin/teacher/{id}")
     suspend fun deleteTeacher(@Path(value = "id", encoded = true) id: String): Response<Unit>
 
-    @GET("admin/teachers")
+    @GET("/admin/teachers")
     suspend fun updateTeachers(): Response<List<Teacher>>
 
-    @PUT("admin/teacher/{id}")
+    @PUT("/admin/teacher/{id}")
     suspend fun changeTeacher(@Path(value = "id", encoded = true) id: String,
                               @Body teacherBody: TeacherBody): Response<Unit>
 
-    @POST("admin/teacher/register")
+    @POST("/admin/teacher/register")
     suspend fun registerTeacher(@Body teacherBody: TeacherBody): Response<Unit>
 }

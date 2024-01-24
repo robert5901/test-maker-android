@@ -16,11 +16,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Методы оптимизации" />
 
+    <TextView
+        android:id="@+id/available"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="Доступен до: 13:30 02.02.2024" />
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         android:background="@color/grey_4"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/available" />
 </androidx.constraintlayout.widget.ConstraintLayout>

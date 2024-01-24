@@ -30,10 +30,6 @@ class StudentTestListFragment: Fragment(R.layout.fragment_student_test_list) {
 
         viewModel.getTests()
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getTests()
-        }
-
         binding.search.addTextChangedListener { text ->
             filterTests(text.toString())
         }
@@ -44,12 +40,8 @@ class StudentTestListFragment: Fragment(R.layout.fragment_student_test_list) {
     }
 
     private fun configureViewModel() {
-        // TODO не пропадает progress у refreshLayout
         observeOnStarted(viewModel.loading) { isLoading ->
             binding.progressBar.isVisible = isLoading
-            if (!isLoading) {
-                binding.swipeRefreshLayout.isRefreshing = false
-            }
         }
 
         observeOnStarted(viewModel.tests) { tests ->
