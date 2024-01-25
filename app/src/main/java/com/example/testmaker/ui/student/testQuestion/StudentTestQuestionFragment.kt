@@ -37,7 +37,6 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     private val binding by viewBinding(FragmentStudentTestQuestionBinding::bind)
     private val errorManager: ErrorManager by inject()
     private val viewModel: StudentTestQuestionViewModel by inject()
-    private val router: Router by inject()
     private val margin by lazy { resources.getDimensionPixelSize(R.dimen.student_test_question_radio_button_margin_bottom) }
     private val textSize by lazy { resources.getDimension(R.dimen.student_test_question_radio_button_text_size) }
 
@@ -46,6 +45,9 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     private val studentAnswers: MutableList<StudentAnswer> = mutableListOf()
     private var currentQuestionIndex = 0
     private var indexOfSelectedRadioButton = 100
+
+    // test data
+    private val pointsForQuestions = listOf("1","2","1")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) { }
@@ -74,7 +76,8 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     private fun setData(test: StudentTestStart) {
         val question = test.questions[currentQuestionIndex]
         setQuestion(question)
-        binding.points.text = resources.getString(R.string.student_test_question_points, "1")
+        // test data
+        binding.points.text = resources.getString(R.string.student_test_question_points, pointsForQuestions[currentQuestionIndex])
 
         binding.next.isVisible = true
         binding.finish.isVisible = false
@@ -117,6 +120,9 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     }
 
     private fun setQuestion(question: StudentTestQuestion) {
+        // test data
+        binding.points.text = resources.getString(R.string.student_test_question_points, pointsForQuestions[currentQuestionIndex])
+
         if (currentQuestionIndex == 0) {
             binding.previous.visibility = View.INVISIBLE
         } else {

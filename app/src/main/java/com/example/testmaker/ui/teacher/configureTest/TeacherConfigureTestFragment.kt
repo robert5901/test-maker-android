@@ -107,18 +107,6 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
                 endTime = it
             }
         }
-
-        binding.copyTest.setOnClickListener {
-            showAlertMessageWithNegativeButton(requireContext(),
-                title = resources.getString(R.string.common_attention),
-                message = resources.getString(R.string.teacher_configure_test_copy_alert_message),
-                actionTitle = resources.getString(R.string.common_ok),
-                action = {
-                    Toast.makeText(requireContext(), "Копия теста успешно создана", Toast.LENGTH_SHORT).show()
-                    router.navigateTo(TeacherScreens.teacherScreen())
-                }
-            )
-        }
     }
 
     private fun validateData(): Boolean {
@@ -200,6 +188,7 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
         with(binding) {
             // TODO test data
             timeForTest.setText("20")
+//            timeForTest.setText(Duration.parse(test.timeToSpend).toMinutes().toString())
             randomQuestionsSwitch.isChecked = test.randomQuestions
             randomAnswersSwitch.isChecked = test.randomAnswers
 

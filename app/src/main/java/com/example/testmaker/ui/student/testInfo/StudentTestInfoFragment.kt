@@ -11,7 +11,6 @@ import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeB
 import com.example.testmaker.databinding.FragmentStudentTestInfoBinding
 import com.example.testmaker.models.student.StudentTest
 import com.example.testmaker.ui.student.testInfo.viewModels.StudentTestInfoViewModel
-import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 import java.time.Duration
 

@@ -19,9 +19,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 
 class TeacherRepositoryImpl(private val apiService: TeacherService): SuperRepository(), TeacherRepository {
-    override suspend fun getAllTests() = safeApiRequest {
-//        return ApiResponse.Success(TestListData.tests)
-        request(apiService.getAllTests())
+    override suspend fun getAllTests() : ApiResponse<List<Test>> {
+        return ApiResponse.Success(TestListData.tests)
+//        request(apiService.getAllTests())
     }
 
     override suspend fun getTest(testId: String): ApiResponse<TeacherTest> {
@@ -34,20 +34,20 @@ class TeacherRepositoryImpl(private val apiService: TeacherService): SuperReposi
 //        request(apiService.deleteTest(testId))
     }
 
-    override suspend fun createTest(): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest.copy(name = "", questions = emptyList()))
-//        request(apiService.createTest())
+    override suspend fun createTest() = safeApiRequest {
+//        return ApiResponse.Success(TestTeacherTest.teacherTest.copy(name = "", questions = emptyList()))
+        request(apiService.createTest())
     }
 
     override suspend fun getResults(testId: String): ApiResponse<List<StudentTestResult>> {
         return ApiResponse.Success(listOf(
-            StudentTestResult("20/20", "Макаров Владислав Михайлович", Group("1", "4480")),
-            StudentTestResult("10/20", "Игонин Юрий Андреевич", Group("2", "4481")),
-            StudentTestResult("15/20", "Кузнецова Амина Александровна", Group("3", "4482")),
-            StudentTestResult("15/20", "Максимова Варвара Глебовна", Group("4", "4483")),
-            StudentTestResult("19/20", "Алешин Кирилл Владимирович", Group("1", "4480")),
-            StudentTestResult("7/20", "Юдин Илья Максимович", Group("2", "4481")),
-            StudentTestResult("16/20", "Тимофеева Алиса Егоровна", Group("3", "4482"))
+            StudentTestResult("25/25", "Макаров Владислав Михайлович", Group("1", "4480")),
+            StudentTestResult("15/25", "Игонин Юрий Андреевич", Group("2", "4481")),
+            StudentTestResult("20/25", "Кузнецова Амина Александровна", Group("3", "4482")),
+            StudentTestResult("15/25", "Максимова Варвара Глебовна", Group("4", "4483")),
+            StudentTestResult("19/25", "Алешин Кирилл Владимирович", Group("1", "4480")),
+            StudentTestResult("7/25", "Юдин Илья Максимович", Group("2", "4481")),
+            StudentTestResult("16/25", "Тимофеева Алиса Егоровна", Group("3", "4482"))
         ))
 //        request(apiService.getResults(testId))
     }
@@ -103,6 +103,11 @@ class TeacherRepositoryImpl(private val apiService: TeacherService): SuperReposi
     override suspend fun createQuestion(testId: String, question: TeacherTestQuestionBody): ApiResponse<TeacherTest> {
         return ApiResponse.Success(TestTeacherTest.teacherTest)
 //        request(apiService.createQuestion(testId, question)
+    }
+
+    override suspend fun changeQuestion(testId: String, questionId: String, question: TeacherTestQuestionBody): ApiResponse<TeacherTest> {
+        return ApiResponse.Success(TestTeacherTest.teacherTest)
+//        request(apiService.changeQuestion(testId, questionId, question))
     }
 
     override suspend fun saveConfig(testId: String, configTestBody: ConfigureTestBody): ApiResponse<Test> {

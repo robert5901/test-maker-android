@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -93,6 +94,18 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
 
             router.exit()
         }
+
+        binding.copyTest.setOnClickListener {
+            showAlertMessageWithNegativeButton(requireContext(),
+                title = resources.getString(R.string.common_attention),
+                message = resources.getString(R.string.teacher_configure_test_copy_alert_message),
+                actionTitle = resources.getString(R.string.common_ok),
+                action = {
+                    Toast.makeText(requireContext(), "Копия теста успешно создана", Toast.LENGTH_SHORT).show()
+                    router.navigateTo(TeacherScreens.teacherScreen())
+                }
+            )
+        }
     }
 
     private fun configureAdapter() {
@@ -129,7 +142,7 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
 
             // test data
             if (!test.questions.isNullOrEmpty()) {
-                binding.points.text = resources.getString(R.string.teacher_test_question_points, 1)
+                binding.points.text = resources.getString(R.string.teacher_test_question_points, 4)
             }
         }
     }

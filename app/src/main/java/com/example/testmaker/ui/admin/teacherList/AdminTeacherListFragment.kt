@@ -54,7 +54,6 @@ class AdminTeacherListFragment: Fragment(R.layout.fragment_admin_teacher_list) {
         }
 
         observeOnStarted(viewModel.teachers) { teachers ->
-            println("!!!! teachers = $teachers")
             adapter.differ.submitList(teachers)
         }
     }

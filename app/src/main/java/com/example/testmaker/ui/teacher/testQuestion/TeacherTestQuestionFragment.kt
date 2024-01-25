@@ -74,7 +74,10 @@ class TeacherTestQuestionFragment: Fragment(R.layout.fragment_teacher_add_questi
 
             val question = question
             if (question != null) {
-                viewModel.updateQuestion(question.id, newQuestion)
+                val testId = testId
+                if (testId != null) {
+                    viewModel.updateQuestion(testId, question.id, newQuestion)
+                }
             }
             val testId = testId
             if (testId != null) {

@@ -29,5 +29,7 @@ interface TeacherRepository {
 
     suspend fun createQuestion(testId: String, question: TeacherTestQuestionBody): ApiResponse<TeacherTest>
 
+    suspend fun changeQuestion(testId: String, questionId: String, question: TeacherTestQuestionBody): ApiResponse<TeacherTest>
+
     suspend fun saveConfig(testId: String, configTestBody: ConfigureTestBody): ApiResponse<Test>
 }

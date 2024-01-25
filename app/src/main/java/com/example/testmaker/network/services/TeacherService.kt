@@ -54,6 +54,11 @@ interface TeacherService {
     suspend fun createQuestion(@Path(value = "id", encoded = true) testId: String,
                                @Body question: TeacherTestQuestionBody): Response<TeacherTest>
 
+    @PATCH("/teacher/test/{id}/{question_id}")
+    suspend fun changeQuestion(@Path(value = "id", encoded = true) testId: String,
+                               @Path(value = "question_id", encoded = true) questionId: String,
+                               @Body question: TeacherTestQuestionBody): Response<TeacherTest>
+
     @PUT("/teacher/test/{id}")
     suspend fun saveConfig(@Path(value = "id", encoded = true) testId: String,
                            @Body configTestBody: ConfigureTestBody): Response<Test>

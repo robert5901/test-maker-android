@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.errors.ErrorManager
-import com.example.testmaker.models.teacher.StudentTestResult
 import com.example.testmaker.models.test.Test
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.TeacherRepository

@@ -71,21 +71,21 @@ class StudentRepositoryImpl(private val apiService: StudentService): SuperReposi
 
     override suspend fun getResults(): ApiResponse<List<StudentResult>> {
         return ApiResponse.Success(listOf(
-            StudentResult("1", "2024-01-22T15:10:16.912Z", "Методы оптимизации",
-                "10/20", "Хазипова Альсина Айдаровна"),
-            StudentResult("2", "2024-01-22T15:10:16.912Z", "Информатика",
-                "2/4", "Гришин Максим Владимирович"),
-            StudentResult("3", "2024-01-22T15:10:16.912Z", "Математика",
-                "5/5", "Быкова Вероника Саввична"),
-            StudentResult("4", "2024-01-22T15:10:16.912Z", "Основы Java",
-                "2/3", "Орлов Адам Михайлович")
+            StudentResult("1", "2024-01-25T11:10:16.912Z", "Методы оптимизации",
+                "4/4", "Хазипова Альсина Айдаровна"),
+            StudentResult("2", "2024-01-25T11:47:16.912Z", "Информатика",
+                "19/25", "Гришин Максим Владимирович"),
+            StudentResult("3", "2024-01-25T12:23:16.912Z", "Математика",
+                "5/15", "Быкова Вероника Саввична"),
+            StudentResult("4", "2024-01-25T12:46:16.912Z", "Основы Java",
+                "3/4", "Орлов Адам Михайлович")
         ))
 //        request(apiService.getResults())
     }
 
     override suspend fun finishTest(studentAnswers: List<StudentAnswer>): ApiResponse<StudentResult> {
         return ApiResponse.Success(StudentResult("1", "23.01.2024 13:53", "Методы оптимизации",
-            "2/3", "Хазипова Альсина Айдаровна"))
+            "3/4", "Хазипова Альсина Айдаровна"))
 //        request(apiService.finishTest(studentAnswers))
     }
 }

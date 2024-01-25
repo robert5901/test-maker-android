@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.TeacherScreens
 import com.example.testmaker.core.errors.ErrorManager
-import com.example.testmaker.models.teacher.TeacherTest
 import com.example.testmaker.models.teacher.TeacherTestQuestionBody
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.TeacherRepository
@@ -40,7 +39,22 @@ class TeacherTestQuestionViewModel(
         }
     }
 
-    fun updateQuestion(questionId: String, question: TeacherTestQuestionBody) {
+    fun updateQuestion(testId: String, questionId: String, question: TeacherTestQuestionBody) {
+        viewModelScope.launch {
+            _createQuestionLoading.emit(true)
 
+            val response = repository.changeQuestion(testId, questionId, question)
+            _createQuestionLoading.emit(false)
+
+            when (response) {
+                is ApiResponse.Success -> {
+                    router.navigateTo(TeacherScreens.testQuestionListScreen(response.data))
+                }
+
+                is ApiResponse.Error -> {
+                    errorManager.showError(response.errorManagerError)
+                }
+            }
+        }
     }
 }

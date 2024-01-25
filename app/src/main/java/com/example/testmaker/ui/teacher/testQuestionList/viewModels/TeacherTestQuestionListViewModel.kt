@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.models.teacher.TeacherTest
-import com.example.testmaker.models.teacher.TeacherTestQuestionBody
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.TeacherRepository
-import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine

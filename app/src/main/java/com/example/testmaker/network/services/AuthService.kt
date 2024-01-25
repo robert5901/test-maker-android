@@ -4,7 +4,6 @@ import com.example.testmaker.models.auth.AuthInfo
 import com.example.testmaker.models.auth.AuthLogin
 import com.example.testmaker.models.auth.RefreshBody
 import com.example.testmaker.models.users.Student
-import com.google.gson.annotations.SerializedName
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -21,14 +20,3 @@ interface RefreshService {
     @POST("/auth/refresh")
     suspend fun refresh(@Body body: RefreshBody): Response<AuthInfo>
 }
-
-class AuthInfoBody(
-    val accessCode: String,
-    val refreshCode: String,
-    val userRole: String,
-)
-
-class RefreshBody(
-    @SerializedName("refreshCode")
-    val code: String,
-)
