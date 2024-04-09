@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testmaker.core.errors.ErrorManager
 import com.example.testmaker.models.teacher.TeacherTest
+import com.example.testmaker.models.teacher.TeacherTestName
 import com.example.testmaker.network.models.ApiResponse
 import com.example.testmaker.network.repositories.TeacherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +36,7 @@ class TeacherTestQuestionListViewModel(
         }
     }
 
-    fun saveName(name: String) {
+    fun saveName(name: TeacherTestName) {
         viewModelScope.launch {
             val testId = _test.value?.id ?: return@launch
             _saveNameLoading.emit(true)
@@ -75,9 +76,9 @@ class TeacherTestQuestionListViewModel(
         }
     }
 
-    fun saveQuestionImage(fileUri: Uri) {
+    fun saveQuestionImage(testId: String, questionId: String, fileUri: Uri) {
         viewModelScope.launch {
-            when (val response = repository.addImage(fileUri)) {
+            when (val response = repository.addImage(testId, questionId, fileUri)) {
                 is ApiResponse.Success -> {
                     _test.emit(response.data)
                 }

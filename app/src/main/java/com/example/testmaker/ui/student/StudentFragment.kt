@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationBarView
 class StudentFragment: Fragment(R.layout.fragment_student) {
     private val binding by viewBinding(FragmentStudentBinding::bind)
 
+    // TODO memory leak. Need to fix
     private val testListFragment by lazy { StudentTestListFragment() }
     private val resultsFragment by lazy { StudentResultsFragment() }
 

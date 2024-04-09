@@ -24,6 +24,7 @@ import com.example.testmaker.core.utils.extensions.showAlertMessageWithNegativeB
 import com.example.testmaker.databinding.AddImageDialogFragmentBinding
 import com.example.testmaker.databinding.FragmentTeacherTestQuestionListBinding
 import com.example.testmaker.models.teacher.TeacherTest
+import com.example.testmaker.models.teacher.TeacherTestName
 import com.example.testmaker.ui.teacher.testQuestionList.adapters.TeacherTestQuestionListAdapter
 import com.example.testmaker.ui.teacher.testQuestionList.viewModels.TeacherTestQuestionListViewModel
 import com.github.terrakok.cicerone.Router
@@ -37,11 +38,17 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
     private val viewModel: TeacherTestQuestionListViewModel by inject()
     private val errorManager: ErrorManager by inject()
     private val router: Router by inject()
+    private var test: TeacherTest? = null
+    private var questionId: String? = null
 
     private val selectImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
             try {
-                viewModel.saveQuestionImage(uri)
+                val testId = test?.id
+                val questionId = questionId
+                if (testId != null && questionId != null) {
+                    viewModel.saveQuestionImage(testId, questionId,  uri)
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -67,9 +74,9 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         configureViewModel()
         configureAdapter()
 
-        val test: TeacherTest? = arguments?.getParcelable(EXTRA_TEST)
-        if (test != null) {
-            viewModel.setTest(test)
+        test = arguments?.getParcelable(EXTRA_TEST)
+        test?.let {
+            viewModel.setTest(it)
         }
     }
 
@@ -80,7 +87,8 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
                 errorManager.showError(ErrorManagerError.ResError(R.string.teacher_test_question_name_error))
                 return@setOnClickListener
             }
-            viewModel.saveName(name)
+            val teacherTestName = TeacherTestName(name)
+            viewModel.saveName(teacherTestName)
         }
 
         binding.addQuestion.setOnClickListener {
@@ -92,7 +100,7 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         binding.saveTest.setOnClickListener {
             if (!hasName()) return@setOnClickListener
 
-            router.exit()
+            router.backTo(TeacherScreens.teacherScreen())
         }
 
         binding.copyTest.setOnClickListener {
@@ -182,6 +190,7 @@ class TeacherTestQuestionListFragment : Fragment(R.layout.fragment_teacher_test_
         }
 
         dialogBinding.addImage.setOnClickListener {
+            this.questionId = questionId
             selectImageLauncher.launch("image/*")
             dialog.cancel()
         }

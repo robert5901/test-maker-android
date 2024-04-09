@@ -5,6 +5,7 @@ import com.example.testmaker.TestMakerApplication
 import com.example.testmaker.models.student.Group
 import com.example.testmaker.models.teacher.StudentTestResult
 import com.example.testmaker.models.teacher.TeacherTest
+import com.example.testmaker.models.teacher.TeacherTestName
 import com.example.testmaker.models.teacher.TeacherTestQuestion
 import com.example.testmaker.models.teacher.TeacherTestQuestionBody
 import com.example.testmaker.models.test.Answer
@@ -19,100 +20,52 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 
 class TeacherRepositoryImpl(private val apiService: TeacherService): SuperRepository(), TeacherRepository {
-    override suspend fun getAllTests() : ApiResponse<List<Test>> {
-        return ApiResponse.Success(TestListData.tests)
-//        request(apiService.getAllTests())
+    override suspend fun getAllTests() = safeApiRequest {
+        request(apiService.getAllTests())
     }
 
-    override suspend fun getTest(testId: String): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest)
-//        request(apiService.getTest(testId))
+    override suspend fun getTest(testId: String) = safeApiRequest {
+        request(apiService.getTest(testId))
     }
 
-    override suspend fun deleteTest(testId: String): ApiResponse<List<Test>> {
-        return ApiResponse.Success(TestListData.tests)
-//        request(apiService.deleteTest(testId))
+    override suspend fun deleteTest(testId: String) = safeApiRequest {
+        request(apiService.deleteTest(testId))
     }
 
     override suspend fun createTest() = safeApiRequest {
-//        return ApiResponse.Success(TestTeacherTest.teacherTest.copy(name = "", questions = emptyList()))
         request(apiService.createTest())
     }
 
-    override suspend fun getResults(testId: String): ApiResponse<List<StudentTestResult>> {
-        return ApiResponse.Success(listOf(
-            StudentTestResult("25/25", "Макаров Владислав Михайлович", Group("1", "4480")),
-            StudentTestResult("15/25", "Игонин Юрий Андреевич", Group("2", "4481")),
-            StudentTestResult("20/25", "Кузнецова Амина Александровна", Group("3", "4482")),
-            StudentTestResult("15/25", "Максимова Варвара Глебовна", Group("4", "4483")),
-            StudentTestResult("19/25", "Алешин Кирилл Владимирович", Group("1", "4480")),
-            StudentTestResult("7/25", "Юдин Илья Максимович", Group("2", "4481")),
-            StudentTestResult("16/25", "Тимофеева Алиса Егоровна", Group("3", "4482"))
-        ))
-//        request(apiService.getResults(testId))
+    override suspend fun getResults(testId: String) = safeApiRequest {
+        request(apiService.getResults(testId))
     }
 
-    override suspend fun saveName(testId: String, name: String): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest.copy(name = name, questions = emptyList()))
-//        request(apiService.saveName(testId, name))
+    override suspend fun saveName(testId: String, name: TeacherTestName) = safeApiRequest {
+        request(apiService.saveName(testId, name))
     }
 
-    override suspend fun deleteQuestion(testId: String, questionId: String): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest.copy(questions = listOf(
-            TeacherTestQuestion(
-                "1",
-                "https://i.pinimg.com/originals/03/ab/0d/03ab0d21c9d9f2210e774a8b584ef962.png",
-                true,
-                listOf(
-                    Answer("1", "ответ 1"),
-                    Answer("2", "ответ 2"),
-                    Answer("3", "ответ 3"),
-                    Answer("4", "ответ 4")
-                ),
-                "Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса",
-                listOf("1")
-            )
-        )))
-//        request(apiService.deleteQuestion(testId, questionId))
+    override suspend fun deleteQuestion(testId: String, questionId: String) = safeApiRequest {
+        request(apiService.deleteQuestion(testId, questionId))
     }
 
-    override suspend fun addImage(fileUri: Uri): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest.copy(questions = listOf(
-            TeacherTestQuestion(
-                "1",
-                "https://i.pinimg.com/originals/03/ab/0d/03ab0d21c9d9f2210e774a8b584ef962.png",
-                true,
-                listOf(
-                    Answer("1", "ответ 1"),
-                    Answer("2", "ответ 2"),
-                    Answer("3", "ответ 3"),
-                    Answer("4", "ответ 4")
-                ),
-                "Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса Текст вопроса",
-                listOf("1")
-            )
-        )))
-//        request(apiService.addImage(getFileMap(fileUri))
+    override suspend fun addImage(testId: String, questionId: String, fileUri: Uri) = safeApiRequest{
+        request(apiService.addImage(testId, questionId, getFileMap(fileUri)))
     }
 
-    override suspend fun deleteImage(testId: String, questionId: String): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest)
-//        request(apiService.deleteImage(testId, questionId)
+    override suspend fun deleteImage(testId: String, questionId: String) = safeApiRequest {
+        request(apiService.deleteImage(testId, questionId))
     }
 
-    override suspend fun createQuestion(testId: String, question: TeacherTestQuestionBody): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest)
-//        request(apiService.createQuestion(testId, question)
+    override suspend fun createQuestion(testId: String, question: TeacherTestQuestionBody) = safeApiRequest {
+        request(apiService.createQuestion(testId, question))
     }
 
-    override suspend fun changeQuestion(testId: String, questionId: String, question: TeacherTestQuestionBody): ApiResponse<TeacherTest> {
-        return ApiResponse.Success(TestTeacherTest.teacherTest)
-//        request(apiService.changeQuestion(testId, questionId, question))
+    override suspend fun changeQuestion(testId: String, questionId: String, question: TeacherTestQuestionBody) = safeApiRequest {
+        request(apiService.changeQuestion(testId, questionId, question))
     }
 
-    override suspend fun saveConfig(testId: String, configTestBody: ConfigureTestBody): ApiResponse<Test> {
-        return ApiResponse.Success(TestListData.tests[0])
-//        request(apiService.saveConfig(testId, configTestBody)
+    override suspend fun saveConfig(testId: String, configTestBody: ConfigureTestBody) = safeApiRequest {
+        request(apiService.saveConfig(testId, configTestBody))
     }
 
     private fun getFileMap(fileUri: Uri): Map<String, RequestBody> {

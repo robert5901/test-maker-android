@@ -14,6 +14,8 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
     val differ = AsyncListDiffer(this, DiffUtilCallback())
 
     var onSelected: Action<StudentTest>? = null
+    // TODO test data
+    val list = listOf("11:00 01.02.2024", "13:30 02.02.2024")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentTestListViewHolder {
         val view = StudentTestListViewHolder(
@@ -34,7 +36,8 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
 
     override fun onBindViewHolder(holder: StudentTestListViewHolder, position: Int) {
         val item = differ.currentList[position]
-        holder.onBind(item)
+        val date = list[position]
+        holder.onBind(item, date)
     }
 
     inner class StudentTestListViewHolder(private val binding: StudentTestListItemBinding) :
@@ -49,12 +52,11 @@ class StudentTestListAdapter: RecyclerView.Adapter<StudentTestListAdapter.Studen
             }
         }
 
-        fun onBind(item: StudentTest) {
+        fun onBind(item: StudentTest, date: String) {
             test = item
             with(binding) {
                 title.text = item.name
-                // можно передавать в onBind по очереди из списка с тестовыми данными
-                available.text = binding.root.resources.getString(R.string.student_test_list_item_available,"13:30 02.02.2024")
+                available.text = binding.root.resources.getString(R.string.student_test_list_item_available, date)
             }
         }
     }

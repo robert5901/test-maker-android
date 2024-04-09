@@ -2,6 +2,7 @@ package com.example.testmaker.network.services
 
 import com.example.testmaker.models.teacher.StudentTestResult
 import com.example.testmaker.models.teacher.TeacherTest
+import com.example.testmaker.models.teacher.TeacherTestName
 import com.example.testmaker.models.teacher.TeacherTestQuestionBody
 import com.example.testmaker.models.test.ConfigureTestBody
 import com.example.testmaker.models.test.Test
@@ -35,7 +36,7 @@ interface TeacherService {
 
     @PATCH("/teacher/test/{id}")
     suspend fun saveName(@Path(value = "id", encoded = true) testId: String,
-                         @Body name: String): Response<TeacherTest>
+                         @Body name: TeacherTestName): Response<TeacherTest>
 
     @DELETE("/teacher/test/{id}/{question_id}")
     suspend fun deleteQuestion(@Path(value = "id", encoded = true) testId: String,
@@ -44,7 +45,9 @@ interface TeacherService {
     @Multipart
     @POST("/teacher/test/{id}/image/{question_id}")
     @JvmSuppressWildcards
-    suspend fun addImage(@PartMap params: Map<String, RequestBody>): Response<TeacherTest>
+    suspend fun addImage(@Path(value = "id", encoded = true) testId: String,
+                         @Path(value = "question_id", encoded = true) questionId: String,
+                         @PartMap params: Map<String, RequestBody>): Response<TeacherTest>
 
     @DELETE("/teacher/test/{id}/image/{question_id}")
     suspend fun deleteImage(@Path(value = "id", encoded = true) testId: String,
@@ -61,5 +64,5 @@ interface TeacherService {
 
     @PUT("/teacher/test/{id}")
     suspend fun saveConfig(@Path(value = "id", encoded = true) testId: String,
-                           @Body configTestBody: ConfigureTestBody): Response<Test>
+                           @Body configTestBody: ConfigureTestBody): Response<List<Test>>
 }

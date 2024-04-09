@@ -47,7 +47,7 @@ class StudentTestQuestionFragment: Fragment(R.layout.fragment_student_test_quest
     private var indexOfSelectedRadioButton = 100
 
     // test data
-    private val pointsForQuestions = listOf("1","2","1")
+    private val pointsForQuestions = listOf("1","1","2")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) { }

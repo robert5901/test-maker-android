@@ -11,7 +11,7 @@ interface GroupService {
     suspend fun getGroups(): Response<List<Group>>
 
     @POST("/groups/create")
-    suspend fun createGroup(): Response<List<Group>>
+    suspend fun createGroup(name: String): Response<List<Group>>
 
     @DELETE("/groups/delete")
     suspend fun deleteGroup(id: String): Response<List<Group>>

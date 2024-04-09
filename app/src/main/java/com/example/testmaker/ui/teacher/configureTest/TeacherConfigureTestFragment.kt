@@ -33,6 +33,10 @@ import com.github.terrakok.cicerone.Router
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
@@ -115,12 +119,12 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
             return false
         }
 
-        if (startTime.isNullOrBlank()) {
+        if (binding.accessTimeStart.text.isBlank()) {
             errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_blank_start_time_error))
             return false
         }
 
-        if (endTime.isNullOrBlank()) {
+        if (binding.accessTimeEnd.text.isBlank()) {
             errorManager.showError(ErrorManagerError.ResError(R.string.teacher_configure_test_blank_end_time_error))
             return false
         }
@@ -187,8 +191,27 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
 
         with(binding) {
             // TODO test data
-            timeForTest.setText("20")
-//            timeForTest.setText(Duration.parse(test.timeToSpend).toMinutes().toString())
+//            timeForTest.setText("20")
+
+
+            if (test.startTime == "2024-01-30T14:04:31.475246066Z") {
+                accessTimeStart.text = resources.getString(R.string.teacher_configure_test_access_time_start)
+                accessTimeEnd.text = resources.getString(R.string.teacher_configure_test_access_time_end)
+            } else {
+                val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy", Locale.getDefault())
+                val startTimeInstant = Instant.parse(test.startTime)
+                val startTimeLocalDateTime = LocalDateTime.ofInstant(startTimeInstant, ZoneId.systemDefault())
+                val endTimeInstant = Instant.parse(test.endTime)
+                val endTimeLocalDateTime = LocalDateTime.ofInstant(endTimeInstant, ZoneId.systemDefault())
+
+                startTime = test.startTime
+                endTime = test.endTime
+
+                accessTimeStart.text = startTimeLocalDateTime.format(formatter)
+                accessTimeEnd.text = endTimeLocalDateTime.format(formatter)
+            }
+
+            timeForTest.setText(Duration.parse(test.timeToSpend).toMinutes().toString())
             randomQuestionsSwitch.isChecked = test.randomQuestions
             randomAnswersSwitch.isChecked = test.randomAnswers
 
@@ -219,13 +242,10 @@ class TeacherConfigureTestFragment : Fragment(R.layout.fragment_teacher_configur
             checkBox.text = group.title
             checkBox.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
 
+            checkBox.isChecked = test?.groups?.contains(group) == true
+
             dialogBinding.checkBoxLayout.addView(checkBox)
             checkBoxList.add(checkBox)
-        }
-
-        checkBoxList.forEach { checkBox ->
-            val group = groups.find { it.title == checkBox.text }
-            checkBox.isChecked = group != null && selectedGroups.contains(group)
         }
 
         dialogBinding.choose.setOnClickListener {

@@ -80,7 +80,7 @@ class TeacherTestListAdapter: RecyclerView.Adapter<TeacherTestListAdapter.Teache
                     availableGroups.setCompoundDrawablesWithIntrinsicBounds(R.drawable.test_unavailable_indicator, 0, 0, 0)
                 }
 
-                name.text = item.name
+                name.text = item.name + " (4 б)"
             }
         }
     }
